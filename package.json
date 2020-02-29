@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "cloudmesh-ui",
+  "name": "cloudmesh-javascript",
   "description": "An interface for Cloudmesh.",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha",
   "author": "Josh Goodman <jogoodma@iu.edu>",
   "main": "app/background.js",
   "scripts": {
@@ -19,26 +19,27 @@
   },
   "dependencies": {
     "electron-serve": "^0.4.1",
-    "electron-store": "^5.1.0",
+    "electron-store": "^5.1.1",
     "python-shell": "^1.0.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/core": "^7.8.6",
+    "@babel/preset-env": "^7.8.6",
+    "@babel/preset-typescript": "^7.8.3",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
-    "electron": "^8.0.0",
+    "electron": "^8.0.2",
     "electron-builder": "^22.3.2",
     "jest": "^25.1.0",
-    "next": "^9.1.7",
+    "next": "^9.2.2",
     "nextron": "^5.14.4",
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
   },
   "prettier": {
-    "semi": true,
+    "semi": false,
     "trailingComma": "es5",
     "singleQuote": true,
     "jsxBracketSameLine": true,

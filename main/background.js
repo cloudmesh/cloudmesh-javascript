@@ -4,6 +4,7 @@ import { createWindow } from './helpers';
 import * as Store from 'electron-store';
 import CloudmeshWrapper from './cloudmeshWrapper';
 
+app.allowRendererProcessReuse = true
 const isProd = process.env.NODE_ENV === 'production';
 
 if (isProd) {
@@ -21,10 +22,10 @@ if (isProd) {
   });
 
   if (isProd) {
-    await mainWindow.loadURL('app://./home.html');
+    await mainWindow.loadURL('app://./');
   } else {
     const port = process.argv[2];
-    await mainWindow.loadURL(`http://localhost:${port}/home`);
+    await mainWindow.loadURL(`http://localhost:${port}/`);
     mainWindow.webContents.openDevTools();
   }
 })();
