@@ -6,7 +6,9 @@
   "author": "Josh Goodman <jogoodma@iu.edu>",
   "main": "app/background.js",
   "scripts": {
+    "predev": "yarn run format",
     "dev": "nextron",
+    "prebuild": "yarn run format",
     "build": "nextron build",
     "build:all": "nextron build --all",
     "build:win32": "nextron build --win --ia32",
