@@ -73,7 +73,6 @@ const Home = () => {
           <button onClick={onClick}>Execute</button>
         </div>
         <pre>{result}</pre>
-        <div>{this.renderVMList()}</div>
       </div>
     </React.Fragment>
   );
