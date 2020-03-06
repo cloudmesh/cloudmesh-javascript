@@ -44,7 +44,7 @@ const getCloudmeshConfig = store => store.get('cloudmesh') ?? {};
  */
 ipcMain.on('get-cms-binary', (event, arg) => {
   const { cmsBin = 'cms' } = getCloudmeshConfig(store);
-  console.log('cmsBin = ', cmsBin);
+  // console.log('cmsBin = ', cmsBin);
   event.returnValue = cmsBin;
 });
 
@@ -60,14 +60,24 @@ ipcMain.on('set-cms-binary', (event, arg) => {
  * Event listener that executes the Cloudmesh command and returns the output back to the UI.
  */
 ipcMain.on('run-cms', (event, arg) => {
+  console.log('Main receives', arg);
   const cmsBin = getCloudmeshConfig(store)?.cmsBin ?? 'cms';
   const cmw = new CloudmeshWrapper(cmsBin);
+
+  /*
+    args = {
+        cmsCommand: ['vm', 'list', '--output=json'],
+        onStdout: (data) => {},
+        onStderr: (err) => {}
+    }
+  */
   const args = {
-    cmsCommand: arg,
+    cmsCommand: arg.split(' '),
     onStdout: data => {
-      event.sender.send('result', data.toString());
+        console.log('onStdOut', data.toString());
+        event.sender.send('result', data.toString());
     },
     onError: err => console.log(`Error: ${err.message}`),
   };
-  cmw.exec(args);
+  cmw.exec({...args});
 });

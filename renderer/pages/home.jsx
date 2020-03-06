@@ -14,6 +14,7 @@ const Home = () => {
   const inputRef = useRef(null)
 
   const onClick = (evt) => {
+    console.log('renderer sends', inputRef.current.value)
     if (ipcRenderer) {
       ipcRenderer.send('run-cms', inputRef.current.value);
     }
@@ -21,7 +22,7 @@ const Home = () => {
   useEffect(() => {
     if (ipcRenderer) {
       const cmsBin = ipcRenderer.sendSync('get-cms-binary');
-      console.log("Got cmsBin=", cmsBin)
+      // console.log("Got cmsBin=", cmsBin)
       setCmsBin(cmsBin)
     }
 
@@ -32,6 +33,7 @@ const Home = () => {
   useEffect(() => {
     if (ipcRenderer) {
       ipcRenderer.on('result', (event, data) => {
+        console.log('result received', data)
         setResult(data);
       });
     }
@@ -71,6 +73,7 @@ const Home = () => {
           <button onClick={onClick}>Execute</button>
         </div>
         <pre>{result}</pre>
+        <div>{this.renderVMList()}</div>
       </div>
     </React.Fragment>
   );
