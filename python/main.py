@@ -7,6 +7,10 @@ from cloudmesh.cloud import Shell
 # Compile the regex for extracting JSON objects.
 json_obj_re = re.compile(r'({[\S\s]*})', re.MULTILINE)
 
+# Regexes for matching cms commands with and without STDOUT
+cms_with_stdout_re = re.compile(r'vm (list|status|info) ')
+cms_no_stdout_re = re.compile(r'vm (start|stop|terminate|delete) ')
+
 
 def error(*args, **kwargs):
     """
@@ -48,9 +52,11 @@ if __name__ == '__main__':
         # Quit when we receive an 'exit' command.
         if command == 'exit':
             exit(0)
-        # Support the vm list command with arguments.
-        elif command.startswith('vm list'):
+        # CMS commands that produce JSON output.
+        elif cms_with_stdout_re.search(command):
             print_cms(Shell.cms(command))
+        elif cms_no_stdout_re.search(command):
+            Shell.cms(command)
         # Catch all for everything else.
         else:
             error(f'Command {command} not supported or allowed.')
