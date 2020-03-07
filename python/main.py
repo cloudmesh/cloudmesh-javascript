@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 import sys
 import re
+import json
 from cloudmesh.cloud import Shell
 
-extra_space_re = re.compile(r'\s+', re.MULTILINE)
-list_preamble_re = re.compile(r'List \w+\s+\{', re.IGNORECASE)
+# Compile the regex for extracting JSON objects.
+json_obj_re = re.compile(r'({[\S\s]*})', re.MULTILINE)
 
 
 def error(*args, **kwargs):
@@ -23,24 +24,33 @@ def print_cms(output, **kwargs):
     Prints the output from the cms command.  Removes extraneous labels and whitespace before
     printing.
 
-    :param output:
-    :param kwargs:
+    :param output: The cms output to print.
+    :param kwargs: Any key/value arguments to pass to print.
     :return: None
     """
-    output = list_preamble_re.sub('{', output)
-    output = output.replace('\n', '')
-    output = extra_space_re.sub(' ', output)
-    print(output, **kwargs)
-    print('END', **kwargs)
+    try:
+        # Extract the JSON object returned from CMS.
+        match = json_obj_re.search(output)
+        # Run it through the JSON loader/dumper to produce compressed JSON.
+        json_obj = json.loads(match.group(1))
+        # Print the compressed output.
+        print(json.dumps(json_obj), **kwargs)
+
+    except json.JSONDecodeError as e:
+        error(f'Invalid JSON received from cms: {e}')
 
 
 if __name__ == '__main__':
+    # Read commands from STDIN.
     for line in sys.stdin:
         command = line.rstrip()
 
+        # Quit when we receive an 'exit' command.
         if command == 'exit':
             exit(0)
+        # Support the vm list command with arguments.
         elif command.startswith('vm list'):
             print_cms(Shell.cms(command))
+        # Catch all for everything else.
         else:
             error(f'Command {command} not supported or allowed.')
