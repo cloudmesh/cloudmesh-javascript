@@ -25,13 +25,13 @@
     "python-shell": "^1.0.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/preset-env": "^7.8.6",
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
     "@babel/preset-typescript": "^7.8.3",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
-    "electron": "^8.0.2",
-    "electron-builder": "^22.3.2",
+    "electron": "^8.1.0",
+    "electron-builder": "^22.4.0",
     "jest": "^25.1.0",
     "next": "^9.2.2",
     "nextron": "^5.14.4",
