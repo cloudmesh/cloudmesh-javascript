@@ -34,19 +34,20 @@ def print_cms(cms_command, output, **kwargs):
     :param kwargs: Any key/value arguments to pass to print.
     :return: None
     """
+    json_response = {
+        "cms": cms_command,
+        "output": None
+    }
+
     try:
         # Extract the JSON object returned from CMS.
         match = json_obj_re.search(output)
         if match:
             # Run it through the JSON loader/dumper to produce compressed JSON.
-            json_obj = json.loads(match.group(1))
-        else:
-            json_obj = json.loads("{}")
-
-        json_obj['cms'] = cms_command
+            json_response['output'] = json.loads(match.group(1))
 
         # Print the compressed output.
-        print(json.dumps(json_obj), **kwargs)
+        print(json.dumps(json_response), **kwargs)
     except json.JSONDecodeError as jsonError:
         error(f'Invalid JSON received from CMS: {jsonError}')
 
@@ -66,10 +67,8 @@ if __name__ == '__main__':
     {
         "command": "vm",
         "operation": "list",
-        "args": ["<OPERATION ARGS>"]
+        "args": ["--output=json"]
     }
-    
-    
     """
     # Read commands from STDIN.
     for line in sys.stdin:
