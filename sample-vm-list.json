@@ -1,0 +1,168 @@
+{
+    "0": {
+        "OS-DCF:diskConfig": "MANUAL",
+        "OS-EXT-AZ:availability_zone": "nova",
+        "OS-EXT-SRV-ATTR:host": "c07-10",
+        "OS-EXT-SRV-ATTR:hostname": "jonathan-vm-2",
+        "OS-EXT-SRV-ATTR:hypervisor_hostname": "c07-10",
+        "OS-EXT-SRV-ATTR:instance_name": "instance-00000dba",
+        "OS-EXT-SRV-ATTR:kernel_id": "",
+        "OS-EXT-SRV-ATTR:launch_index": 0,
+        "OS-EXT-SRV-ATTR:ramdisk_id": "",
+        "OS-EXT-SRV-ATTR:reservation_id": "r-5d5r9hz6",
+        "OS-EXT-SRV-ATTR:root_device_name": "/dev/vda",
+        "OS-EXT-SRV-ATTR:user_data": null,
+        "OS-EXT-STS:power_state": 4,
+        "OS-EXT-STS:task_state": null,
+        "OS-EXT-STS:vm_state": "stopped",
+        "OS-SCH-HNT:scheduler_hints": null,
+        "OS-SRV-USG:launched_at": "2020-02-21T12:54:23.000000",
+        "OS-SRV-USG:terminated_at": null,
+        "accessIPv4": "129.114.27.33",
+        "accessIPv6": "",
+        "addresses": {
+            "cloudmesh class-net": [
+                {
+                    "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:a0:e4:04",
+                    "OS-EXT-IPS:type": "fixed",
+                    "addr": "10.95.231.215",
+                    "version": 4
+                },
+                {
+                    "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:a0:e4:04",
+                    "OS-EXT-IPS:type": "floating",
+                    "addr": "129.114.27.33",
+                    "version": 4
+                }
+            ]
+        },
+        "adminPass": null,
+        "az": "nova",
+        "block_device_mapping": null,
+        "cloud": "defaults",
+        "cm": {
+            "cloud": "chameleon",
+            "collection": "chameleon-vm",
+            "created": "2020-02-21 12:53:51.510791",
+            "creation_time": "25.00",
+            "driver": "openstack",
+            "group": "cloudmesh",
+            "kind": "vm",
+            "modified": "2020-02-28 09:16:44.753838",
+            "name": "jonathan-vm-2",
+            "status": "available",
+            "updated": "2020-02-28 09:16:43.571916"
+        },
+        "config_drive": "",
+        "created": "2020-02-21T12:54:15Z",
+        "created_at": "2020-02-21T12:54:15Z",
+        "description": "jonathan-vm-2",
+        "disk_config": "MANUAL",
+        "flavor": {
+            "disk": 40,
+            "ephemeral": 0,
+            "extra_specs": {},
+            "original_name": "m1.medium",
+            "ram": 4096,
+            "swap": 0,
+            "vcpus": 2
+        },
+        "has_config_drive": false,
+        "host": "c07-10",
+        "hostId": "aa3a3f1ef5b2155d679e8e18c98da8a8faa1dd21dd104a881c78f766",
+        "host_id": "aa3a3f1ef5b2155d679e8e18c98da8a8faa1dd21dd104a881c78f766",
+        "host_status": null,
+        "hostname": "jonathan-vm-2",
+        "hypervisor_hostname": "c07-10",
+        "id": "72eafffa-db38-4cb1-84d5-fff1c1bd7c96",
+        "image": {
+            "id": "938a7209-9235-451d-8903-cef30cba2ba9"
+        },
+        "instance_name": "instance-00000dba",
+        "interface_ip": "129.114.27.33",
+        "ip_private": [
+            "10.95.231.215"
+        ],
+        "ip_public": "129.114.27.33",
+        "kernel_id": "",
+        "key_name": "jonathan",
+        "launch_index": 0,
+        "launched_at": "2020-02-21T12:54:23.000000",
+        "location": {
+            "cloud": "defaults",
+            "project": {
+                "domain_id": null,
+                "domain_name": null,
+                "id": "7767f9aac3c143de8b1f0e6acc70f159",
+                "name": "cloudmesh"
+            },
+            "region_name": "KVM@TACC",
+            "zone": "nova"
+        },
+        "locked": false,
+        "metadata": {
+            "cm": "{'kind': 'vm', 'name': 'jonathan-vm-2', 'group': 'cloudmesh', 'cloud': 'chameleon', 'status': 'available', 'collection': 'chameleon-vm', 'created': '2020-02-21 12:53:51.510791', 'modified': '2020-02-21 12:53:51.510791', 'creation_time': '25.00'}",
+            "flavor": "m1.medium",
+            "image": "CC-Ubuntu18.04"
+        },
+        "name": "jonathan-vm-2",
+        "networks": {},
+        "os-extended-volumes:volumes_attached": [],
+        "personality": null,
+        "power_state": 4,
+        "private_v4": "10.95.231.215",
+        "progress": 0,
+        "project_id": "7767f9aac3c143de8b1f0e6acc70f159",
+        "properties": {
+            "OS-DCF:diskConfig": "MANUAL",
+            "OS-EXT-AZ:availability_zone": "nova",
+            "OS-EXT-SRV-ATTR:host": "c07-10",
+            "OS-EXT-SRV-ATTR:hostname": "jonathan-vm-2",
+            "OS-EXT-SRV-ATTR:hypervisor_hostname": "c07-10",
+            "OS-EXT-SRV-ATTR:instance_name": "instance-00000dba",
+            "OS-EXT-SRV-ATTR:kernel_id": "",
+            "OS-EXT-SRV-ATTR:launch_index": 0,
+            "OS-EXT-SRV-ATTR:ramdisk_id": "",
+            "OS-EXT-SRV-ATTR:reservation_id": "r-5d5r9hz6",
+            "OS-EXT-SRV-ATTR:root_device_name": "/dev/vda",
+            "OS-EXT-SRV-ATTR:user_data": null,
+            "OS-EXT-STS:power_state": 4,
+            "OS-EXT-STS:task_state": null,
+            "OS-EXT-STS:vm_state": "stopped",
+            "OS-SCH-HNT:scheduler_hints": null,
+            "OS-SRV-USG:launched_at": "2020-02-21T12:54:23.000000",
+            "OS-SRV-USG:terminated_at": null,
+            "host_status": null,
+            "locked": false,
+            "os-extended-volumes:volumes_attached": [],
+            "trusted_image_certificates": null
+        },
+        "public_v4": "129.114.27.33",
+        "public_v6": "",
+        "ramdisk_id": "",
+        "region": "KVM@TACC",
+        "reservation_id": "r-5d5r9hz6",
+        "root_device_name": "/dev/vda",
+        "scheduler_hints": null,
+        "security_groups": [
+            {
+                "name": "default"
+            }
+        ],
+        "server_groups": null,
+        "status": "SHUTOFF",
+        "tags": [],
+        "task_state": null,
+        "tenant_id": "7767f9aac3c143de8b1f0e6acc70f159",
+        "terminated_at": null,
+        "trusted_image_certificates": null,
+        "updated": "2020-02-21T13:00:06Z",
+        "user_data": null,
+        "user_id": "3139c41873674317b4ac4e859209d70f",
+        "vm_state": "stopped",
+        "volumes": []
+    },
+    "1": {
+        
+    }
+}

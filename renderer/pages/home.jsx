@@ -3,6 +3,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import electron from 'electron'
 import CloudmeshEnvChooser from "../components/CloudmeshEnvChooser";
+import {
+  getAllVMNames
+} from '../helpers/json-data-extractors';
 
 // prevent SSR webpacking
 const ipcRenderer = electron.ipcRenderer || false;
@@ -22,7 +25,6 @@ const Home = () => {
   useEffect(() => {
     if (ipcRenderer) {
       const cmsBin = ipcRenderer.sendSync('get-cms-binary');
-      // console.log("Got cmsBin=", cmsBin)
       setCmsBin(cmsBin)
     }
 
@@ -33,8 +35,12 @@ const Home = () => {
   useEffect(() => {
     if (ipcRenderer) {
       ipcRenderer.on('result', (event, data) => {
-        console.log('result received', data)
-        setResult(data);
+        const parsedData = JSON.parse(data);
+
+        let vmNames = getAllVMNames(parsedData);
+
+        // console.log('result received', getAllVMNames(parsedData))
+        setResult(vmNames);
       });
     }
 
@@ -63,8 +69,9 @@ const Home = () => {
         <title>Home - Cloudmesh</title>
         <meta httpEquiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
       </Head>
-      <div>
+      <div style={{background: 'white'}}>
         <h2>Cloudmesh</h2>
+        <h2>vm list --output=json</h2>
         <div>
           <CloudmeshEnvChooser binPath={cmsBin} onChange={onChange}/>
         </div>
