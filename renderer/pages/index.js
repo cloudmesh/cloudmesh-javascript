@@ -1,12 +1,19 @@
 import React from 'react'
 import Head from 'next/head'
+import usePythonPath from '../hooks/usePythonPath'
 // import Link from 'next/link'
-import electron from 'electron'
-
-// prevent SSR webpacking
-const ipcRenderer = electron.ipcRenderer ?? false
+import Main from '../components/Main'
+import PythonPath from '../components/PythonPath'
 
 const Index = () => {
+  const [pythonPath, setPythonPath] = usePythonPath()
+
+  const app = pythonPath ? (
+    <Main />
+  ) : (
+    <PythonPath path={pythonPath} onChange={path => setPythonPath(path)} />
+  )
+
   return (
     <React.Fragment>
       <Head>
@@ -16,13 +23,10 @@ const Index = () => {
           content="script-src 'self' 'unsafe-inline';"
         />
       </Head>
-      <main>
-        <section>
-          <header>
-            <h1>Cloudmesh Dashboard</h1>
-          </header>
-        </section>
-      </main>
+      <header>
+        <h1>Cloudmesh Dashboard</h1>
+      </header>
+      <main>{app}</main>
     </React.Fragment>
   )
 }

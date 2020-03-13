@@ -5,7 +5,13 @@ import * as Store from 'electron-store'
 import { getCmsBridge } from './cloudmesh/cmsBridge'
 import path from 'path'
 
-const pythonPath = '/Users/jogoodma/ENV3/bin/python'
+import {
+  SET_PYTHON_PATH,
+  GET_PYTHON_PATH,
+  PYTHON_PATH_STORE_KEY,
+  CMS_VM_LIST_SEND,
+  CMS_VM_LIST_RECEIVE,
+} from './constants'
 
 app.allowRendererProcessReuse = true
 const isProd = process.env.NODE_ENV === 'production'
@@ -19,14 +25,19 @@ if (isProd) {
   app.setPath('userData', `${app.getPath('userData')} (development)`)
 }
 
-const pyOpts = {
-  pythonPath,
+const store = new Store()
+const pythonPath = store.get(PYTHON_PATH_STORE_KEY, null)
+
+let cmsBridge
+
+if (pythonPath) {
+  cmsBridge = getCmsBridge({
+    scriptPath: cmsBridgePath,
+    options: {
+      pythonPath,
+    },
+  })
 }
-const cmsBridge = getCmsBridge({
-  scriptPath: cmsBridgePath,
-  options: pyOpts,
-  onMessage: m => console.log(m['cms']),
-})
 
 ;(async () => {
   await app.whenReady()
@@ -42,14 +53,34 @@ const cmsBridge = getCmsBridge({
     const port = process.argv[2]
     await mainWindow.loadURL(`http://localhost:${port}/`)
     mainWindow.webContents.openDevTools()
-    cmsBridge.send({
-      command: 'vm',
-      operation: 'list',
-      args: ['--output=json'],
-    })
   }
 })()
 
 app.on('window-all-closed', () => {
   app.quit()
+})
+
+ipcMain.on(GET_PYTHON_PATH, (event, arg) => {
+  const path = store.get(PYTHON_PATH_STORE_KEY)
+  if (path) {
+    event.returnValue = path
+  }
+  event.returnValue = null
+})
+
+ipcMain.on(SET_PYTHON_PATH, (event, arg) => {
+  store.set(PYTHON_PATH_STORE_KEY, arg)
+  cmsBridge = getCmsBridge({
+    scriptPath: cmsBridgePath,
+    options: {
+      pythonPath: arg,
+    },
+  })
+})
+
+ipcMain.on(CMS_VM_LIST_SEND, (event, arg) => {
+  cmsBridge.on('message', message =>
+    event.sender.send(CMS_VM_LIST_RECEIVE, message)
+  )
+  cmsBridge.send({ command: 'vm', operation: 'list', args: ['--output=json'] })
 })

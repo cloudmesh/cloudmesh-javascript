@@ -19,7 +19,7 @@ const defaultOptions = {
 export const getCmsBridge = ({
   scriptPath,
   options = {},
-  onMessage = () => {},
+  onMessage = defaultMessageHandler,
   onStderr = () => {},
   onClose = () => {},
   onError = () => {},
@@ -35,4 +35,8 @@ export const getCmsBridge = ({
   cms.on('close', onClose)
   cms.on('error', onError)
   return cms
+}
+
+export const defaultMessageHandler = message => {
+  console.log(message)
 }
