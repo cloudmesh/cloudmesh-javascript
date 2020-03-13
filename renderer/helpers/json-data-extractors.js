@@ -13,5 +13,5 @@ const getAllVMNames = (vmJson) => {
 
 
 export {
-    getAllVMs
+    getAllVMNames
 }
