@@ -4,14 +4,18 @@ import Link from 'next/link';
 import electron from 'electron'
 import CloudmeshEnvChooser from "../components/CloudmeshEnvChooser";
 import {
-  getAllVMNames
+  getAllVMs
 } from '../helpers/json-data-extractors';
+
+import {
+  getAllvmsmock
+} from '../mock-json-allvms'
 
 // prevent SSR webpacking
 const ipcRenderer = electron.ipcRenderer || false;
 
 const Home = () => {
-  const [result, setResult] = useState('nothing to report');
+  const [result, setResult] = useState('');
   const [cmsBin, setCmsBin] = useState('');
 
   const inputRef = useRef(null)
@@ -36,11 +40,11 @@ const Home = () => {
     if (ipcRenderer) {
       ipcRenderer.on('result', (event, data) => {
         const parsedData = JSON.parse(data);
-
-        let vmNames = getAllVMNames(parsedData);
+        let allVMs = getAllVMs(parsedData);
 
         // console.log('result received', getAllVMNames(parsedData))
-        setResult(vmNames);
+        setResult(allVMs);
+        console.log('result', allVMs)
       });
     }
 
@@ -62,6 +66,22 @@ const Home = () => {
     }
   }
 
+  const renderResult = (obj) => {
+      return <div 
+        key={obj}
+        style={{
+          background: "#ddd",
+          border: "1px solid black",
+          borderRadius: "4px",
+          width: "400px",
+          padding: "20px",
+          margin: "10px"
+        }}>
+          <div>{obj.name}</div>
+          <div>{obj.status}</div>
+          <div>{obj.state}</div>
+        </div>
+  }
 
   return (
     <React.Fragment>
@@ -71,7 +91,7 @@ const Home = () => {
       </Head>
       <div style={{background: 'white'}}>
         <h2>Cloudmesh</h2>
-        <h2>vm list --output=json</h2>
+        <div>vm list --output=json</div>
         <div>
           <CloudmeshEnvChooser binPath={cmsBin} onChange={onChange}/>
         </div>
@@ -79,7 +99,9 @@ const Home = () => {
           Enter your CMS command: <input type="text" ref={inputRef}/>
           <button onClick={onClick}>Execute</button>
         </div>
-        <pre>{result}</pre>
+        <div
+          style={{display: 'flex'}}
+  >{getAllvmsmock().map(renderResult)} {result && result.map(renderResult())}</div>
       </div>
     </React.Fragment>
   );

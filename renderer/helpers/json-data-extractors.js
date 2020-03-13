@@ -1,17 +1,17 @@
 /*
 * @param {json} vmJson - json data fetched using `vm list --output=json`
-* @return {array} - array of vm names
+* @return {array} - array of important vm params
 */
-const getAllVMNames = (vmJson) => {
+const getAllVMs = (vmJson) => {
     return Object.values(vmJson).map((val, index) => {
-        return val["cm"]["name"] || val["OS-EXT-SRV-ATTR:hostname"]
+        return {
+            name: val["cm"]["name"] || val["OS-EXT-SRV-ATTR:hostname"],
+            status: val["cm"]["status"],
+            state: val["OS-EXT-STS:vm_state"]
+        }
     })
 }
 
-
-
-
-
 export {
-    getAllVMNames
+    getAllVMs
 }
