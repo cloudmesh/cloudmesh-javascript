@@ -1,6 +1,6 @@
 /*
 * @param {json} vmJson - json data fetched using `vm list --output=json`
-* @return {array} - array of important vm params
+* @return {array} - array of object with keys of important vm params
 */
 const getAllVMs = (vmJson) => {
     return Object.values(vmJson).map((val, index) => {
