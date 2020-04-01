@@ -3,16 +3,16 @@ import Head from 'next/head'
 import usePythonPath from '../hooks/usePythonPath'
 // import Link from 'next/link'
 import Main from '../components/Main'
-import PythonPath from '../components/PythonPath'
+//import PythonPath from '../components/PythonPath'
 
 const Index = () => {
-  const [pythonPath, setPythonPath] = usePythonPath()
+  //const [pythonPath, setPythonPath] = usePythonPath()
 
-  const app = pythonPath ? (
-    <Main />
-  ) : (
-    <PythonPath path={pythonPath} onChange={path => setPythonPath(path)} />
-  )
+  // const app = pythonPath ? (
+  //   <Main />
+  // ) : (
+  //   <PythonPath path={pythonPath} onChange={path => setPythonPath(path)} />
+  // )
 
   return (
     <React.Fragment>
@@ -26,7 +26,9 @@ const Index = () => {
       <header>
         <h1>Cloudmesh Dashboard</h1>
       </header>
-      <main>{app}</main>
+      <main>
+        <Main />
+      </main>
     </React.Fragment>
   )
 }
