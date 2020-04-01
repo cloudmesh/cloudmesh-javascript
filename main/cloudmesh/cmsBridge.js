@@ -37,6 +37,6 @@ export const getCmsBridge = ({
   return cms
 }
 
-export const defaultMessageHandler = message => {
+export const defaultMessageHandler = (message) => {
   console.log(message)
 }

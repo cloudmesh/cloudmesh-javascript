@@ -42,8 +42,8 @@ export default function createWindow(windowName, options) {
     })
   }
 
-  const ensureVisibleOnSomeDisplay = windowState => {
-    const visible = screen.getAllDisplays().some(display => {
+  const ensureVisibleOnSomeDisplay = (windowState) => {
+    const visible = screen.getAllDisplays().some((display) => {
       return windowWithinBounds(windowState, display.bounds)
     })
     if (!visible) {

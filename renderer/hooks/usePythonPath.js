@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { GET_PYTHON_PATH, SET_PYTHON_PATH } from '../../main/constants'
 
-const usePythonPath = initialValue => {
+const usePythonPath = (initialValue) => {
   const [pythonPath, setLocalPythonPath] = useState(initialValue)
 
-  const setPythonPath = path => {
+  const setPythonPath = (path) => {
     if (ipcRenderer) {
       ipcRenderer.send(SET_PYTHON_PATH, path)
       setLocalPythonPath(path)

@@ -11,7 +11,7 @@ const Settings = () => {
       <Link href="/">
         <a>Home</a>
       </Link>
-      <PythonPath path={pythonPath} onChange={path => setPythonPath(path)} />
+      <PythonPath path={pythonPath} onChange={(path) => setPythonPath(path)} />
     </main>
   )
 }

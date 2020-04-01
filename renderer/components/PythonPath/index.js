@@ -1,7 +1,7 @@
 import React from 'react'
 
 const PythonPath = ({ path = 'Not set', onChange }) => {
-  const handleOnChange = e => {
+  const handleOnChange = (e) => {
     const path = e?.target?.files[0]?.path
     onChange(path)
   }
