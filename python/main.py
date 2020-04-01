@@ -2,7 +2,7 @@
 import sys
 import re
 import json
-from cloudmesh.cloud import Shell
+from cloudmesh.common import Shell
 
 # Compile the regex for extracting JSON objects.
 json_obj_re = re.compile(r'({[\S\s]*})', re.MULTILINE)
