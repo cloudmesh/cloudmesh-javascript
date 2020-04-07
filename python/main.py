@@ -5,7 +5,7 @@ import json
 from cloudmesh.common import Shell
 
 # Compile the regex for extracting JSON objects.
-json_obj_re = re.compile(r'({[\S\s]*})', re.MULTILINE)
+json_obj_re = re.compile(r'([\[{][\S\s]*[}\]])', re.MULTILINE)
 
 # Dict for validating CMS operations and indicating those that produce STDOUT.
 valid_operations = {
