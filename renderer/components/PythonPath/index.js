@@ -1,21 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const PythonPath = ({ path = 'Not set', onChange }) => {
-  const handleOnChange = (e) => {
-    const path = e?.target?.files[0]?.path
-    onChange(path)
+  const [pathField, setPathField] = useState(null)
+
+  const handleOnChange = () => {
+    onChange(pathField)
   }
+
   return (
-    <>
-      <dl>
-        <dt>Python environment</dt>
-        <dd>{path}</dd>
-      </dl>
-      <label>
-        Change / set your Python environment
-        <input type="file" name="pythonPath" onChange={handleOnChange} />
-      </label>
-    </>
+    <div>
+      <div>Python path</div>
+      <div>{path}</div>
+      <div>
+        <form onSubmit={handleOnChange}>
+          <label>
+            Change / set your Python environment
+            <div>
+              <input
+                name="pythonPath"
+                onChange={(e) => setPathField(e.target.value)}
+              />
+              <button type="submit">Save</button>
+            </div>
+          </label>
+        </form>
+      </div>
+    </div>
   )
 }
 

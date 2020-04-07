@@ -4,14 +4,15 @@ import PythonPath from '../components/PythonPath'
 import usePythonPath from '../hooks/usePythonPath'
 
 const Settings = () => {
-  const [pythonPath, setPythonPath] = usePythonPath()
+  // const [pythonPath, setPythonPath] = usePythonPath()
 
   return (
     <main>
       <Link href="/">
         <a>Home</a>
       </Link>
-      <PythonPath path={pythonPath} onChange={(path) => setPythonPath(path)} />
+      {/*<PythonPath path={pythonPath} onChange={(path) => setPythonPath(path)} />*/}
+      Python settings
     </main>
   )
 }
