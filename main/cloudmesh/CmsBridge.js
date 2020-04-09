@@ -12,7 +12,7 @@ export default class CmsBridge {
   static defaultOptions = {
     mode: 'json',
     pythonOptions: ['-u'], // get print results in real-time
-    jobTimeout: 10000,
+    jobTimeout: 20000,
   }
 
   /**

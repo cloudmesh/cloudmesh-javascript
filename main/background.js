@@ -82,10 +82,12 @@ ipcMain.handle(SET_PYTHON_PATH, async (event, pythonPath) => {
   app.exit(0)
 })
 
-ipcMain.handle(CMS_VM_LIST_SEND, async (event) => {
-  return await cmsBridge.send({
-    command: 'vm',
-    operation: 'list',
-    args: ['--output=json'],
-  })
+ipcMain.handle(CMS_VM_LIST_SEND, async (event, args = []) => {
+  return await cmsBridge
+    .send({
+      command: 'vm',
+      operation: 'list',
+      args: ['--output=json', ...args],
+    })
+    .catch((error) => console.error(error))
 })

@@ -1,0 +1,13 @@
+.main {
+  display: flex;
+  flex-flow: row wrap;
+  height: 85vh;
+}
+
+.nav {
+  width: 200px;
+  margin-right: 20px;
+  border: thin solid mediumpurple;
+  border-radius: 6px;
+  box-shadow: 2px 2px 3px 4px #ccc;
+}
