@@ -2,10 +2,11 @@
 import sys
 import re
 import json
+from ast import literal_eval
 from cloudmesh.common import Shell
 
-# Compile the regex for extracting JSON objects.
-json_obj_re = re.compile(r'([\[{][\S\s]*[}\]])', re.MULTILINE)
+# Compile the regex for extracting JSON or Python data structures.
+data_obj_re = re.compile(r'([\[{][\S\s]*[}\]])', re.MULTILINE)
 
 # Dict for validating CMS operations and indicating those that produce STDOUT.
 valid_operations = {
@@ -40,11 +41,20 @@ def print_cms(cms_command, output, **kwargs):
     }
 
     try:
-        # Extract the JSON object returned from CMS.
-        match = json_obj_re.search(output)
+        # Extract the JSON or Python string object returned from CMS.
+        match = data_obj_re.search(output)
         if match:
-            # Run it through the JSON loader/dumper to produce compressed JSON.
-            json_response['output'] = json.loads(match.group(1))
+            """
+            The flat output format returns an array of Python dict structures as a string.
+            If the flat output format is detected then we use the ast.literal_eval
+            method to parse the string back into Python objects and then serialize this
+            into JSON.  Values such as 'None' are converted into null for JSON compatibility.
+            """
+            if "--output=flat" in cms_command['args']:
+                json_response['output'] = literal_eval(match.group(1))
+            else:
+                # Run it through the JSON loader/dumper to produce compressed JSON.
+                json_response['output'] = json.loads(match.group(1))
 
         # Print the compressed output.
         print(json.dumps(json_response), **kwargs)
