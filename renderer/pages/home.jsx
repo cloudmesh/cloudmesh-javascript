@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import electron from 'electron'
+import DataTable from '../components/DataTable';
 import CloudmeshEnvChooser from "../components/CloudmeshEnvChooser";
 import {
   getAllVMs
@@ -67,7 +68,7 @@ const Home = () => {
   }
 
   const renderResult = (obj) => {
-      return <div 
+      return <div
         key={obj}
         style={{
           background: "#ddd",
@@ -103,6 +104,7 @@ const Home = () => {
           style={{display: 'flex'}}
   >{getAllvmsmock().map(renderResult)} {result && result.map(renderResult())}</div>
       </div>
+      <DataTable />
     </React.Fragment>
   );
 };
