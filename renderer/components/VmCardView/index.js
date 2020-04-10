@@ -22,7 +22,6 @@ const VmCardView = ({ vmData = null, onRefresh = () => {} }) => {
             </div>
           </Card>
         ))}
-
       </div>
     </>
   )
