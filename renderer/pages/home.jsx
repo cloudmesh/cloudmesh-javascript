@@ -100,9 +100,9 @@ const Home = () => {
           Enter your CMS command: <input type="text" ref={inputRef}/>
           <button onClick={onClick}>Execute</button>
         </div>
-        <div
+        {/*<div
           style={{display: 'flex'}}
-  >{getAllvmsmock().map(renderResult)} {result && result.map(renderResult())}</div>
+  >{getAllvmsmock().map(renderResult)} {result && result.map(renderResult())}</div>*/}
       </div>
       <DataTable />
     </React.Fragment>
