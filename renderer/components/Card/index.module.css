@@ -1,4 +1,7 @@
 .card {
   border: thin solid black;
   padding: 20px;
+  border: thin solid mediumpurple;
+  border-radius: 6px;
+  box-shadow: 2px 2px 10px #ccc;
 }
