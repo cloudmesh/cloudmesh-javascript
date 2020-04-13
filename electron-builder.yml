@@ -1,0 +1,13 @@
+appId: cloudmesh.github.io
+productName: Cloudmesh Dashboard
+copyright: Copyright © 2020 Indiana University
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+extraResources: 'python'
+publish: null

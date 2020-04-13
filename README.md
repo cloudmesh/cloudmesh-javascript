@@ -1,75 +1,71 @@
-# Clooudmesh Javascript GUI
+# Cloudmesh Javascript GUI
 
-* Josh
+## Overview
+
+Cloudmesh Javascript GUI is a front end for the Cloudmesh system.
+
+## Prior Art
+
+For previous efforts see [this doc](docs/prior_art.md).
+
+## Evaluation
+
+[Details](./docs/evaluation.md) on our selection of technologies used in this project.
+
+## User Guide
+
+Add instructions here on how to download the binary files.
+
+## Developer Guide
+
+### Requirements
+
+* Cloudmesh with cms command installed.
+* [Yarn](https://yarnpkg.com/) v1.x
+
+### Installation
+
+```bash
+git clone git@github.com:cloudmesh/cloudmesh-javascript.git
+cd cloudmesh-javascript
+yarn
+```
+
+### Development with Hot Reloading
+
+This command will start a development mode that allows for hot reloading of code changes.
+A test app with dev console should appear and reload with each edit of code.
+
+```bash
+yarn run dev
+```
+
+### Building Binaries
+
+To build the application binaries for all architectures run the following.
+
+```bash
+yarn run build:all
+```
+
+This will produce binaries in the `dist` directory.  Mac binaries can only be built on
+OS X.
+
+Other targets include:
+
+```bash
+yarn run build:win32
+yarn run build:win64
+yarn run build:mac
+yarn run build:linux
+``` 
+
+## Contributors
+
+* Josh Goodman, jogoodma@iu.edu
 * Akshay
 * Gregor von Laszewski, laszewski@gmail.com
 
 
-## Technology Evaluation
-
-### cloudmesh-gui
-
-* <https://github.com/cloudmesh/cloudmesh-gui/blob/master/README.md>
-
-```
-$ gui activate
-$ gui profile
-$ gui cloud CLOUD [--show]
-$ gui edit KEY [--show]
-```
-
-![Profile](images/profile.png)    
-
-
-![Activate](images/activate.png)    
-
-
-![Credentials](images/credentials.png)
-
-### Cloudmesh Graphql
-
-* <https://github.com/cloudmesh-community/graphql/blob/master/README.md>
-
-![The virtual machines as tiles](images/dashboard1.png)
-
-![The virtual machines as list](images/dashboard2.png)
-
-![The virtual machine images as tiles](images/dashboard-images.png)
-
-### cloudmesh-flow
-
-* <https://github.com/cloudmesh/cloudmesh-flow>
-
-
-![http://127.0.0.1:8080/flow/](images/flow-visualize-home.png){#fig:flow-visualize-home}
-
-![http://127.0.0.1:8080/flow/{workflow}](images/flow-visualize-workflow.png){#fig:flow-visualize-workflow}
-
-
-
-### Cloudmesh prior to v4
-
-The code seems misplaced and i can not currently find it. Does not realy
-matter that much other than heat and temperature display of a rack.
-
-* <https://github.com/cloudmesh-deprecated>
-
-Some screenshots are here for Cloudmesh1
-
-* <https://cloudmesh.github.io/>
-
-Cloudmesh 3 is at 
-
-<https://github.com/cloudmesh-cmd3>
-
-There is some  of portal stuff at 
-
-* <https://github.com/cloudmesh-cmd3/cloudmesh-client-portal/tree/master/cloudmesh_portal>
-
-seems this is empty
-screenshots not located, but may be the same as in cloudmesh 1
-
-
-### Electron
 
 
