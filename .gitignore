@@ -134,3 +134,4 @@ node_modules
 dist
 **/.next
 app/
+.DS_Store

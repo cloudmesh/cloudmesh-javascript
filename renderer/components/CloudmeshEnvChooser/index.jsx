@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const CloudmeshEnvChooser = ({binPath = '', onChange = () => {}}) => {
-  console.log('binpath=',typeof binPath, binPath)
+  // console.log('binpath=',typeof binPath, binPath)
   return (
     <>
       <h3>Please choose your Cloudmesh cms binary</h3>
