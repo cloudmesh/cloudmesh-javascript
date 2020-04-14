@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import VmCardView from '../components/VmCardView'
-import VmTableView from '../components/VmTableView'
+import CardView from '../../components/vm/CardView'
+import TableView from '../../components/vm/TableView'
 import { ipcRenderer } from 'electron'
-import { CMS_VM_LIST_SEND } from '../../main/constants'
+import { CMS_COMMAND_SEND } from '../../../main/constants'
 // import { makeCancelable } from '../../main/utils'
 
+const vmListCmd = ['vm', 'list', '--output=json']
 // TODO - Need to handle situations where the vm list command has fired
 //        and the user clicks away, unmounting the component.
 //        This results in setVmListResp getting called on an unmounted component
@@ -16,25 +17,16 @@ const VmList = () => {
 
   const refreshVmList = async () => {
     if (ipcRenderer) {
-      setVmListResp(await ipcRenderer.invoke(CMS_VM_LIST_SEND, ['--refresh']))
+      setVmListResp(
+        await ipcRenderer.invoke(CMS_COMMAND_SEND, [...vmListCmd, '--refresh'])
+      )
     }
   }
 
   useEffect(() => {
-    // const cancelablePromise = makeCancelable(
-    //   new Promise(r => component.setState({...}))
-    // );
-    //
-    // cancelablePromise
-    //   .promise
-    //   .then(() => console.log('resolved'))
-    //   .catch((reason) => console.log('isCanceled', reason.isCanceled));
-    //
-    // cancelablePromise.cancel(); // Cancel the promise
-    // const cancelationToken = {}
     const initialFetch = async () => {
       if (ipcRenderer) {
-        setVmListResp(await ipcRenderer.invoke(CMS_VM_LIST_SEND))
+        setVmListResp(await ipcRenderer.invoke(CMS_COMMAND_SEND, vmListCmd))
       }
     }
     initialFetch()
@@ -72,8 +64,8 @@ const VmList = () => {
           Table
         </label>
       </form>
-      {mode === 'card' && <VmCardView {...viewProps} />}
-      {mode === 'table' && <VmTableView {...viewProps} />}
+      {mode === 'card' && <CardView {...viewProps} />}
+      {mode === 'table' && <TableView {...viewProps} />}
     </main>
   )
 }

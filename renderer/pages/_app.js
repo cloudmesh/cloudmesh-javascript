@@ -1,10 +1,12 @@
 import React from 'react'
 import Head from 'next/head'
-
 import Sidebar from '../components/Sidebar'
+
+import 'typeface-roboto'
 
 // Globally applied CSS
 import './global.css'
+
 // CSS locally scoped to this component.
 import styles from './_app.module.css'
 

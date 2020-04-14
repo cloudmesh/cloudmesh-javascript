@@ -1,16 +1,13 @@
 import { app, ipcMain } from 'electron'
 import serve from 'electron-serve'
-import { createWindow } from './helpers'
 import * as Store from 'electron-store'
-import CmsBridge from './cloudmesh/CmsBridge'
 import path from 'path'
 import fs from 'fs'
+import { runCms } from './cloudmesh/CmsWrapper'
 
-import {
-  SET_PYTHON_PATH,
-  PYTHON_PATH_STORE_KEY,
-  CMS_VM_LIST_SEND,
-} from './constants'
+import { createWindow } from './helpers'
+
+import { CMS_BIN_STORE_KEY, CMS_COMMAND_SEND } from './constants'
 
 app.allowRendererProcessReuse = true
 const isProd = process.env.NODE_ENV === 'production'
@@ -24,30 +21,16 @@ if (isProd) {
 const store = new Store()
 
 let VIRTUAL_ENV = process?.env?.VIRTUAL_ENV ?? null
+let CMS_BIN = null
+
 if (VIRTUAL_ENV) {
-  VIRTUAL_ENV = path.join(VIRTUAL_ENV, 'bin', 'python3')
-  console.log('Virtual ENV = ', VIRTUAL_ENV)
+  CMS_BIN = path.join(VIRTUAL_ENV, 'bin', 'cms')
 }
 
-const pythonPath = store.get(PYTHON_PATH_STORE_KEY, VIRTUAL_ENV)
-const cmsBridgePath = isProd
-  ? path.join(app.getAppPath(), '..', 'python', 'main.py')
-  : path.join(app.getAppPath(), 'python', 'main.py')
-
-let cmsBridge
-if (pythonPath) {
-  cmsBridge = new CmsBridge({
-    scriptPath: cmsBridgePath,
-    options: {
-      pythonPath,
-    },
-  })
-}
+const cmsBin = store.get(CMS_BIN_STORE_KEY, CMS_BIN)
 
 ;(async () => {
   await app.whenReady()
-
-  const landingPage = pythonPath ? '' : 'python'
 
   const mainWindow = createWindow('main', {
     width: 1000,
@@ -55,19 +38,21 @@ if (pythonPath) {
   })
 
   if (isProd) {
-    await mainWindow.loadURL(`app://${landingPage}`)
+    await mainWindow.loadURL(`app://`)
   } else {
     const port = process.argv[2]
-    await mainWindow.loadURL(`http://localhost:${port}/${landingPage}`)
+    await mainWindow.loadURL(`http://localhost:${port}/`)
     mainWindow.webContents.openDevTools()
   }
 })()
 
 app.on('window-all-closed', () => {
+  store.set(CMS_BIN_STORE_KEY, cmsBin)
   app.quit()
 })
 
 // Main
+/*
 ipcMain.handle(SET_PYTHON_PATH, async (event, pythonPath) => {
   if (!fs.existsSync(pythonPath)) throw new Error(`${pythonPath} is invalid`)
   store.set(PYTHON_PATH_STORE_KEY, pythonPath)
@@ -76,13 +61,8 @@ ipcMain.handle(SET_PYTHON_PATH, async (event, pythonPath) => {
   app.relaunch()
   app.exit(0)
 })
+*/
 
-ipcMain.handle(CMS_VM_LIST_SEND, async (event, args = []) => {
-  return await cmsBridge
-    .send({
-      command: 'vm',
-      operation: 'list',
-      args: ['--output=json', ...args],
-    })
-    .catch((error) => console.error(error))
+ipcMain.handle(CMS_COMMAND_SEND, async (event, args = []) => {
+  return runCms({ cmsBin, args })
 })
