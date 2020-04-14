@@ -10,13 +10,13 @@ const Sidebar = () => {
         </Link>
       </li>
       <li>
-        <Link href="/vmlist">
-          <a>VM List</a>
+        <Link href="/settings">
+          <a>Settings</a>
         </Link>
       </li>
       <li>
-        <Link href="/settings">
-          <a>Settings</a>
+        <Link href="/vmlist">
+          <a>VM List</a>
         </Link>
       </li>
     </ul>

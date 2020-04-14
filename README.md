@@ -25,16 +25,31 @@ Add instructions here on how to download the binary files.
 
 ### Installation
 
+Regular install if you have cloudmesh installed:
+
 ```bash
-git clone git@github.com:cloudmesh/cloudmesh-javascript.git
-cd cloudmesh-javascript
-yarn
+$ git clone git@github.com:cloudmesh/cloudmesh-javascript.git
+$ cd cloudmesh-javascript
+$ yarn
 ```
+
+Install with cloudmesh-installer:
+
+(Experimental) This will not only install cloudmeh-javascript but all
+cloudmesh repos needed for it to work. It will then also install all of
+it.
+
+```bash
+$ pip install cloudmesh-installer -U
+$ cloudmesh-installer get cloudmesh-javascript
+```
+
 
 ### Development with Hot Reloading
 
-This command will start a development mode that allows for hot reloading of code changes.
-A test app with dev console should appear and reload with each edit of code.
+This command will start a development mode that allows for hot reloading
+of code changes. A test app with dev console should appear and reload
+with each edit of code.
 
 ```bash
 yarn run dev
@@ -48,8 +63,8 @@ To build the application binaries for all architectures run the following.
 yarn run build:all
 ```
 
-This will produce binaries in the `dist` directory.  Mac binaries can only be built on
-OS X.
+This will produce binaries in the `dist` directory.  Mac binaries can
+only be built on OS X.
 
 Other targets include:
 
@@ -62,10 +77,7 @@ yarn run build:linux
 
 ## Contributors
 
-* Josh Goodman, jogoodma@iu.edu
-* Akshay
-* Gregor von Laszewski, laszewski@gmail.com
-
+* <https://github.com/cloudmesh/cloudmesh-javascript/graphs/contributors>
 
 
 
