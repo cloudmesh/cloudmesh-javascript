@@ -26,19 +26,14 @@ const store = new Store()
 let VIRTUAL_ENV = process?.env?.VIRTUAL_ENV ?? null
 if (VIRTUAL_ENV) {
   VIRTUAL_ENV = path.join(VIRTUAL_ENV, 'bin', 'python3')
-}
-
-const streamToPromise = (stream) => {
-  return new Promise((resolve, reject) => {
-    // resolve with location of saved file
-    stream.on('message', (message) => resolve(message))
-    stream.on('error', reject)
-  })
+  console.log('Virtual ENV = ', VIRTUAL_ENV)
 }
 
 const pythonPath = store.get(PYTHON_PATH_STORE_KEY, VIRTUAL_ENV)
+const cmsBridgePath = isProd
+  ? path.join(app.getAppPath(), '..', 'python', 'main.py')
+  : path.join(app.getAppPath(), 'python', 'main.py')
 
-const cmsBridgePath = path.join(app.getAppPath(), 'python', 'main.py')
 let cmsBridge
 if (pythonPath) {
   cmsBridge = new CmsBridge({

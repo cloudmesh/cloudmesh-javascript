@@ -1,4 +1,10 @@
 .card {
-  border: thin solid black;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  box-shadow: 2px 3px 7px -3px #bfbfbf;
   padding: 20px;
+}
+
+.card:hover {
+  border: 1px solid rgb(25, 118, 210);
 }
