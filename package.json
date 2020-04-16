@@ -4,7 +4,9 @@
   "description": "An interface for Cloudmesh.",
   "version": "0.1.0-alpha",
   "author": "Josh Goodman <jogoodma@iu.edu>",
-  "contributors": ["Akshay Gupta"],
+  "contributors": [
+    "Akshay Gupta"
+  ],
   "main": "app/background.js",
   "scripts": {
     "predev": "yarn run format",
@@ -17,7 +19,7 @@
     "build:mac": "nextron build --mac --x64",
     "build:linux": "nextron build --linux",
     "postinstall": "electron-builder install-app-deps",
-    "format": "prettier --write '{main,renderer}/**/*.{js,css}'",
+    "format": "prettier --write *.{js,css}",
     "test": "jest"
   },
   "dependencies": {
