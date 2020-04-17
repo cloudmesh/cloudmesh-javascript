@@ -1,4 +1,10 @@
 import React, { useState } from 'react'
+import { ipcRenderer } from 'electron'
+import { CMS_COMMAND_SEND } from '../../../main/constants'
+import IconButton from '@material-ui/core/IconButton';
+import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
+import StopIcon from '@material-ui/icons/Stop';
+import Paper from '@material-ui/core/Paper';
 import {
   SortingState,
   IntegratedSorting,
@@ -6,9 +12,7 @@ import {
   IntegratedPaging,
   FilteringState,
   IntegratedFiltering,
-} from '@devexpress/dx-react-grid'
-
-import Paper from '@material-ui/core/Paper'
+} from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
@@ -32,6 +36,12 @@ const styles = (theme) => ({
   },
 })
 
+const controlVm = async (command, vmName) => {
+  if (ipcRenderer) {
+    ipcRenderer.invoke(CMS_COMMAND_SEND, ['vm', command, vmName])
+  }
+}
+
 const TableComponentBase = ({ classes, ...restProps }) => (
   <Table.Table {...restProps} className={classes.tableStriped} />
 )
@@ -48,7 +58,21 @@ export default ({ rows = [] }) => {
     { name: 'ip_public', title: 'Public IP' },
     { name: 'status', title: 'Status' },
     { name: 'image', title: 'Image', getCellValue: row => (row.metadata && row.metadata.image) },
-    { name: 'flavor', title: 'Flavor', getCellValue: row => (row.metadata && row.metadata.flavor) }
+    { name: 'flavor', title: 'Flavor', getCellValue: row => (row.metadata && row.metadata.flavor) },
+    { name: 'actions', title: 'Actions', getCellValue: row => (
+        <div>
+            <IconButton
+              size="small"
+              onClick={() => controlVm('start', row.name)}>
+              <PlayCircleFilledWhiteIcon />
+            </IconButton>
+            <IconButton
+              size="small"
+              onClick={() => controlVm('stop', row.name)}>
+              <StopIcon />
+            </IconButton>
+        </div>
+    )}
   ])
 
   // Use sorting state from other components to change sorting parameters
