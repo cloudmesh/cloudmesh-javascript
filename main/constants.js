@@ -1,5 +1,6 @@
 export const SET_PYTHON_PATH = 'set-python-path'
 export const GET_PYTHON_PATH = 'get-python-path'
+export const SET_CMS_PATH = 'set-cms-path'
 export const PYTHON_PATH_STORE_KEY = 'pythonPath'
 export const CMS_BIN_STORE_KEY = 'cmsBin'
 
