@@ -29,6 +29,11 @@ const Sidebar = () => {
           </Link>
         </MenuItem>
         <MenuItem>
+          <Link href="/settings/cms">
+            <a>Settings</a>
+          </Link>
+        </MenuItem>
+        <MenuItem>
           <FormControl>
             <InputLabel id="select-cloud-label">Cloud</InputLabel>
             <Select
