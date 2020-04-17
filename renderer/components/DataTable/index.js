@@ -41,10 +41,12 @@ const TableComponent = withStyles(styles, { name: 'TableComponent' })(
 )
 
 export default ({ rows = [] }) => {
+  console.log('rows', rows[1]);
   const [columns] = useState([
-    { name: 'name', title: 'VM Name' },
+    { name: 'hostname', title: 'Hostname' },
     { name: 'ip_public', title: 'Public IP' },
     { name: 'status', title: 'Status' },
+    { name: metadata.image, title: 'Image' }
   ])
 
   // Use sorting state from other components to change sorting parameters
