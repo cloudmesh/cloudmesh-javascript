@@ -50,7 +50,6 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
         </Button>
       </div>
       <div className={styles.cards}>
-        {vmData && console.log('vmData', vmData)}
         {vmData &&
           vmData.map(
             ({ id, name, ip_public, status, metadata }) => {

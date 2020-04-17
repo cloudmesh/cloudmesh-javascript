@@ -42,16 +42,18 @@ const TableComponent = withStyles(styles, { name: 'TableComponent' })(
 
 export default ({ rows = [] }) => {
   console.log('rows', rows[1]);
-  const [columns] = useState([
+
+  const [columns, setColumns] = useState([
     { name: 'hostname', title: 'Hostname' },
     { name: 'ip_public', title: 'Public IP' },
     { name: 'status', title: 'Status' },
-    { name: metadata.image, title: 'Image' }
+    { name: 'image', title: 'Image', getCellValue: row => (row.metadata && row.metadata.image) },
+    { name: 'flavor', title: 'Flavor', getCellValue: row => (row.metadata && row.metadata.flavor) }
   ])
 
   // Use sorting state from other components to change sorting parameters
   const [sorting, setSorting] = useState([
-    { columnName: 'name', direction: 'asc' },
+    { columnName: 'hostname', direction: 'asc' },
   ])
   const [pageSizes] = useState([5, 10, 15, 0])
   const [filters, setFilters] = useState([{ columnName: 'name', value: '' }])
@@ -59,7 +61,7 @@ export default ({ rows = [] }) => {
     { columnName: 'actions', width: 100 },
   ])
   const [tableColumnVisibilityColumnExtensions] = useState([
-    { columnName: 'name', togglingEnabled: false },
+    { columnName: 'hostname', togglingEnabled: false },
   ])
   const [hiddenColumnNames, setHiddenColumnNames] = useState([])
 
