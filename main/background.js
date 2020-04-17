@@ -63,6 +63,5 @@ ipcMain.handle(SET_CMS_PATH, async (event, cmsPath) => {
 })
 
 ipcMain.handle(CMS_COMMAND_SEND, async (event, args = []) => {
-  console.log(args)
   return runCms({ cmsBin, args })
 })
