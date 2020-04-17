@@ -10,12 +10,12 @@ import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import IconButton from '@material-ui/core/IconButton'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
-import RefreshIcon from '@material-ui/icons/Refresh';
+import RefreshIcon from '@material-ui/icons/Refresh'
 import Typography from '@material-ui/core/Typography'
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 import StopIcon from '@material-ui/icons/Stop'
 import ComputerIcon from '@material-ui/icons/Computer'
-import { ipcRenderer } from "electron"
+import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND } from '../../../../main/constants'
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +39,6 @@ const controlVm = async (command, vmName) => {
   }
 }
 
-
 const CardView = ({ vmData = [], onRefresh = () => {} }) => {
   const classes = useStyles()
 
@@ -53,13 +52,7 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
       <div className={styles.cards}>
         {vmData &&
           vmData.map(
-            ({
-              id,
-              name,
-              ip_public,
-              status,
-              metadata: { flavor, image },
-            }) => {
+            ({ id, name, ip_public, status, metadata: { flavor, image } }) => {
               let statusColor
               if (status === 'ACTIVE') {
                 statusColor = 'green'
@@ -93,10 +86,14 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
                     <Typography color="textPrimary">{image}</Typography>
                   </CardContent>
                   <CardActions>
-                    <IconButton size="small" onClick={() => controlVm('start',name)}>
+                    <IconButton
+                      size="small"
+                      onClick={() => controlVm('start', name)}>
                       <PlayCircleFilledWhiteIcon />
                     </IconButton>
-                    <IconButton size="small" onClick={() => controlVm('stop', name)}>
+                    <IconButton
+                      size="small"
+                      onClick={() => controlVm('stop', name)}>
                       <StopIcon />
                     </IconButton>
                   </CardActions>
