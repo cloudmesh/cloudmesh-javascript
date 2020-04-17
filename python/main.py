@@ -5,7 +5,7 @@ import json
 from ast import literal_eval
 from cloudmesh.common import Shell
 
-# Compile the regex for extracting JSON or Python data structures.
+# Compile the regex for extracting JSON or Cms data structures.
 data_obj_re = re.compile(r'([\[{][\S\s]*[}\]])', re.MULTILINE)
 
 # Dict for validating CMS operations and indicating those that produce STDOUT.
@@ -41,13 +41,13 @@ def print_cms(cms_command, output, **kwargs):
     }
 
     try:
-        # Extract the JSON or Python string object returned from CMS.
+        # Extract the JSON or Cms string object returned from CMS.
         match = data_obj_re.search(output)
         if match:
             """
-            The flat output format returns an array of Python dict structures as a string.
+            The flat output format returns an array of Cms dict structures as a string.
             If the flat output format is detected then we use the ast.literal_eval
-            method to parse the string back into Python objects and then serialize this
+            method to parse the string back into Cms objects and then serialize this
             into JSON.  Values such as 'None' are converted into null for JSON compatibility.
             """
             if "--output=flat" in cms_command['args']:
