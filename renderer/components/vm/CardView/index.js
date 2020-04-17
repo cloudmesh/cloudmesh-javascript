@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from '../../Card'
+import SimpleCard from '../../Card'
 import styles from './index.module.css'
 
 const CardView = ({ vmData = [], onRefresh = () => {} }) => {
@@ -10,17 +10,7 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
       <div className={styles.cards}>
         {vmData &&
           vmData.map(({ id, name, ip_public, status }) => (
-            <Card key={id}>
-              <div>
-                <b>Name:</b> {name}
-              </div>
-              <div>
-                <b>IP (public):</b> {ip_public}
-              </div>
-              <div>
-                <b>Status:</b> {status}
-              </div>
-            </Card>
+            <SimpleCard key={id} name={name} ip={ip_public} status={status} />
           ))}
       </div>
     </>
