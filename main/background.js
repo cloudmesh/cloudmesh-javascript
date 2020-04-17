@@ -7,7 +7,7 @@ import { runCms } from './cloudmesh/CmsWrapper'
 
 import { createWindow } from './helpers'
 
-import { CMS_BIN_STORE_KEY, CMS_COMMAND_SEND } from './constants'
+import { CMS_BIN_STORE_KEY, CMS_COMMAND_SEND, SET_CMS_PATH } from './constants'
 
 app.allowRendererProcessReuse = true
 const isProd = process.env.NODE_ENV === 'production'
@@ -37,11 +37,13 @@ const cmsBin = store.get(CMS_BIN_STORE_KEY, CMS_BIN)
     height: 600,
   })
 
+  const landingPage = cmsBin ? './' : './settings/cms'
+
   if (isProd) {
-    await mainWindow.loadURL(`app://`)
+    await mainWindow.loadURL(`app://${landingPage}`)
   } else {
     const port = process.argv[2]
-    await mainWindow.loadURL(`http://localhost:${port}/`)
+    await mainWindow.loadURL(`http://localhost:${port}/${landingPage}`)
     mainWindow.webContents.openDevTools()
   }
 })()
@@ -52,16 +54,13 @@ app.on('window-all-closed', () => {
 })
 
 // Main
-/*
-ipcMain.handle(SET_PYTHON_PATH, async (event, pythonPath) => {
-  if (!fs.existsSync(pythonPath)) throw new Error(`${pythonPath} is invalid`)
-  store.set(PYTHON_PATH_STORE_KEY, pythonPath)
-
+ipcMain.handle(SET_CMS_PATH, async (event, cmsPath) => {
+  if (!fs.existsSync(cmsPath)) throw new Error(`${cmsPath} is invalid`)
+  store.set(CMS_BIN_STORE_KEY, cmsPath)
   // Restart app after changing python environment.
   app.relaunch()
   app.exit(0)
 })
-*/
 
 ipcMain.handle(CMS_COMMAND_SEND, async (event, args = []) => {
   return runCms({ cmsBin, args })
