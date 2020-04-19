@@ -8,3 +8,4 @@ export const CMS_COMMAND_SEND = 'cms-send'
 
 export const CMS_VM_LIST_CMD = ['vm', 'list', '--output=json']
 export const CMS_IMAGE_LIST_CMD = ['image', 'list', '--output=json']
+export const CMS_FLAVOR_LIST_CMD = ['flavor', 'list', '--output=json']
