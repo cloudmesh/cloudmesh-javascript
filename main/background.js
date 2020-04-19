@@ -3,7 +3,7 @@ import serve from 'electron-serve'
 import * as Store from 'electron-store'
 import path from 'path'
 import fs from 'fs'
-import { runCms } from './cloudmesh/CmsWrapper'
+import { runCmsSync } from './cloudmesh/CmsWrapper'
 
 import { createWindow } from './helpers'
 
@@ -63,5 +63,5 @@ ipcMain.handle(SET_CMS_PATH, async (event, cmsPath) => {
 })
 
 ipcMain.handle(CMS_COMMAND_SEND, async (event, args = []) => {
-  return runCms({ cmsBin, args })
+  return runCmsSync({ cmsBin, args })
 })

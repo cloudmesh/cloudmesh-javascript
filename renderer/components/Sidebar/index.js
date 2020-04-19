@@ -24,6 +24,11 @@ const Sidebar = () => {
           </Link>
         </MenuItem>
         <MenuItem>
+          <Link href="/images">
+            <a>Images</a>
+          </Link>
+        </MenuItem>
+        <MenuItem>
           <Link href="/vm/list">
             <a>VM List</a>
           </Link>
