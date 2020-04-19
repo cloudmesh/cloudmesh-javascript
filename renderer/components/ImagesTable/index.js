@@ -1,21 +1,18 @@
 import React from 'react'
 import Paper from '@material-ui/core/Paper'
-import { DataTypeProvider } from '@devexpress/dx-react-grid';
+import { DataTypeProvider } from '@devexpress/dx-react-grid'
 import {
   Grid,
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui'
 
-const SizeFormatter = ({ value = 0 }) => (Number(value / (1024 * 1024 * 1024)).toFixed(2))
+const SizeFormatter = ({ value = 0 }) =>
+  Number(value / (1024 * 1024 * 1024)).toFixed(2)
 
-const SizeTypeProvider = props => (
-  <DataTypeProvider
-    formatterComponent={SizeFormatter}
-    {...props}
-  />
+const SizeTypeProvider = (props) => (
+  <DataTypeProvider formatterComponent={SizeFormatter} {...props} />
 )
-
 
 const columns = [
   {
@@ -42,9 +39,7 @@ const columns = [
 const ImagesTable = ({ rows = [] }) => (
   <Paper>
     <Grid rows={rows} columns={columns}>
-      <SizeTypeProvider
-        for={['size']}
-      />
+      <SizeTypeProvider for={['size']} />
       <Table />
       <TableHeaderRow />
     </Grid>
