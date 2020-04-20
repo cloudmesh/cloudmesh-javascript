@@ -4,7 +4,7 @@
   "description": "An interface for Cloudmesh.",
   "version": "0.1.1-alpha",
   "author": "Josh Goodman <jogoodma@iu.edu>",
-  "contributors": ["Akshay Gupta"],
+  "contributors": ["Akshay Gupta", "Gregor von Laszewski <laszewski@gmail.com>"],
   "main": "app/background.js",
   "scripts": {
     "predev": "yarn run format",
