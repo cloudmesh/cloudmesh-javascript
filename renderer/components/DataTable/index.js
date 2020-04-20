@@ -61,7 +61,7 @@ const controlVm = async (command, vmName) => {
 }
 
 const TableComponentBase = ({ classes, ...restProps }) => (
-  <Table.Table {...restProps} className={classes.tableStriped} />
+  <Table.Table {...restProps} className={classes.tableStriped} size='small'/>
 )
 
 const TableComponent = withStyles(styles, { name: 'TableComponent' })(
@@ -124,7 +124,7 @@ export default ({ rows = [] }) => {
       <Grid rows={rows} columns={columns}>
         <FilteringState filters={filters} onFiltersChange={setFilters} />
         <IntegratedFiltering />
-        <PagingState defaultCurrentPage={0} defaultPageSize={5} />
+        <PagingState defaultCurrentPage={0} defaultPageSize={10} />
         <IntegratedPaging />
         <SortingState sorting={sorting} onSortingChange={setSorting} />
         <IntegratedSorting />
