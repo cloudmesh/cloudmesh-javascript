@@ -52,7 +52,7 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
       <div className={styles.cards}>
         {vmData &&
           vmData.map(
-            ({ id, name, ip_public, status, metadata: { flavor, image } }) => {
+            ({ id, name, ip_public, status, metadata }) => {
               let statusColor
               if (status === 'ACTIVE') {
                 statusColor = 'green'
@@ -81,9 +81,9 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
                   />
                   <CardContent>
                     <Typography color="textSecondary">Flavor</Typography>
-                    <Typography color="textPrimary">{flavor}</Typography>
+                    <Typography color="textPrimary">{metadata && metadata['flavor'] && metadata['flavor']}</Typography>
                     <Typography color="textSecondary">Image</Typography>
-                    <Typography color="textPrimary">{image}</Typography>
+                    <Typography color="textPrimary">{metadata && metadata['image'] && metadata['image']}</Typography>
                   </CardContent>
                   <CardActions>
                     <IconButton
