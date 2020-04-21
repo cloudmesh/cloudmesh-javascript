@@ -5,6 +5,7 @@ import ViewComfyIcon from '@material-ui/icons/ViewComfy'
 import ViewModuleIcon from '@material-ui/icons/ViewModule'
 import TableChartIcon from '@material-ui/icons/TableChart'
 import CardView from '../../components/vm/CardView'
+import MiniCardView from '../../components/vm/MiniCardView'
 import TableView from '../../components/vm/TableView'
 import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND } from '../../../main/constants'
@@ -53,7 +54,7 @@ const VmList = () => {
         <Button onClick={() => setMode('card')} title='Card view'>
           <ViewModuleIcon />
         </Button>
-        <Button onClick={() => setMode('card')} title='Mini card view'>
+        <Button onClick={() => setMode('minicard')} title='Mini card view'>
           <ViewComfyIcon />
         </Button>
       </ButtonGroup>

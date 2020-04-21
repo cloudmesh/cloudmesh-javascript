@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { green, red, yellow } from '@material-ui/core/colors'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
-import Card from '@material-ui/core/Card'
+// import Card from '@material-ui/core/Card'
+import DefaultCard from '../../DefaultCard'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -62,7 +63,7 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
                 statusColor = 'yellow'
               }
               return (
-                <Card key={id}>
+                <DefaultCard key={id}>
                   <CardHeader
                     avatar={
                       <Avatar
@@ -97,7 +98,7 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
                       <StopIcon />
                     </IconButton>
                   </CardActions>
-                </Card>
+                </DefaultCard>
               )
             }
           )}
