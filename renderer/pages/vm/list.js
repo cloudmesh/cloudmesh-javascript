@@ -47,13 +47,13 @@ const VmList = () => {
   return (
     <main>
       <ButtonGroup size="small" aria-label="Select table or card view for VMs">
-        <Button onClick={() => setMode('table')}>
+        <Button onClick={() => setMode('table')} title='Table view'>
           <TableChartIcon />
         </Button>
-        <Button onClick={() => setMode('card')}>
+        <Button onClick={() => setMode('card')} title='Card view'>
           <ViewModuleIcon />
         </Button>
-        <Button onClick={() => setMode('card')}>
+        <Button onClick={() => setMode('card')} title='Mini card view'>
           <ViewComfyIcon />
         </Button>
       </ButtonGroup>
