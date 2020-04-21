@@ -14,7 +14,7 @@ const vmListCmd = ['vm', 'list', '--output=json']
 //        and the user clicks away, unmounting the component.
 //        This results in setVmListResp getting called on an unmounted component
 const VmList = () => {
-  const [mode, setMode] = useState('card')
+  const [mode, setMode] = useState('table') // mode = table / card / minicard
   const [vmListResp, setVmListResp] = useState(null)
 
   const refreshVmList = async () => {
