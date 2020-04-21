@@ -12,6 +12,7 @@ import subprocess
 from pprint import pprint
 import signal
 
+
 class ViewerCommand(PluginCommand):
 
     # noinspection PyUnusedLocal
@@ -32,7 +33,6 @@ class ViewerCommand(PluginCommand):
 
         """
 
-
         if arguments.stop:
             found = []
             processes = Shell.ps()
@@ -48,7 +48,7 @@ class ViewerCommand(PluginCommand):
         elif arguments.start:
             import cloudmesh.viewer as viewer
             location = inspect.getfile(viewer)
-            for i in range(0,3):
+            for i in range(0, 3):
                 location = os.path.dirname(location)
             if arguments.OPTIONS:
                 options = " ".join(arguments.OPTIONS)
@@ -68,15 +68,14 @@ class ViewerCommand(PluginCommand):
 
         elif arguments.deploy and arguments["--branch"]:
 
-
-            branch=arguments["--branch"]
+            branch = arguments["--branch"]
             try:
                 os.system("git checkout {branch}")
                 Console.error("not yet implemented for Linux")
                 Console.error("not yet implemented for Windows")
                 Console.error("not yet implemented for macOS")
             except Exception as e:
-                print (e)
+                print(e)
 
         elif arguments.deploy:
             try:
@@ -85,8 +84,6 @@ class ViewerCommand(PluginCommand):
                 Console.error("not yet implemented for Windows")
                 Console.error("not yet implemented for macOS")
             except Exception as e:
-                print (e)
-
-
+                print(e)
 
         return ""
