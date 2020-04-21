@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import ViewComfyIcon from '@material-ui/icons/ViewComfy'
+import ViewModuleIcon from '@material-ui/icons/ViewModule'
 import TableChartIcon from '@material-ui/icons/TableChart'
 import CardView from '../../components/vm/CardView'
 import TableView from '../../components/vm/TableView'
@@ -46,15 +47,19 @@ const VmList = () => {
   return (
     <main>
       <ButtonGroup size="small" aria-label="Select table or card view for VMs">
-        <Button onClick={() => setMode('card')}>
-          <ViewComfyIcon />
-        </Button>
         <Button onClick={() => setMode('table')}>
           <TableChartIcon />
         </Button>
+        <Button onClick={() => setMode('card')}>
+          <ViewModuleIcon />
+        </Button>
+        <Button onClick={() => setMode('card')}>
+          <ViewComfyIcon />
+        </Button>
       </ButtonGroup>
-      {mode === 'card' && <CardView {...viewProps} />}
       {mode === 'table' && <TableView {...viewProps} />}
+      {mode === 'card' && <CardView {...viewProps} />}
+      {mode === 'minicard' && <MiniCardView {...viewProps} />}
     </main>
   )
 }
