@@ -1,6 +1,9 @@
 .sidebar_section{
 
 }
+.link_child {
+  display: flex;
+}
 
 .list_text {
 }

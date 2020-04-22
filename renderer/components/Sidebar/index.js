@@ -21,16 +21,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import classes from './index.module.css'
 
-// const useStyles = makeStyles({
-//   root: {
-//     width: 230,
-//     boxShadow: "0 0 7px 10px #888",
-//     borderRadius: "6px"
-//   }
-// });
-
-// const styles = useStyles()
-
 const Sidebar = () => {
   const [cloudProvider, setCloudProvider] = useState('openstack')
 
@@ -60,18 +50,18 @@ const Sidebar = () => {
         </MenuItem>
         <MenuItem>
           <Link href="/">
-            <>
+            <div className={classes.link_child}>
               <HomeIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
               <Typography variant="body2" className={classes.list_text}>Home</Typography>
-            </>
+            </div>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link href="/profile">
-            <>
+            <div className={classes.link_child}>
               <PersonIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
               <Typography variant="body2" className={classes.list_text}>Profile</Typography>
-            </>
+            </div>
           </Link>
         </MenuItem>
       </MenuList>
@@ -84,34 +74,34 @@ const Sidebar = () => {
         </MenuItem>
         <MenuItem>
           <Link href="/images">
-            <>
+            <div className={classes.link_child}>
               <AdjustIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
               <Typography variant="body2" className={classes.list_text}>Images</Typography>
-            </>
+            </div>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link href="/flavors">
-            <>
+            <div className={classes.link_child}>
               <LineWeightIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
               <Typography variant="body2" className={classes.list_text}>Flavors</Typography>
-            </>
+            </div>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link href="/vm/list">
-            <>
+            <div className={classes.link_child}>
               <CloudIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
               <Typography variant="body2" className={classes.list_text}>VM List</Typography>
-            </>
+            </div>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link href="/settings/cms">
-            <>
+            <div className={classes.link_child}>
               <SettingsIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
               <Typography variant="body2" className={classes.list_text}>Settings</Typography>
-            </>
+            </div>
           </Link>
         </MenuItem>
         <MenuItem>
