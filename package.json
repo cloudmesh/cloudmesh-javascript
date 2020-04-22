@@ -19,7 +19,7 @@
     "build:mac": "nextron build --mac --x64",
     "build:linux": "nextron build --linux",
     "postinstall": "electron-builder install-app-deps",
-    "format": "prettier --write '**/*.{js,css}'",
+    "format": "prettier --write *.{js,css}",
     "test": "jest"
   },
   "dependencies": {
