@@ -31,15 +31,34 @@ stopping, and uninstalling.
 
 ### Command summary
 ```bash
-cms viewer start
+cms viewer start [dev] [OPTIONS...] [--clean]
 cms viewer stop
-cms viewer start [OPTIONS...]
-cms viewer deploy
-cms viewer deploy --uninstall
-cms viewer deploy --branch=BRANCH
+cms viewer deploy [--uninstall] [OPTIONS...]
 ```
 
-#### cms viewer start
+Options:
+    --branch=BRANCH The git branch to use.
+    
+e.g.
+```bash
+# Remove previous builds and start a fresh one.
+cms viewer start --clean
+
+# Start in dev hot reloading mode
+cms start dev
+
+# Build and install the application
+cms viewer deploy
+
+# Build and deploy using the 'develop' branch
+# This will switch your local git repo branch.
+cms viewer deploy --branch=develop
+
+# Remove any previous installations
+cms viewer deploy --uninstall
+```
+
+#### cms viewer start [OPTIONS...]
 
 Starts the `Cloudmesh Dashboard` application in production mode.
 
@@ -48,11 +67,15 @@ To start in dev mode append `dev` to the command.
 e.g.
 `cms viewer start dev`
 
+Options:
+* dev - Start in development hot reloading mode.
+* `--branch=BRANCH` - Switches the git repo to the specified `BRANCH` prior to deploying.
+
 #### cms viewer stop
 
 Stops all Cloudmesh Dashboard processes started by `cms viewer start`.
 
-#### cms viewer deploy [OPTIONS]
+#### cms viewer deploy [OPTIONS...]
 
 Builds and installs the Cloudmesh Dashboard application.
 

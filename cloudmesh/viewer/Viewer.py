@@ -83,7 +83,7 @@ class Viewer:
         if 'darwin' == Viewer.platform:
             # For mac we deploy to ~/Applications
             shutil.copytree(src, dest, dirs_exist_ok=True)
-        elif 'linux' == Viewer.paltform:
+        elif 'linux' == Viewer.platform:
             # For linux we run directly from the unpacked build.
             pass
         elif 'windows' == Viewer.platform:
