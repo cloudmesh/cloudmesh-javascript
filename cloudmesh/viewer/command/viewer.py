@@ -14,15 +14,17 @@ class ViewerCommand(PluginCommand):
         ::
 
           Usage:
-                viewer start [OPTIONS...] [--clean]
+                viewer start [--branch=<BRANCH>|--clean]
+                viewer start dev
                 viewer stop
-                viewer deploy --uninstall
-                viewer deploy [--branch=BRANCH]
+                viewer deploy [--branch=<BRANCH>|--uninstall]
 
           This command starts the javascript GUI
 
           Options:
-            --branch=BRANCH  The branch to deploy
+            --clean           Cleans any previous installations or builds
+            --branch=<BRANCH> The branch to deploy
+            --uninstall       Removes any previous installations.
         """
         location = Viewer.base_dir
 
@@ -36,13 +38,13 @@ class ViewerCommand(PluginCommand):
         if arguments.stop:
             Viewer.stop()
 
-        elif arguments.start and 'dev' in args:
+        elif arguments.start and arguments['dev']:
             # Run yarn install and then yarn run dev
             Viewer.yarn_install()
             subprocess.run("yarn run dev", cwd=location, shell=True)
 
         elif arguments.start:
-            if arguments["--clean"]:
+            if arguments["--clean"] or arguments["--branch"]:
                 # Clean install dir
                 Viewer.uninstall(os_props['install_dir'])
                 # Clean node_modules
