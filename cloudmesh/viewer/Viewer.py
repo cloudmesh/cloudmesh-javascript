@@ -125,7 +125,7 @@ class Viewer:
         Removes the node_modules directory.
         """
         try:
-            shutil.rmtree('node_modules')
+            shutil.rmtree('node_modules', ignore_errors=True)
         except FileNotFoundError:
             pass
 
