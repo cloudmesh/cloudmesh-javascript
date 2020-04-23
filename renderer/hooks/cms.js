@@ -30,6 +30,7 @@ export const useCms = ({ command }) => {
   const [output, setOutput] = useState(null)
 
   const refreshOutput = async () => {
+    setOutput(null)
     if (ipcRenderer) {
       setOutput(
         await ipcRenderer.invoke(CMS_COMMAND_SEND, [...command, '--refresh'])
