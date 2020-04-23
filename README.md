@@ -4,46 +4,64 @@
 
 Cloudmesh Javascript GUI is a front end for the Cloudmesh system.
 
-## Prior Art
+## Requirements
 
-For previous efforts see [this doc](docs/prior_art.md).
+* [Cloudmesh](https://cloudmesh.github.io/cloudmesh-manual/installation/install.html)
+* [NodeJS](https://nodejs.org/en/) - 12.x
+* [Yarn](https://yarnpkg.com/) - 1.22.x
 
-## Evaluation
+## Getting started
 
-[Details](./docs/evaluation.md) on our selection of technologies used in this project.
+The following commands clone the repo from github, activate the CMS python environment,
+installs the `cms viewer` command, and starts the Cloudmesh Dashboard.
 
-## User Guide
+```bash
+git clone git@github.com:cloudmesh/cloudmesh-javascript.git
+cd cloudmesh-javascript
+source ~/ENV3/bin/activate
+pip install -e .
+cms viewer start
+```
 
-Add instructions here on how to download the binary files.
+## CMS `viewer` command
+
+A CMS `viewer` command has been implemented to automate working with the Cloudmesh Dashboard
+as much as possible.  The viewer provides commands for deploying (installing), starting,
+stopping, and uninstalling.
+
+### Command summary
+```bash
+cms viewer start
+cms viewer stop
+cms viewer start [OPTIONS...]
+cms viewer deploy
+cms viewer deploy --uninstall
+cms viewer deploy --branch=BRANCH
+```
+
+#### cms viewer start
+
+Starts the `Cloudmesh Dashboard` application in production mode.
+
+To start in dev mode append `dev` to the command.
+
+e.g.
+`cms viewer start dev`
+
+#### cms viewer stop
+
+Stops all Cloudmesh Dashboard processes started by `cms viewer start`.
+
+#### cms viewer deploy [OPTIONS]
+
+Builds and installs the Cloudmesh Dashboard application.
+
+Options:
+* `--uninstall` - removes the installed application
+* `--branch=BRANCH` - Switches the git repo to the specified `BRANCH` prior to deploying.
+
 
 ## Developer Guide
-
-### Requirements
-
-* Cloudmesh with cms command installed.
-* [Yarn](https://yarnpkg.com/) v1.x
-
-### Installation
-
-Regular install if you have cloudmesh installed:
-
-```bash
-$ git clone git@github.com:cloudmesh/cloudmesh-javascript.git
-$ cd cloudmesh-javascript
-$ yarn
-```
-
-Install with cloudmesh-installer:
-
-(Experimental) This will not only install cloudmeh-javascript but all
-cloudmesh repos needed for it to work. It will then also install all of
-it.
-
-```bash
-$ pip install cloudmesh-installer -U
-$ cloudmesh-installer get cloudmesh-javascript
-```
-
 
 ### Development with Hot Reloading
 
@@ -52,6 +70,7 @@ of code changes. A test app with dev console should appear and reload
 with each edit of code.
 
 ```bash
+yarn
 yarn run dev
 ```
 
@@ -74,6 +93,13 @@ yarn run build:win64
 yarn run build:mac
 yarn run build:linux
 ``` 
+## Prior Art
+
+For previous efforts see [this doc](docs/prior_art.md).
+
+## Evaluation
+
+[Details](./docs/evaluation.md) on our selection of technologies used in this project.
 
 ## Contributors
 

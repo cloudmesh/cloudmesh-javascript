@@ -40,8 +40,8 @@ class ViewerCommand(PluginCommand):
         for i in range(0, 3):
             location = os.path.dirname(location)
 
-        app_install_dir = os.path.join(path_expand('~/Applications'), 'Cloudmesh Dashboard.app')
-        app_build_dir = os.path.join(location, 'dist', 'mac', 'Cloudmesh Dashboard.app')
+        # Get OS specific props (exe, build dir, etc.)
+        os_props = ViewerCommand._get_os_props(location)
 
         # TODO: rework this method after refactoring start, stop, and deploy
         if arguments.stop:
@@ -56,25 +56,29 @@ class ViewerCommand(PluginCommand):
                 os.kill(p, signal.SIGKILL)
 
         elif arguments.start and 'dev' in args:
+            # Run yarn install and then yarn run dev
             ViewerCommand._install(location)
             subprocess.run(f"yarn run dev",
-                             cwd=location,
-                             shell=True)
+                           cwd=location,
+                           shell=True)
 
         elif arguments.start:
-            if platform == 'darwin':
-                if not os.path.isdir(app_install_dir):
-                    should_deploy = yn_choice("Cloudmesh is not deployed, do you want to deploy it?", "y", 3)
-                    if should_deploy:
-                        ViewerCommand._install(location)
-                        ViewerCommand._build(location)
-                        ViewerCommand._deploy(app_build_dir, app_install_dir)
-                os.system('open -a "Cloudmesh Dashboard.app"')
+            if not os.path.isdir(os_props['app_install_dir']):
+                should_deploy = yn_choice("Cloudmesh is not deployed, do you want to deploy it?", "y", 3)
+                if should_deploy:
+                    ViewerCommand._install(location)
+                    ViewerCommand._build(location)
+                    ViewerCommand._deploy(os_props['app_build_dir'], os_props['app_install_dir'])
+                    os.system(os_props['app_exe_cmd'])
+                else:
+                    Console.error("No application found to start, please deploy first.")
+            else:
+                os.system(os_props['app_exe_cmd'])
 
         elif arguments.deploy and arguments["--uninstall"]:
-            if platform == 'darwin':
+            if platform == 'darwin' or platform.startswith("linux"):
                 try:
-                    rmtree(app_install_dir)
+                    rmtree(os_props['app_install_dir'])
                 except Exception as e:
                     print(e)
             else:
@@ -85,7 +89,9 @@ class ViewerCommand(PluginCommand):
                 branch = arguments["--branch"]
                 ViewerCommand._switch_branch(branch)
 
-            ViewerCommand._deploy(app_build_dir, app_install_dir)
+            ViewerCommand._install(location)
+            ViewerCommand._build(location)
+            ViewerCommand._deploy(os_props['app_build_dir'], os_props['app_install_dir'])
 
         return ""
 
@@ -101,8 +107,29 @@ class ViewerCommand(PluginCommand):
                 copytree(src, dest, dirs_exist_ok=True)
             except Exception as e:
                 Console.error(e)
+        elif platform.startswith("linux"):
+            pass
         else:
             Console.error(f"Not yet implemented for {platform}")
+
+    @staticmethod
+    def _get_os_props(location):
+        # TODO Windows
+        if platform == 'darwin':
+            return {
+                "app_exe_cmd": 'open -a "Cloudmesh Dashboard.app"',
+                "app_install_dir": os.path.join(path_expand('~/Applications'), 'Cloudmesh Dashboard.app'),
+                "app_build_dir": os.path.join(location, 'dist', 'mac', 'Cloudmesh Dashboard.app')
+            }
+        elif platform.startswith('linux'):
+            build_dir = os.path.join(location, 'dist', 'linux-unpacked')
+            return {
+                "app_exe_cmd": os.path.join(build_dir, 'cloudmesh-javascript'),
+                "app_install_dir": build_dir,
+                "app_build_dir": build_dir
+            }
+
+        return {}
 
     @staticmethod
     def _switch_branch(branch: str):
@@ -120,11 +147,11 @@ class ViewerCommand(PluginCommand):
         yarn install
         """
         return subprocess.run(f"yarn install",
-                                cwd=location,
-                                shell=True)
+                              cwd=location,
+                              shell=True)
 
     @staticmethod
     def _build(location: str):
         return subprocess.run(f"yarn run build",
-                                cwd=location,
-                                shell=True)
+                              cwd=location,
+                              shell=True)
