@@ -20,14 +20,11 @@ function CloudmeshApp({ Component, pageProps }) {
           content="script-src 'self' 'unsafe-inline';"
         />
       </Head>
-      <header>
-        <h1>Cloudmesh Dashboard</h1>
-      </header>
-      <main className={styles.main}>
+      <main className={styles.main_container}>
         <nav className={styles.nav}>
           <Sidebar />
         </nav>
-        <section>
+        <section className={styles.main}>
           <Component {...pageProps} />
         </section>
       </main>

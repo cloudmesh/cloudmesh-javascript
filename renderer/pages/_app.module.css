@@ -1,13 +1,21 @@
-.main {
+.main_container {
   display: flex;
-  height: 85vh;
+}
+
+.main {
+  /* display: flex; */
+  /* height: 85vh; */
 }
 
 .nav {
-  width: 200px;
-  margin-right: 20px;
+  /* flex: 0 0 200px; */
+  /* margin-right: 20px; */
 
-  border: 1px solid rgb(206, 147, 216);
-  box-shadow: 2px 3px 7px -3px #ce93d8;
-  border-radius: 0.25rem;
+  /* border: 1px solid rgb(206, 147, 216);
+  box-shadow: 2px 3px 7px -3px #ce93d8; */
+  /* border-radius: 0.25rem; */
 }
+
+/* .main_section {
+  flex: 1 0 200px;
+} */

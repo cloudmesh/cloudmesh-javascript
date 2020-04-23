@@ -5,7 +5,7 @@ import { green, red, yellow } from '@material-ui/core/colors'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 // import Card from '@material-ui/core/Card'
-import DefaultCard from '../../DefaultCard'
+import MiniCard from '../../MiniCard'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -40,7 +40,7 @@ const controlVm = async (command, vmName) => {
   }
 }
 
-const CardView = ({ vmData = [], onRefresh = () => {} }) => {
+const MiniCardView = ({ vmData = [], onRefresh = () => {} }) => {
   const classes = useStyles()
 
   return (
@@ -50,7 +50,7 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
           <RefreshIcon />
         </Button>
       </div>
-      <div className={styles.cards}>
+      <div className={styles.minicards}>
         {vmData &&
           vmData.map(({ id, name, ip_public, status, metadata }) => {
             let statusColor
@@ -62,7 +62,7 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
               statusColor = 'yellow'
             }
             return (
-              <DefaultCard key={id}>
+              <MiniCard key={id}>
                 <CardHeader
                   avatar={
                     <Avatar
@@ -71,41 +71,13 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
                       <ComputerIcon />
                     </Avatar>
                   }
-                  action={
-                    <IconButton aria-label="settings">
-                      <MoreVertIcon />
-                    </IconButton>
-                  }
                   title={name}
-                  subheader={ip_public}
                 />
-                <CardContent>
-                  <Typography color="textSecondary">Flavor</Typography>
-                  <Typography color="textPrimary">
-                    {metadata && metadata['flavor'] && metadata['flavor']}
-                  </Typography>
-                  <Typography color="textSecondary">Image</Typography>
-                  <Typography color="textPrimary">
-                    {metadata && metadata['image'] && metadata['image']}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <IconButton
-                    size="small"
-                    onClick={() => controlVm('start', name)}>
-                    <PlayCircleFilledWhiteIcon />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    onClick={() => controlVm('stop', name)}>
-                    <StopIcon />
-                  </IconButton>
-                </CardActions>
-              </DefaultCard>
+              </MiniCard>
             )
           })}
       </div>
     </>
   )
 }
-export default CardView
+export default MiniCardView
