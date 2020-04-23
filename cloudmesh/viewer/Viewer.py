@@ -98,7 +98,7 @@ class Viewer:
             - app_dir - The directory to remove.
         """
         if 'linux' == Viewer.platform or 'darwin' == Viewer.platform:
-            shutil.rmtree(app_dir)
+            shutil.rmtree(app_dir, ignore_errors=True)
         elif 'windows' == Viewer.platform:
             raise NotImplementedError
 
