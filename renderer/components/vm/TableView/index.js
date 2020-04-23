@@ -13,11 +13,7 @@ const TableView = ({ vmData = [], onRefresh = () => {} }) => {
           <RefreshIcon />
         </Button>
       </div>
-      <div>
-        { vmData &&
-          <DataTable rows={vmData} />
-        }
-      </div>
+      <div>{vmData && <DataTable rows={vmData} />}</div>
     </>
   )
 }

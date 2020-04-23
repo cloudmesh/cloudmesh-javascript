@@ -52,32 +52,30 @@ const MiniCardView = ({ vmData = [], onRefresh = () => {} }) => {
       </div>
       <div className={styles.minicards}>
         {vmData &&
-          vmData.map(
-            ({ id, name, ip_public, status, metadata }) => {
-              let statusColor
-              if (status === 'ACTIVE') {
-                statusColor = 'green'
-              } else if (status === 'SHUTOFF') {
-                statusColor = 'red'
-              } else if (status === 'ERROR') {
-                statusColor = 'yellow'
-              }
-              return (
-                <MiniCard key={id}>
-                  <CardHeader
-                    avatar={
-                      <Avatar
-                        className={statusColor ? classes[statusColor] : null}
-                        aria-label="virtual machine">
-                        <ComputerIcon />
-                      </Avatar>
-                    }
-                    title={name}
-                  />
-                </MiniCard>
-              )
+          vmData.map(({ id, name, ip_public, status, metadata }) => {
+            let statusColor
+            if (status === 'ACTIVE') {
+              statusColor = 'green'
+            } else if (status === 'SHUTOFF') {
+              statusColor = 'red'
+            } else if (status === 'ERROR') {
+              statusColor = 'yellow'
             }
-          )}
+            return (
+              <MiniCard key={id}>
+                <CardHeader
+                  avatar={
+                    <Avatar
+                      className={statusColor ? classes[statusColor] : null}
+                      aria-label="virtual machine">
+                      <ComputerIcon />
+                    </Avatar>
+                  }
+                  title={name}
+                />
+              </MiniCard>
+            )
+          })}
       </div>
     </>
   )

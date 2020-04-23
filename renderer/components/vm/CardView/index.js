@@ -52,56 +52,58 @@ const CardView = ({ vmData = [], onRefresh = () => {} }) => {
       </div>
       <div className={styles.cards}>
         {vmData &&
-          vmData.map(
-            ({ id, name, ip_public, status, metadata }) => {
-              let statusColor
-              if (status === 'ACTIVE') {
-                statusColor = 'green'
-              } else if (status === 'SHUTOFF') {
-                statusColor = 'red'
-              } else if (status === 'ERROR') {
-                statusColor = 'yellow'
-              }
-              return (
-                <DefaultCard key={id}>
-                  <CardHeader
-                    avatar={
-                      <Avatar
-                        className={statusColor ? classes[statusColor] : null}
-                        aria-label="virtual machine">
-                        <ComputerIcon />
-                      </Avatar>
-                    }
-                    action={
-                      <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                      </IconButton>
-                    }
-                    title={name}
-                    subheader={ip_public}
-                  />
-                  <CardContent>
-                    <Typography color="textSecondary">Flavor</Typography>
-                    <Typography color="textPrimary">{metadata && metadata['flavor'] && metadata['flavor']}</Typography>
-                    <Typography color="textSecondary">Image</Typography>
-                    <Typography color="textPrimary">{metadata && metadata['image'] && metadata['image']}</Typography>
-                  </CardContent>
-                  <CardActions>
-                    <IconButton
-                      size="small"
-                      onClick={() => controlVm('start', name)}>
-                      <PlayCircleFilledWhiteIcon />
-                    </IconButton>
-                    <IconButton
-                      size="small"
-                      onClick={() => controlVm('stop', name)}>
-                      <StopIcon />
-                    </IconButton>
-                  </CardActions>
-                </DefaultCard>
-              )
+          vmData.map(({ id, name, ip_public, status, metadata }) => {
+            let statusColor
+            if (status === 'ACTIVE') {
+              statusColor = 'green'
+            } else if (status === 'SHUTOFF') {
+              statusColor = 'red'
+            } else if (status === 'ERROR') {
+              statusColor = 'yellow'
             }
-          )}
+            return (
+              <DefaultCard key={id}>
+                <CardHeader
+                  avatar={
+                    <Avatar
+                      className={statusColor ? classes[statusColor] : null}
+                      aria-label="virtual machine">
+                      <ComputerIcon />
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title={name}
+                  subheader={ip_public}
+                />
+                <CardContent>
+                  <Typography color="textSecondary">Flavor</Typography>
+                  <Typography color="textPrimary">
+                    {metadata && metadata['flavor'] && metadata['flavor']}
+                  </Typography>
+                  <Typography color="textSecondary">Image</Typography>
+                  <Typography color="textPrimary">
+                    {metadata && metadata['image'] && metadata['image']}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <IconButton
+                    size="small"
+                    onClick={() => controlVm('start', name)}>
+                    <PlayCircleFilledWhiteIcon />
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    onClick={() => controlVm('stop', name)}>
+                    <StopIcon />
+                  </IconButton>
+                </CardActions>
+              </DefaultCard>
+            )
+          })}
       </div>
     </>
   )
