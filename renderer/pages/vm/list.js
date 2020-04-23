@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import ViewComfyIcon from '@material-ui/icons/ViewComfy'
+import ViewModuleIcon from '@material-ui/icons/ViewModule'
 import TableChartIcon from '@material-ui/icons/TableChart'
 import CardView from '../../components/vm/CardView'
+import MiniCardView from '../../components/vm/MiniCardView'
 import TableView from '../../components/vm/TableView'
 import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND } from '../../../main/constants'
@@ -14,7 +16,7 @@ const vmListCmd = ['vm', 'list', '--output=json']
 //        and the user clicks away, unmounting the component.
 //        This results in setVmListResp getting called on an unmounted component
 const VmList = () => {
-  const [mode, setMode] = useState('card')
+  const [mode, setMode] = useState('table') // mode = table / card / minicard
   const [vmListResp, setVmListResp] = useState(null)
 
   const refreshVmList = async () => {
@@ -46,15 +48,19 @@ const VmList = () => {
   return (
     <main>
       <ButtonGroup size="small" aria-label="Select table or card view for VMs">
-        <Button onClick={() => setMode('card')}>
-          <ViewComfyIcon />
-        </Button>
-        <Button onClick={() => setMode('table')}>
+        <Button onClick={() => setMode('table')} title='Table view'>
           <TableChartIcon />
         </Button>
+        <Button onClick={() => setMode('card')} title='Card view'>
+          <ViewModuleIcon />
+        </Button>
+        <Button onClick={() => setMode('minicard')} title='Mini card view'>
+          <ViewComfyIcon />
+        </Button>
       </ButtonGroup>
-      {mode === 'card' && <CardView {...viewProps} />}
       {mode === 'table' && <TableView {...viewProps} />}
+      {mode === 'card' && <CardView {...viewProps} />}
+      {mode === 'minicard' && <MiniCardView {...viewProps} />}
     </main>
   )
 }
