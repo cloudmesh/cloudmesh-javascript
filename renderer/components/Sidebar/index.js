@@ -12,12 +12,12 @@ import MenuList from '@material-ui/core/MenuList'
 import Divider from '@material-ui/core/Divider'
 import HomeIcon from '@material-ui/icons/Home'
 import PersonIcon from '@material-ui/icons/Person'
-import CloudIcon from '@material-ui/icons/Cloud';
-import SettingsIcon from '@material-ui/icons/Settings';
-import FeedbackIcon from '@material-ui/icons/Feedback';
-import AdjustIcon from '@material-ui/icons/Adjust';
-import LineWeightIcon from '@material-ui/icons/LineWeight';
-import { makeStyles } from '@material-ui/core/styles';
+import CloudIcon from '@material-ui/icons/Cloud'
+import SettingsIcon from '@material-ui/icons/Settings'
+import FeedbackIcon from '@material-ui/icons/Feedback'
+import AdjustIcon from '@material-ui/icons/Adjust'
+import LineWeightIcon from '@material-ui/icons/LineWeight'
+import { makeStyles } from '@material-ui/core/styles'
 
 import classes from './index.module.css'
 
@@ -30,14 +30,17 @@ const Sidebar = () => {
 
   return (
     <Paper className={classes.root}>
-
       <section className={classes.sidebar_section}>
         <MenuList>
           <MenuItem>
-            <Typography variant="h6" color="textPrimary">Akshay Gupta</Typography>
+            <Typography variant="h6" color="textPrimary">
+              Akshay Gupta
+            </Typography>
           </MenuItem>
           <MenuItem>
-            <Typography variant="body2" color="textSecondary">guptaaks@iu.edu</Typography>
+            <Typography variant="body2" color="textSecondary">
+              guptaaks@iu.edu
+            </Typography>
           </MenuItem>
         </MenuList>
       </section>
@@ -46,21 +49,36 @@ const Sidebar = () => {
 
       <MenuList>
         <MenuItem>
-          <Typography variant="body2" color="textSecondary" className={classes.list_text}>Cloudmesh</Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            className={classes.list_text}>
+            Cloudmesh
+          </Typography>
         </MenuItem>
         <MenuItem>
           <Link href="/">
             <div className={classes.link_child}>
-              <HomeIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
-              <Typography variant="body2" className={classes.list_text}>Home</Typography>
+              <HomeIcon
+                fontSize="small"
+                style={{ fill: '#6100ee', marginRight: '15px' }}
+              />
+              <Typography variant="body2" className={classes.list_text}>
+                Home
+              </Typography>
             </div>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link href="/profile">
             <div className={classes.link_child}>
-              <PersonIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
-              <Typography variant="body2" className={classes.list_text}>Profile</Typography>
+              <PersonIcon
+                fontSize="small"
+                style={{ fill: '#6100ee', marginRight: '15px' }}
+              />
+              <Typography variant="body2" className={classes.list_text}>
+                Profile
+              </Typography>
             </div>
           </Link>
         </MenuItem>
@@ -70,37 +88,62 @@ const Sidebar = () => {
 
       <MenuList>
         <MenuItem>
-          <Typography variant="body2" color="textSecondary" className={classes.list_text}>Clouds</Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            className={classes.list_text}>
+            Clouds
+          </Typography>
         </MenuItem>
         <MenuItem>
           <Link href="/images">
             <div className={classes.link_child}>
-              <AdjustIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
-              <Typography variant="body2" className={classes.list_text}>Images</Typography>
+              <AdjustIcon
+                fontSize="small"
+                style={{ fill: '#6100ee', marginRight: '15px' }}
+              />
+              <Typography variant="body2" className={classes.list_text}>
+                Images
+              </Typography>
             </div>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link href="/flavors">
             <div className={classes.link_child}>
-              <LineWeightIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
-              <Typography variant="body2" className={classes.list_text}>Flavors</Typography>
+              <LineWeightIcon
+                fontSize="small"
+                style={{ fill: '#6100ee', marginRight: '15px' }}
+              />
+              <Typography variant="body2" className={classes.list_text}>
+                Flavors
+              </Typography>
             </div>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link href="/vm/list">
             <div className={classes.link_child}>
-              <CloudIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
-              <Typography variant="body2" className={classes.list_text}>VM List</Typography>
+              <CloudIcon
+                fontSize="small"
+                style={{ fill: '#6100ee', marginRight: '15px' }}
+              />
+              <Typography variant="body2" className={classes.list_text}>
+                VM List
+              </Typography>
             </div>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link href="/settings/cms">
             <div className={classes.link_child}>
-              <SettingsIcon fontSize="small" style={{fill: "#6100ee", marginRight: '15px'}} />
-              <Typography variant="body2" className={classes.list_text}>Settings</Typography>
+              <SettingsIcon
+                fontSize="small"
+                style={{ fill: '#6100ee', marginRight: '15px' }}
+              />
+              <Typography variant="body2" className={classes.list_text}>
+                Settings
+              </Typography>
             </div>
           </Link>
         </MenuItem>
