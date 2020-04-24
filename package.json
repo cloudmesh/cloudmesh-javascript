@@ -2,10 +2,11 @@
   "private": true,
   "name": "cloudmesh-javascript",
   "description": "An interface for Cloudmesh.",
-  "version": "0.1.1-alpha",
+  "version": "0.1.5-alpha",
   "author": "Josh Goodman <jogoodma@iu.edu>",
   "contributors": [
-    "Akshay Gupta"
+    "Akshay Gupta",
+    "Gregor von Laszewski <laszewski@gmail.com>"
   ],
   "main": "app/background.js",
   "scripts": {

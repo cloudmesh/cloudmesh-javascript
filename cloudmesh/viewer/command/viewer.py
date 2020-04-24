@@ -1,16 +1,9 @@
-from __future__ import print_function
-from cloudmesh.shell.command import command
-from cloudmesh.shell.command import PluginCommand
-from cloudmesh.common.console import Console
-from cloudmesh.common.util import path_expand
-from pprint import pprint
-from cloudmesh.common.debug import VERBOSE
-from cloudmesh.common.Shell import Shell
-import inspect
 import os
 import subprocess
-from pprint import pprint
-import signal
+from cloudmesh.shell.command import PluginCommand
+from cloudmesh.shell.command import command
+from cloudmesh.viewer.Viewer import Viewer
+
 
 class ViewerCommand(PluginCommand):
 
@@ -21,72 +14,46 @@ class ViewerCommand(PluginCommand):
         ::
 
           Usage:
+                viewer start [--branch=<BRANCH>|--clean]
+                viewer start dev
                 viewer stop
-                viewer start [OPTIONS...]
-                viewer deploy --uninstall
-                viewer deploy --branch=BRANCH
-                viewer deploy
+                viewer deploy [--branch=<BRANCH>|--uninstall]
 
           This command starts the javascript GUI
 
-
+          Options:
+            --clean           Cleans any previous installations or builds
+            --branch=<BRANCH> The branch to deploy
+            --uninstall       Removes any previous installations.
         """
+        location = Viewer.base_dir
 
+        # Get OS specific props (exe, build dir, etc.)
+        os_props = Viewer.get_os_props(location)
+
+        branch = None
+        if arguments["--branch"]:
+            branch = arguments["--branch"]
 
         if arguments.stop:
-            found = []
-            processes = Shell.ps()
-            for p in processes:
-                if 'cmdline' in p and p['cmdline']:
-                    if 'javascript' in ' '.join(p['cmdline']):
-                        found.append(p['pid'])
-            for p in found:
-                Console.ok(f"...killing process {p}")
-                os.kill(p, signal.SIGKILL)
+            Viewer.stop()
 
+        elif arguments.start and arguments['dev']:
+            # Run yarn install and then yarn run dev
+            Viewer.yarn_install()
+            subprocess.run("yarn run dev", cwd=location, shell=True)
 
         elif arguments.start:
-            import cloudmesh.viewer as viewer
-            location = inspect.getfile(viewer)
-            for i in range(0,3):
-                location = os.path.dirname(location)
-            if arguments.OPTIONS:
-                options = " ".join(arguments.OPTIONS)
-            else:
-                options = "build"
-            electron = subprocess.Popen(f"yarn {options}",
-                                        cwd=location,
-                                        shell=True)
-            if options == "buuld":
-                Console.error("immplement the deploy for now use dev")
+            if arguments["--clean"] or arguments["--branch"]:
+                # Clean install dir
+                Viewer.uninstall(os_props['install_dir'])
+                # Clean node_modules
+                Viewer.clean()
+            Viewer.start(os_props["install_dir"], os_props["build_dir"], os_props["exe_cmd"], branch)
 
         elif arguments.deploy and arguments["--uninstall"]:
-
-            Console.error("not yet implemented for Linux")
-            Console.error("not yet implemented for Windows")
-            Console.error("not yet implemented for macOS")
-
-        elif arguments.deploy and arguments["--branch"]:
-
-
-            branch=arguments["--branch"]
-            try:
-                os.system("git checkout {branch}")
-                Console.error("not yet implemented for Linux")
-                Console.error("not yet implemented for Windows")
-                Console.error("not yet implemented for macOS")
-            except Exception as e:
-                print (e)
+            Viewer.uninstall(os_props['install_dir'])
 
         elif arguments.deploy:
-            try:
-                os.ssytem("git status")
-                Console.error("not yet implemented for Linux")
-                Console.error("not yet implemented for Windows")
-                Console.error("not yet implemented for macOS")
-            except Exception as e:
-                print (e)
-
-
-
-        return ""
+            Viewer.build()
+            Viewer.deploy(os_props["build_dir"], os_props["install_dir"], branch)
