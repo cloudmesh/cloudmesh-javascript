@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Sidebar from '../components/Sidebar'
+import VmTabs from '../components/VmTabs'
 
 import 'typeface-roboto'
 
@@ -11,6 +12,7 @@ import './global.css'
 import styles from './_app.module.css'
 
 function CloudmeshApp({ Component, pageProps }) {
+  console.log('pageProps', pageProps)
   return (
     <React.Fragment>
       <Head>
@@ -20,11 +22,12 @@ function CloudmeshApp({ Component, pageProps }) {
           content="script-src 'self' 'unsafe-inline';"
         />
       </Head>
-      <main className={styles.main_container}>
+      <main className={styles.main}>
         <nav className={styles.nav}>
           <Sidebar />
         </nav>
-        <section className={styles.main}>
+        <section className={styles.main_section}>
+          <VmTabs />
           <Component {...pageProps} />
         </section>
       </main>

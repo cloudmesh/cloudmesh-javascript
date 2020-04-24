@@ -69,7 +69,6 @@ const TableComponent = withStyles(styles, { name: 'TableComponent' })(
 )
 
 export default ({ rows = [] }) => {
-  console.log('rows', rows[1])
   const classes = useStyles()
 
   let statusColor

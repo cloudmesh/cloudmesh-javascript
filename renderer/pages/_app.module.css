@@ -1,21 +1,6 @@
-.main_container {
+.main {
   display: flex;
 }
-
-.main {
-  /* display: flex; */
-  /* height: 85vh; */
+.main_section {
+  padding: 20px;
 }
-
-.nav {
-  /* flex: 0 0 200px; */
-  /* margin-right: 20px; */
-
-  /* border: 1px solid rgb(206, 147, 216);
-  box-shadow: 2px 3px 7px -3px #ce93d8; */
-  /* border-radius: 0.25rem; */
-}
-
-/* .main_section {
-  flex: 1 0 200px;
-} */
