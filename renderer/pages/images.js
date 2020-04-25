@@ -8,20 +8,23 @@ import styles from './images.module.css'
 import RefreshButton from '../components/RefreshButton'
 
 const Images = () => {
-  const [images, refreshImages] = useCms({ command: CMS_IMAGE_LIST_CMD })
+  const [{ output: images, error, isRunning = false }, refreshImages] = useCms({
+    command: CMS_IMAGE_LIST_CMD,
+  })
 
-  if (images) {
+  if (isRunning) {
     return (
-      <div>
-        <RefreshButton onRefresh={refreshImages} />
-        <ImagesTable rows={images} />
+      <div className={styles.loading}>
+        <CircularProgress size="5rem" />
       </div>
     )
   }
 
   return (
-    <div className={styles.loading}>
-      <CircularProgress size="5rem" />
+    <div>
+      {error && <div>{error}</div>}
+      <RefreshButton onRefresh={refreshImages} />
+      {images && <ImagesTable rows={images} />}
     </div>
   )
 }

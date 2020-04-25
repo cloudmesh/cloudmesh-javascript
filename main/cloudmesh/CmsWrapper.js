@@ -3,10 +3,13 @@ import fs from 'fs'
 import extract from 'extract-json-from-string'
 
 export const runCmsSync = ({ cmsBin, args = [] }) => {
-  let result = {}
+  let result = {
+    stdout: null,
+    stderr: null,
+  }
   if (cmsBin && fs.existsSync(cmsBin)) {
     try {
-      const { stdout: output, stderr, status } = spawn.sync(cmsBin, args, {
+      const { stdout, stderr, status } = spawn.sync(cmsBin, args, {
         stdio: ['ignore', 'pipe', 'pipe'],
       })
       // The "JSON" output from CMS is problematic because it is polluted with
@@ -14,9 +17,15 @@ export const runCmsSync = ({ cmsBin, args = [] }) => {
       // As a result we have to extract the JSON strings we can find in the
       // output.  Sometimes strings may look like a JSON object but are in fact
       // not so we return the last item found.
-      const objects = extract(output.toString())
+      const objects = extract(stdout.toString())
       // Always return the last JSON object
-      result = objects.pop()
+      result.stdout = objects.pop()
+      if (stderr) {
+        result.stderr = stderr
+      }
+      if (stdout?.toString().includes('ERROR')) {
+        result.stderr += stdout.toString()
+      }
     } catch (error) {
       console.log('Error parsing output', error)
     }

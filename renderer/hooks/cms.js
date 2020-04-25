@@ -1,7 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer } from 'react'
 import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND } from '../../main/constants'
 
+const initialState = {
+  output: null,
+  error: null,
+  isRunning: false,
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'execute':
+      return { output: null, error: null, isRunning: true }
+    case 'setio':
+      return { output: action?.output, error: action?.error, isRunning: false }
+    case 'reset':
+      return initialState
+    default:
+      throw new Error(`Unexpected action: {action.type}`)
+  }
+}
 /**
  * A custom hook for interfacing with the Cloudmesh cms script.
  * This hook allows any component to easily send commands and
@@ -27,14 +45,16 @@ import { CMS_COMMAND_SEND } from '../../main/constants'
  * refresh the output.
  */
 export const useCms = ({ command }) => {
-  const [output, setOutput] = useState(null)
+  const [state, dispatch] = useReducer(reducer, initialState)
 
-  const refreshOutput = async () => {
-    setOutput(null)
+  const refresh = async () => {
     if (ipcRenderer) {
-      setOutput(
-        await ipcRenderer.invoke(CMS_COMMAND_SEND, [...command, '--refresh'])
-      )
+      dispatch({ type: 'execute' })
+      const { stdout, stderr } = await ipcRenderer.invoke(CMS_COMMAND_SEND, [
+        ...command,
+        '--refresh',
+      ])
+      dispatch({ type: 'setio', output: stdout, error: stderr })
     }
   }
 
@@ -42,8 +62,12 @@ export const useCms = ({ command }) => {
   useEffect(() => {
     const initialFetch = async () => {
       if (ipcRenderer) {
-        const output = await ipcRenderer.invoke(CMS_COMMAND_SEND, command)
-        setOutput(output)
+        dispatch({ type: 'execute' })
+        const { stdout, stderr } = await ipcRenderer.invoke(
+          CMS_COMMAND_SEND,
+          command
+        )
+        dispatch({ type: 'setio', output: stdout, error: stderr })
       }
     }
     initialFetch()
@@ -53,5 +77,5 @@ export const useCms = ({ command }) => {
     }
   }, [])
 
-  return [output, refreshOutput]
+  return [state, refresh]
 }
