@@ -45,11 +45,6 @@ const MiniCardView = ({ vmData = [], onRefresh = () => {} }) => {
 
   return (
     <>
-      <div>
-        <Button onClick={onRefresh} color="primary" variant="outlined">
-          <RefreshIcon />
-        </Button>
-      </div>
       <div className={styles.minicards}>
         {vmData &&
           vmData.map(({ id, name, ip_public, status, metadata }) => {
