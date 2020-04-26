@@ -2,12 +2,27 @@ import { useEffect, useReducer } from 'react'
 import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND } from '../../main/constants'
 
+/**
+ * The initial state of the CMS hook state.
+ * output - The parsed JSON output from CMS.
+ * error - The stderr string buffer from the CMS IO
+ * isRunning - Boolean indicating if we are currently running the specified command.
+ *
+ * @type {{output: null, isRunning: boolean, error: null}}
+ */
 const initialState = {
   output: null,
   error: null,
   isRunning: false,
 }
 
+/**
+ * Reducer used to track output, error, and running status of the CMS command.
+ *
+ * @param state - The current state of the reducer.
+ * @param action - The action object indicating the type of event and any payload data.
+ * @returns {{output: *, isRunning: boolean, error: *}|{output: null, isRunning: boolean, error: null}}
+ */
 const reducer = (state, action) => {
   switch (action.type) {
     case 'execute':
@@ -20,6 +35,7 @@ const reducer = (state, action) => {
       throw new Error(`Unexpected action: {action.type}`)
   }
 }
+
 /**
  * A custom hook for interfacing with the Cloudmesh cms script.
  * This hook allows any component to easily send commands and
@@ -28,7 +44,7 @@ const reducer = (state, action) => {
  * Usage:
  * import { useCms } from './hooks/cms'
  * const MyComp = () => {
- *   const [ vms, refreshVms ] = useCms({command: ['vm','list','--output=json']})
+ *   const [ {output: vms, error, isRunning}, refreshVms ] = useCms({command: ['vm','list','--output=json']})
  *
  *   return (
  *     <>
@@ -38,11 +54,10 @@ const reducer = (state, action) => {
  *   )
  * }
  *
- * TODO: Add support for sync and async operations.
- *
  * @param command | <Array> - Array of commands to pass to the cms script.
- * @returns {[output, refreshOutput]} | <Array> - First element is output, second is a function that can be used to
- * refresh the output.
+ * @returns {[output, refreshOutput]} | <Array> - First element is an object with output, error, and isRunning fields,
+ *                                                second is a function that can be used to
+ *                                                refresh the output.
  */
 export const useCms = ({ command }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
