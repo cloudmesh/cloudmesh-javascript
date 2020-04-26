@@ -11,20 +11,22 @@ import styles from './images.module.css'
 import RefreshButton from '../components/RefreshButton'
 
 const Flavors = () => {
-  const [flavors, refreshFlavors] = useCms({ command: CMS_FLAVOR_LIST_CMD })
+  const [{ output: flavors, error, isRunning }, refreshFlavors] = useCms({
+    command: CMS_FLAVOR_LIST_CMD,
+  })
 
-  if (flavors) {
+  if (isRunning) {
     return (
-      <div>
-        <RefreshButton onRefresh={refreshFlavors} />
-        <FlavorsTable rows={flavors} />
+      <div className={styles.loading}>
+        <CircularProgress size="5rem" />
       </div>
     )
   }
-
   return (
-    <div className={styles.loading}>
-      <CircularProgress size="5rem" />
+    <div>
+      {error && <div>{error}</div>}
+      <RefreshButton onRefresh={refreshFlavors} />
+      {flavors && <FlavorsTable rows={flavors} />}
     </div>
   )
 }
