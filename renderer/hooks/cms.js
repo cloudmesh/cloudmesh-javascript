@@ -1,6 +1,6 @@
-import { useEffect, useReducer } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import { ipcRenderer } from 'electron'
-import { CMS_COMMAND_SEND } from '../../main/constants'
+import { CMS_COMMAND_SEND, CMS_COMMAND_SEND_SYNC } from '../../main/constants'
 
 /**
  * The initial state of the CMS hook state.
@@ -65,10 +65,10 @@ export const useCms = ({ command }) => {
   const refresh = async () => {
     if (ipcRenderer) {
       dispatch({ type: 'execute' })
-      const { stdout, stderr } = await ipcRenderer.invoke(CMS_COMMAND_SEND, [
-        ...command,
-        '--refresh',
-      ])
+      const { stdout, stderr } = await ipcRenderer.invoke(
+        CMS_COMMAND_SEND_SYNC,
+        [...command, '--refresh']
+      )
       dispatch({ type: 'setio', output: stdout, error: stderr })
     }
   }
@@ -79,7 +79,7 @@ export const useCms = ({ command }) => {
       if (ipcRenderer) {
         dispatch({ type: 'execute' })
         const { stdout, stderr } = await ipcRenderer.invoke(
-          CMS_COMMAND_SEND,
+          CMS_COMMAND_SEND_SYNC,
           command
         )
         dispatch({ type: 'setio', output: stdout, error: stderr })
@@ -93,4 +93,24 @@ export const useCms = ({ command }) => {
   }, [])
 
   return [state, refresh]
+}
+
+export const useCmsVmStartStop = () => {
+  const [status, setStatus] = useState('idle')
+
+  const sendVmStart = (command) => {
+    setStatus('starting')
+    ipcRenderer.invoke(CMS_COMMAND_SEND, command).then(() => {
+      setStatus('idle')
+    })
+  }
+
+  const sendVmStop = (command) => {
+    setStatus('stopping')
+    ipcRenderer.invoke(CMS_COMMAND_SEND, command).then(() => {
+      setStatus('idle')
+    })
+  }
+
+  return [status, sendVmStart, sendVmStop]
 }

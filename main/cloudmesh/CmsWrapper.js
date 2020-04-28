@@ -35,20 +35,22 @@ export const runCmsSync = ({ cmsBin, args = [] }) => {
   return result
 }
 
-// export const runCms = ({ cmsBin, args = [] }) => {
-//   let result = {}
-//   if (cmsBin && fs.existsSync(cmsBin)) {
-//     try {
-//       const { stdout: output, status } = spawn(cmsBin, args, {
-//         stdio: ['ignore', 'pipe', process.stderr],
-//       })
-//       const match = output.toString().match(dataObjRegex)
-//       if (status === 0 && match) {
-//         result = JSON.parse(match[1])
-//       }
-//     } catch (error) {}
-//   } else {
-//     throw new Error('Invalid CMS binary.')
-//   }
-//   return result
-// }
+export const runCms = ({ cmsBin, args = [] }) => {
+  if (cmsBin && fs.existsSync(cmsBin)) {
+    return new Promise((resolve, reject) => {
+      const cms = spawn(cmsBin, args)
+
+      // Handler for when data is returned from CMS
+      cms.on('close', (code) => {
+        if (code !== 0) {
+          reject(Error(`${cmsBin} ${args} exited with code ${code}`))
+        }
+        resolve()
+      })
+      // Handler for stderr from CMS
+      cms.stderr.on('data', (stderr) => {
+        reject(Error(stderr))
+      })
+    })
+  }
+}

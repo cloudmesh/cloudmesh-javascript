@@ -3,11 +3,16 @@ import serve from 'electron-serve'
 import * as Store from 'electron-store'
 import path from 'path'
 import fs from 'fs'
-import { runCmsSync } from './cloudmesh/CmsWrapper'
+import { runCmsSync, runCms } from './cloudmesh/CmsWrapper'
 
 import { createWindow } from './helpers'
 
-import { CMS_BIN_STORE_KEY, CMS_COMMAND_SEND, SET_CMS_PATH } from './constants'
+import {
+  CMS_BIN_STORE_KEY,
+  CMS_COMMAND_SEND,
+  CMS_COMMAND_SEND_SYNC,
+  SET_CMS_PATH,
+} from './constants'
 
 app.allowRendererProcessReuse = true
 const isProd = process.env.NODE_ENV === 'production'
@@ -54,7 +59,7 @@ app.on('window-all-closed', () => {
 })
 
 // Main
-ipcMain.handle(SET_CMS_PATH, async (event, cmsPath) => {
+ipcMain.handle(SET_CMS_PATH, (event, cmsPath) => {
   if (!fs.existsSync(cmsPath)) throw new Error(`${cmsPath} is invalid`)
   store.set(CMS_BIN_STORE_KEY, cmsPath)
   // Restart app after changing python environment.
@@ -62,6 +67,26 @@ ipcMain.handle(SET_CMS_PATH, async (event, cmsPath) => {
   app.exit(0)
 })
 
-ipcMain.handle(CMS_COMMAND_SEND, async (event, args = []) => {
+/**
+ * Synchronously send commands to the CMS command line.
+ * In other words, send a command and wait for stdout/stderr.
+ *
+ * Returns an object with 'stdout' and 'stderr' keys.
+ * {
+ *   stdout: <Parsed JSON object>,
+ *   stderr: <Error string if any>
+ * }
+ */
+ipcMain.handle(CMS_COMMAND_SEND_SYNC, (event, args = []) => {
   return runCmsSync({ cmsBin, args })
+})
+
+/**
+ * Asynchronously send commands to the CMS command line.
+ * In other words, fire and forget.
+ *
+ * Returns a promise that resolves when the command has closed.
+ */
+ipcMain.handle(CMS_COMMAND_SEND, (event, args = []) => {
+  return runCms({ cmsBin, args })
 })
