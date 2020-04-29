@@ -58,9 +58,9 @@ const Card = ({ id, name, ip_public, status: vmStatus, metadata }) => {
   } else if (status === 'SHUTOFF') {
     statusColor = 'red'
   } else if (status === 'ERROR') {
-    statusColor = 'yellow'
-  } else if (status === 'STARTING' || status === 'STOPPING') {
     statusColor = 'orange'
+  } else if (status === 'STARTING' || status === 'STOPPING') {
+    statusColor = 'yellow'
   }
 
   return (

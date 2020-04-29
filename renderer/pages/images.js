@@ -6,6 +6,7 @@ import ImagesTable from '../components/ImagesTable'
 
 import styles from './images.module.css'
 import RefreshButton from '../components/RefreshButton'
+import CmsError from '../components/CmsError'
 
 const Images = () => {
   const [{ output: images, error, isRunning = false }, refreshImages] = useCms({
@@ -22,8 +23,10 @@ const Images = () => {
 
   return (
     <div>
-      {error && <div>{error}</div>}
-      <RefreshButton onRefresh={refreshImages} />
+      <div className={styles.buttons}>
+        <RefreshButton onRefresh={refreshImages} />
+        <CmsError error={error} />
+      </div>
       {images && <ImagesTable rows={images} />}
     </div>
   )

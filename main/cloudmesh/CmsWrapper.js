@@ -21,7 +21,7 @@ export const runCmsSync = ({ cmsBin, args = [] }) => {
       // Always return the last JSON object
       result.stdout = objects.pop()
       if (stderr) {
-        result.stderr = stderr
+        result.stderr = stderr.toString()
       }
       if (stdout?.toString().includes('ERROR')) {
         result.stderr += stdout.toString()
