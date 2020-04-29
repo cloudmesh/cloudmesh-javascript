@@ -20,14 +20,9 @@ import LineWeightIcon from '@material-ui/icons/LineWeight'
 import { makeStyles } from '@material-ui/core/styles'
 
 import classes from './index.module.css'
+import CloudSelector from '../CloudSelector'
 
 const Sidebar = () => {
-  const [cloudProvider, setCloudProvider] = useState('openstack')
-
-  const handleCloudProviderChange = (event) => {
-    setCloudProvider(event.target.value)
-  }
-
   return (
     <Paper className={classes.root}>
       <section className={classes.sidebar_section}>
@@ -148,19 +143,7 @@ const Sidebar = () => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <FormControl>
-            <InputLabel id="select-cloud-label">Cloud</InputLabel>
-            <Select
-              labelId="select-cloud-label"
-              id="cloud-select"
-              value={cloudProvider}
-              onChange={handleCloudProviderChange}>
-              <MenuItem value="openstack">OpenStack</MenuItem>
-              <MenuItem value="aws">AWS</MenuItem>
-              <MenuItem value="google">Google</MenuItem>
-              <MenuItem value="azure">Azure</MenuItem>
-            </Select>
-          </FormControl>
+          <CloudSelector />
         </MenuItem>
       </MenuList>
     </Paper>

@@ -111,6 +111,38 @@ export const useCmsVmStartStop = () => {
       setStatus('idle')
     })
   }
-
   return [status, sendVmStart, sendVmStop]
+}
+
+/**
+ * Custom hook to get / set CMS cloud information
+ *
+ */
+export const useCmsCloud = (defaultCloud = 'openstack') => {
+  const [cloud, setCloud] = useState(defaultCloud)
+
+  const setCmsCloud = (cloud) => {
+    ipcRenderer.invoke(CMS_COMMAND_SEND, ['set', `cloud=${cloud}`]).then(() => {
+      setCloud(cloud)
+    })
+  }
+  useEffect(() => {
+    const getCloud = async () => {
+      const { stdout, stderr } = await ipcRenderer.invoke(
+        CMS_COMMAND_SEND_SYNC,
+        ['set', 'cloud'],
+        false
+      )
+      const cloudRegex = /cloud='(\w+)\'/g
+      const matches = stdout.matchAll(cloudRegex)
+
+      let cloud
+      for (const match of matches) {
+        cloud = match[1]
+      }
+      setCloud(cloud)
+    }
+    getCloud()
+  }, [])
+  return [cloud, setCmsCloud]
 }

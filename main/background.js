@@ -77,8 +77,8 @@ ipcMain.handle(SET_CMS_PATH, (event, cmsPath) => {
  *   stderr: <Error string if any>
  * }
  */
-ipcMain.handle(CMS_COMMAND_SEND_SYNC, (event, args = []) => {
-  return runCmsSync({ cmsBin, args })
+ipcMain.handle(CMS_COMMAND_SEND_SYNC, (event, args = [], parseJson = true) => {
+  return runCmsSync({ cmsBin, args, parseJson })
 })
 
 /**

@@ -2,7 +2,7 @@ import spawn from 'cross-spawn'
 import fs from 'fs'
 import extract from 'extract-json-from-string'
 
-export const runCmsSync = ({ cmsBin, args = [] }) => {
+export const runCmsSync = ({ cmsBin, args = [], parseJson = true }) => {
   let result = {
     stdout: null,
     stderr: null,
@@ -12,14 +12,19 @@ export const runCmsSync = ({ cmsBin, args = [] }) => {
       const { stdout, stderr, status } = spawn.sync(cmsBin, args, {
         stdio: ['ignore', 'pipe', 'pipe'],
       })
-      // The "JSON" output from CMS is problematic because it is polluted with
-      // extraneous string data that is not part of the actual JSON response.
-      // As a result we have to extract the JSON strings we can find in the
-      // output.  Sometimes strings may look like a JSON object but are in fact
-      // not so we return the last item found.
-      const objects = extract(stdout.toString())
-      // Always return the last JSON object
-      result.stdout = objects.pop()
+      if (parseJson) {
+        // The "JSON" output from CMS is problematic because it is polluted with
+        // extraneous string data that is not part of the actual JSON response.
+        // As a result we have to extract the JSON strings we can find in the
+        // output.  Sometimes strings may look like a JSON object but are in fact
+        // not so we return the last item found.
+        const objects = extract(stdout.toString())
+        // Always return the last JSON object
+        result.stdout = objects.pop()
+      } else {
+        result.stdout = stdout.toString()
+      }
+
       if (stderr) {
         result.stderr = stderr.toString()
       }
