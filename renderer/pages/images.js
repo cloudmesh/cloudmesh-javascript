@@ -3,6 +3,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { CMS_IMAGE_LIST_CMD } from '../../main/constants'
 import { useCms } from '../hooks/cms'
 import ImagesTable from '../components/ImagesTable'
+import PageHeader from '../components/PageHeader'
 
 import styles from './images.module.css'
 import RefreshButton from '../components/RefreshButton'
@@ -23,10 +24,10 @@ const Images = () => {
 
   return (
     <div>
-      <div className={styles.buttons}>
+      <PageHeader name="Images">
         <RefreshButton onRefresh={refreshImages} />
         <CmsError error={error} />
-      </div>
+      </PageHeader>
       {images && <ImagesTable rows={images} />}
     </div>
   )

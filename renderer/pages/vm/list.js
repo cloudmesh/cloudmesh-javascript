@@ -14,6 +14,7 @@ import PageHeader from '../../components/PageHeader'
 import RefreshIcon from '@material-ui/icons/Refresh'
 import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND } from '../../../main/constants'
+
 import styles from './list.module.css'
 // import { makeCancelable } from '../../main/utils'
 
