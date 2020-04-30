@@ -50,9 +50,9 @@ const VmList = () => {
           </Button>
         </ButtonGroup>
       </div>
-      {mode === 'table' && <TableView {...viewProps} />}
-      {mode === 'card' && <CardView {...viewProps} />}
-      {mode === 'minicard' && <MiniCardView {...viewProps} />}
+      {mode === 'table' && <TableView vmData={vms} />}
+      {mode === 'card' && <CardView vmData={vms} />}
+      {mode === 'minicard' && <MiniCardView vmData={vms} />}
     </main>
   )
 }
