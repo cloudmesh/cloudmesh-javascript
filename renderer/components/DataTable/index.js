@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ipcRenderer } from 'electron'
-import { CMS_COMMAND_SEND } from '../../../main/constants'
+import { CMS_COMMAND_SEND_SYNC } from '../../../main/constants'
 import IconButton from '@material-ui/core/IconButton'
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 import Typography from '@material-ui/core/Typography'
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 const controlVm = async (command, vmName) => {
   if (ipcRenderer) {
-    ipcRenderer.invoke(CMS_COMMAND_SEND, ['vm', command, vmName])
+    ipcRenderer.invoke(CMS_COMMAND_SEND_SYNC, ['vm', command, vmName])
   }
 }
 
