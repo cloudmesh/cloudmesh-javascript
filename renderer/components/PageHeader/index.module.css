@@ -1,0 +1,7 @@
+.headerLabel {
+  font-size: 2rem;
+}
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+}

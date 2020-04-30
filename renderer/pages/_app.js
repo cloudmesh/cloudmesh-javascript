@@ -27,7 +27,7 @@ function CloudmeshApp({ Component, pageProps }) {
           <Sidebar />
         </nav>
         <section className={styles.main_section}>
-          <VmTabs />
+          {/*<VmTabs />*/}
           <Component {...pageProps} />
         </section>
       </main>

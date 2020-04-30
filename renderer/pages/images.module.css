@@ -4,9 +4,3 @@
   align-items: center;
   height: 80%;
 }
-
-.buttons {
-  display: flex;
-  width: 200px;
-  justify-content: space-between;
-}

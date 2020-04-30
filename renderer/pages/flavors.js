@@ -4,6 +4,7 @@ import { CMS_FLAVOR_LIST_CMD } from '../../main/constants'
 import { useCms } from '../hooks/cms'
 import CmsError from '../components/CmsError'
 import FlavorsTable from '../components/FlavorsTable'
+import PageHeader from '../components/PageHeader'
 
 import styles from './flavors.module.css'
 import RefreshButton from '../components/RefreshButton'
@@ -22,10 +23,10 @@ const Flavors = () => {
   }
   return (
     <div>
-      <div className={styles.buttons}>
+      <PageHeader name="Flavors">
         <RefreshButton onRefresh={refreshFlavors} />
         <CmsError error={error} />
-      </div>
+      </PageHeader>
       {flavors && <FlavorsTable rows={flavors} />}
     </div>
   )
