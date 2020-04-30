@@ -15,6 +15,8 @@ import {
   IntegratedPaging,
   FilteringState,
   IntegratedFiltering,
+  SelectionState,
+  IntegratedSelection,
 } from '@devexpress/dx-react-grid'
 import {
   Grid,
@@ -25,6 +27,7 @@ import {
   ColumnChooser,
   TableColumnVisibility,
   Toolbar,
+  TableSelection,
 } from '@devexpress/dx-react-grid-material-ui'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
@@ -124,7 +127,7 @@ export default ({ rows = [] }) => {
   const [sorting, setSorting] = useState([
     { columnName: 'hostname', direction: 'asc' },
   ])
-  const [pageSizes] = useState([5, 10, 15, 0])
+  const [pageSizes] = useState([10, 20, 30, 0])
   const [filters, setFilters] = useState([{ columnName: 'name', value: '' }])
   const [tableColumnExtensions] = useState([
     { columnName: 'actions', width: 100 },
@@ -133,14 +136,21 @@ export default ({ rows = [] }) => {
     { columnName: 'hostname', togglingEnabled: false },
   ])
   const [hiddenColumnNames, setHiddenColumnNames] = useState([])
+  const [selection, setSelection] = useState([])
 
   return (
     <Paper>
       <Grid rows={rows} columns={columns}>
         <FilteringState filters={filters} onFiltersChange={setFilters} />
         <IntegratedFiltering />
-        <PagingState defaultCurrentPage={0} defaultPageSize={10} />
+
+        <PagingState defaultCurrentPage={0} defaultPageSize={20} />
+        <SelectionState
+          selection={selection}
+          onSelectionChange={setSelection}
+        />
         <IntegratedPaging />
+        <IntegratedSelection />
         <SortingState sorting={sorting} onSortingChange={setSorting} />
         <IntegratedSorting />
         <Table
@@ -156,6 +166,7 @@ export default ({ rows = [] }) => {
         <ColumnChooser />
         <TableFilterRow />
         <TableHeaderRow showSortingControls />
+        <TableSelection showSelectAll />
         <PagingPanel pageSizes={pageSizes} />
       </Grid>
     </Paper>

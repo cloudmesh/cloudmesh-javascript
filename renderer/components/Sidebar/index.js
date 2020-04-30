@@ -147,7 +147,7 @@ const Sidebar = () => {
             </div>
           </Link>
         </MenuItem>
-        <MenuItem>
+        {/*<MenuItem>
           <FormControl>
             <InputLabel id="select-cloud-label">Cloud</InputLabel>
             <Select
@@ -161,7 +161,7 @@ const Sidebar = () => {
               <MenuItem value="azure">Azure</MenuItem>
             </Select>
           </FormControl>
-        </MenuItem>
+        </MenuItem>*/}
       </MenuList>
     </Paper>
   )

@@ -9,6 +9,7 @@ import MiniCardView from '../../components/vm/MiniCardView'
 import TableView from '../../components/vm/TableView'
 import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND } from '../../../main/constants'
+import styles from './list.module.css'
 // import { makeCancelable } from '../../main/utils'
 
 const vmListCmd = ['vm', 'list', '--output=json']
@@ -46,18 +47,22 @@ const VmList = () => {
   }
 
   return (
-    <main>
-      <ButtonGroup size="small" aria-label="Select table or card view for VMs">
-        <Button onClick={() => setMode('table')} title="Table view">
-          <TableChartIcon />
-        </Button>
-        <Button onClick={() => setMode('card')} title="Card view">
-          <ViewModuleIcon />
-        </Button>
-        <Button onClick={() => setMode('minicard')} title="Mini card view">
-          <ViewComfyIcon />
-        </Button>
-      </ButtonGroup>
+    <main className={styles.mainContent}>
+      <div className={styles.btnGroup}>
+        <ButtonGroup
+          size="small"
+          aria-label="Select table or card view for VMs">
+          <Button onClick={() => setMode('table')} title="Table view">
+            <TableChartIcon />
+          </Button>
+          <Button onClick={() => setMode('card')} title="Card view">
+            <ViewModuleIcon />
+          </Button>
+          <Button onClick={() => setMode('minicard')} title="Mini card view">
+            <ViewComfyIcon />
+          </Button>
+        </ButtonGroup>
+      </div>
       {mode === 'table' && <TableView {...viewProps} />}
       {mode === 'card' && <CardView {...viewProps} />}
       {mode === 'minicard' && <MiniCardView {...viewProps} />}
