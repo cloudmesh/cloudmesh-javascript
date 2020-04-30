@@ -30,6 +30,10 @@ import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
+import Link from 'next/link'
+import InfoIcon from '@material-ui/icons/Info'
+import CardActions from '@material-ui/core/CardActions'
+import { useCmsVmStartStop } from '../../hooks/cms'
 
 const styles = (theme) => ({
   tableStriped: {
@@ -69,7 +73,6 @@ const TableComponent = withStyles(styles, { name: 'TableComponent' })(
 )
 
 export default ({ rows = [] }) => {
-  console.log('rows', rows[1])
   const classes = useStyles()
 
   let statusColor
@@ -82,7 +85,7 @@ export default ({ rows = [] }) => {
   }
 
   const [columns, setColumns] = useState([
-    { name: 'hostname', title: 'Hostname' },
+    { name: 'hostname', title: 'Name' },
     { name: 'ip_public', title: 'Public IP' },
     {
       name: 'status',
@@ -106,6 +109,11 @@ export default ({ rows = [] }) => {
       title: 'Actions',
       getCellValue: (row) => (
         <div>
+          <Link href={`/vm/details/${row.hostname}`}>
+            <IconButton size="small">
+              <InfoIcon />
+            </IconButton>
+          </Link>
           <IconButton
             size="small"
             onClick={() => controlVm('start', row.hostname)}>

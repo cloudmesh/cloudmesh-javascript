@@ -10,10 +10,12 @@ import CardActions from '@material-ui/core/CardActions'
 import { CMS_VM_START_CMD, CMS_VM_STOP_CMD } from '../../../main/constants'
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 import StopIcon from '@material-ui/icons/Stop'
+import InfoIcon from '@material-ui/icons/Info'
 import DefaultCard from '../DefaultCard'
 import { makeStyles } from '@material-ui/core/styles'
 import { green, red, yellow, orange } from '@material-ui/core/colors'
 import { useCmsVmStartStop } from '../../hooks/cms'
+import Link from 'next/link'
 
 const useStyles = makeStyles((theme) => ({
   green: {
@@ -92,6 +94,11 @@ const Card = ({ id, name, ip_public, status: vmStatus, metadata }) => {
         </Typography>
       </CardContent>
       <CardActions>
+        <Link href={`/vm/details/${name}`}>
+          <IconButton size="small">
+            <InfoIcon />
+          </IconButton>
+        </Link>
         <IconButton
           size="small"
           onClick={() => sendVmStart([...CMS_VM_START_CMD, name])}>

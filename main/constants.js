@@ -8,6 +8,7 @@ export const CMS_COMMAND_SEND_SYNC = 'cms-send-sync'
 export const CMS_COMMAND_SEND = 'cms-send'
 
 export const CMS_VM_LIST_CMD = ['vm', 'list', '--output=json']
+export const CMS_VM_INFO_CMD = ['vm', 'info', '--output=json']
 export const CMS_VM_START_CMD = ['vm', 'start']
 export const CMS_VM_STOP_CMD = ['vm', 'stop']
 

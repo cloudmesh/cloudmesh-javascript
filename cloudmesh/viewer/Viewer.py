@@ -145,9 +145,9 @@ class Viewer:
         # TODO Windows
         if Viewer.platform == 'darwin':
             return {
-                "exe_cmd": f'open -a "Cloudmesh Dashboard.app"',
-                "install_dir": os.path.join(path_expand('~/Applications'), "Cloudmesh Dashboard.app"),
-                "build_dir": os.path.join(location, 'dist', 'mac', "Cloudmesh Dashboard.app")
+                "exe_cmd": f'open -a "cloudmesh-javascript.app"',
+                "install_dir": os.path.join(path_expand('~/Applications'), "cloudmesh-javascript.app"),
+                "build_dir": os.path.join(location, 'dist', 'mac', "cloudmesh-javascript.app")
             }
         elif Viewer.platform.startswith('linux'):
             build_dir = os.path.join(location, 'dist', 'linux-unpacked')
