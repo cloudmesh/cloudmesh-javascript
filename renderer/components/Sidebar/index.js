@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import Link from 'next/link'
 
 import FormControl from '@material-ui/core/FormControl'
@@ -20,21 +21,23 @@ import LineWeightIcon from '@material-ui/icons/LineWeight'
 import { makeStyles } from '@material-ui/core/styles'
 
 import classes from './index.module.css'
-import CloudSelector from '../CloudSelector'
 
-const Sidebar = () => {
+const Sidebar = ({ config }) => {
+  const firstname = config?.cloudmesh?.profile?.firstname ?? ''
+  const lastname = config?.cloudmesh?.profile?.lastname ?? ''
+  const email = config?.cloudmesh?.profile?.email ?? ''
   return (
     <Paper className={classes.root}>
       <section className={classes.sidebar_section}>
         <MenuList>
           <MenuItem>
             <Typography variant="h6" color="textPrimary">
-              Akshay Gupta
+              {`${firstname} ${lastname}`}
             </Typography>
           </MenuItem>
           <MenuItem>
             <Typography variant="body2" color="textSecondary">
-              guptaaks@iu.edu
+              {email}
             </Typography>
           </MenuItem>
         </MenuList>
@@ -148,6 +151,10 @@ const Sidebar = () => {
       </MenuList>
     </Paper>
   )
+}
+
+Sidebar.propTypes = {
+  config: PropTypes.object.isRequired,
 }
 
 export default Sidebar
