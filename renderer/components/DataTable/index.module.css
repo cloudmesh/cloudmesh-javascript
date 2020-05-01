@@ -1,0 +1,9 @@
+.tableActionsContainer {
+  display: flex;
+}
+.tableActions {
+  margin-left: auto;
+  border: 1px solid #ccc;
+  padding: 1px 3px;
+  border-radius: 5px;
+}

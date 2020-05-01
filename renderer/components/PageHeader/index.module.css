@@ -1,0 +1,8 @@
+.headerLabel {
+  font-size: 2rem;
+}
+.pageHeader {
+  margin: 20px 5px;
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ipcRenderer } from 'electron'
-import { CMS_COMMAND_SEND } from '../../../main/constants'
+import { CMS_COMMAND_SEND_SYNC } from '../../../main/constants'
 import IconButton from '@material-ui/core/IconButton'
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 import Typography from '@material-ui/core/Typography'
@@ -15,6 +15,8 @@ import {
   IntegratedPaging,
   FilteringState,
   IntegratedFiltering,
+  SelectionState,
+  IntegratedSelection,
 } from '@devexpress/dx-react-grid'
 import {
   Grid,
@@ -25,11 +27,17 @@ import {
   ColumnChooser,
   TableColumnVisibility,
   Toolbar,
+  TableSelection,
 } from '@devexpress/dx-react-grid-material-ui'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
+import Link from 'next/link'
+import InfoIcon from '@material-ui/icons/Info'
+import CardActions from '@material-ui/core/CardActions'
+
+import clases from './index.module.css'
 
 const styles = (theme) => ({
   tableStriped: {
@@ -56,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 const controlVm = async (command, vmName) => {
   if (ipcRenderer) {
-    ipcRenderer.invoke(CMS_COMMAND_SEND, ['vm', command, vmName])
+    ipcRenderer.invoke(CMS_COMMAND_SEND_SYNC, ['vm', command, vmName])
   }
 }
 
@@ -68,8 +76,39 @@ const TableComponent = withStyles(styles, { name: 'TableComponent' })(
   TableComponentBase
 )
 
+const TableActions = ({ rows, selectedRows = [] }) => {
+  const startAllVms = () => {
+    selectedRows.forEach((rowNumber) => {
+      controlVm('start', rows[rowNumber]['hostname'])
+    })
+  }
+  const stopAllVms = () => {
+    selectedRows.forEach((rowNumber) => {
+      controlVm('stop', rows[rowNumber]['hostname'])
+    })
+  }
+
+  return (
+    <div className={clases.tableActionsContainer}>
+      <div className={clases.tableActions}>
+        <IconButton
+          size="small"
+          onClick={() => startAllVms()}
+          title="Start selected VMs">
+          <PlayCircleFilledWhiteIcon />
+        </IconButton>
+        <IconButton
+          size="small"
+          onClick={() => stopAllVms()}
+          title="Stop selected VMs">
+          <StopIcon />
+        </IconButton>
+      </div>
+    </div>
+  )
+}
+
 export default ({ rows = [] }) => {
-  console.log('rows', rows[1])
   const classes = useStyles()
 
   let statusColor
@@ -82,7 +121,7 @@ export default ({ rows = [] }) => {
   }
 
   const [columns, setColumns] = useState([
-    { name: 'hostname', title: 'Hostname' },
+    { name: 'name', title: 'Name' },
     { name: 'ip_public', title: 'Public IP' },
     {
       name: 'status',
@@ -106,6 +145,11 @@ export default ({ rows = [] }) => {
       title: 'Actions',
       getCellValue: (row) => (
         <div>
+          <Link href="/vm/details/[name]" as={`/vm/details/${row.name}`}>
+            <IconButton size="small">
+              <InfoIcon />
+            </IconButton>
+          </Link>
           <IconButton
             size="small"
             onClick={() => controlVm('start', row.hostname)}>
@@ -125,7 +169,7 @@ export default ({ rows = [] }) => {
   const [sorting, setSorting] = useState([
     { columnName: 'hostname', direction: 'asc' },
   ])
-  const [pageSizes] = useState([5, 10, 15, 0])
+  const [pageSizes] = useState([10, 20, 30, 0])
   const [filters, setFilters] = useState([{ columnName: 'name', value: '' }])
   const [tableColumnExtensions] = useState([
     { columnName: 'actions', width: 100 },
@@ -134,14 +178,22 @@ export default ({ rows = [] }) => {
     { columnName: 'hostname', togglingEnabled: false },
   ])
   const [hiddenColumnNames, setHiddenColumnNames] = useState([])
+  const [selection, setSelection] = useState([])
 
   return (
     <Paper>
+      <TableActions rows={rows} selectedRows={selection} />
       <Grid rows={rows} columns={columns}>
         <FilteringState filters={filters} onFiltersChange={setFilters} />
         <IntegratedFiltering />
-        <PagingState defaultCurrentPage={0} defaultPageSize={10} />
+
+        <PagingState defaultCurrentPage={0} defaultPageSize={20} />
+        <SelectionState
+          selection={selection}
+          onSelectionChange={setSelection}
+        />
         <IntegratedPaging />
+        <IntegratedSelection />
         <SortingState sorting={sorting} onSortingChange={setSorting} />
         <IntegratedSorting />
         <Table
@@ -157,6 +209,7 @@ export default ({ rows = [] }) => {
         <ColumnChooser />
         <TableFilterRow />
         <TableHeaderRow showSortingControls />
+        <TableSelection showSelectAll />
         <PagingPanel pageSizes={pageSizes} />
       </Grid>
     </Paper>

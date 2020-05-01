@@ -1,5 +1,5 @@
 appId: cloudmesh.github.io
-productName: Cloudmesh Dashboard
+productName: cloudmesh-javascript
 copyright: Copyright © 2020 Indiana University
 directories:
   output: dist

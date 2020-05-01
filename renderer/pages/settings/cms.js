@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import PageHeader from '../../components/PageHeader'
 import { ipcRenderer } from 'electron'
 import { SET_CMS_PATH, CMS_BIN_STORE_KEY } from '../../../main/constants'
 
@@ -38,7 +39,6 @@ const Cms = () => {
   return (
     <main>
       <h1>CMS Application Path</h1>
-      {currentPath}
       <div>
         <Card>
           <CardContent>
@@ -47,6 +47,8 @@ const Cms = () => {
             </Typography>
             <Typography color="textSecondary">
               Please update or set your CMS binary path here.
+              <br />
+              Current Path: {currentPath}
             </Typography>
             <Typography color="textSecondary" gutterBottom>
               <em>*Application will restart*</em>

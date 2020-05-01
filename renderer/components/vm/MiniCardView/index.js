@@ -17,7 +17,7 @@ import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 import StopIcon from '@material-ui/icons/Stop'
 import ComputerIcon from '@material-ui/icons/Computer'
 import { ipcRenderer } from 'electron'
-import { CMS_COMMAND_SEND } from '../../../../main/constants'
+import { CMS_COMMAND_SEND_SYNC } from '../../../../main/constants'
 
 const useStyles = makeStyles((theme) => ({
   green: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const controlVm = async (command, vmName) => {
   if (ipcRenderer) {
-    ipcRenderer.invoke(CMS_COMMAND_SEND, ['vm', command, vmName])
+    ipcRenderer.invoke(CMS_COMMAND_SEND_SYNC, ['vm', command, vmName])
   }
 }
 
@@ -45,11 +45,6 @@ const MiniCardView = ({ vmData = [], onRefresh = () => {} }) => {
 
   return (
     <>
-      <div>
-        <Button onClick={onRefresh} color="primary" variant="outlined">
-          <RefreshIcon />
-        </Button>
-      </div>
       <div className={styles.minicards}>
         {vmData &&
           vmData.map(({ id, name, ip_public, status, metadata }) => {

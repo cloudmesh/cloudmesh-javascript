@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import Link from 'next/link'
 
 import FormControl from '@material-ui/core/FormControl'
@@ -21,25 +22,22 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import classes from './index.module.css'
 
-const Sidebar = () => {
-  const [cloudProvider, setCloudProvider] = useState('openstack')
-
-  const handleCloudProviderChange = (event) => {
-    setCloudProvider(event.target.value)
-  }
-
+const Sidebar = ({ config }) => {
+  const firstname = config?.cloudmesh?.profile?.firstname ?? ''
+  const lastname = config?.cloudmesh?.profile?.lastname ?? ''
+  const email = config?.cloudmesh?.profile?.email ?? ''
   return (
     <Paper className={classes.root}>
       <section className={classes.sidebar_section}>
         <MenuList>
           <MenuItem>
             <Typography variant="h6" color="textPrimary">
-              Akshay Gupta
+              {`${firstname} ${lastname}`}
             </Typography>
           </MenuItem>
           <MenuItem>
             <Typography variant="body2" color="textSecondary">
-              guptaaks@iu.edu
+              {email}
             </Typography>
           </MenuItem>
         </MenuList>
@@ -78,6 +76,19 @@ const Sidebar = () => {
               />
               <Typography variant="body2" className={classes.list_text}>
                 Profile
+              </Typography>
+            </div>
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link href="/settings/cms">
+            <div className={classes.link_child}>
+              <SettingsIcon
+                fontSize="small"
+                style={{ fill: '#6100ee', marginRight: '15px' }}
+              />
+              <Typography variant="body2" className={classes.list_text}>
+                Settings
               </Typography>
             </div>
           </Link>
@@ -134,37 +145,16 @@ const Sidebar = () => {
             </div>
           </Link>
         </MenuItem>
-        <MenuItem>
-          <Link href="/settings/cms">
-            <div className={classes.link_child}>
-              <SettingsIcon
-                fontSize="small"
-                style={{ fill: '#6100ee', marginRight: '15px' }}
-              />
-              <Typography variant="body2" className={classes.list_text}>
-                Settings
-              </Typography>
-            </div>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <FormControl>
-            <InputLabel id="select-cloud-label">Cloud</InputLabel>
-            <Select
-              labelId="select-cloud-label"
-              id="cloud-select"
-              value={cloudProvider}
-              onChange={handleCloudProviderChange}>
-              <MenuItem value="openstack">OpenStack</MenuItem>
-              <MenuItem value="aws">AWS</MenuItem>
-              <MenuItem value="google">Google</MenuItem>
-              <MenuItem value="azure">Azure</MenuItem>
-            </Select>
-          </FormControl>
-        </MenuItem>
+        {/*<MenuItem>*/}
+        {/*  <CloudSelector />*/}
+        {/*</MenuItem>*/}
       </MenuList>
     </Paper>
   )
+}
+
+Sidebar.propTypes = {
+  config: PropTypes.object.isRequired,
 }
 
 export default Sidebar
