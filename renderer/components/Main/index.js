@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import styles from './index.module.css'
-import Card from '@material-ui/core/Card'
 import MainAppCard from '../MainAppCard'
 import AdjustIcon from '@material-ui/icons/Adjust'
 import LineWeightIcon from '@material-ui/icons/LineWeight'
