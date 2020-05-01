@@ -37,6 +37,8 @@ import Link from 'next/link'
 import InfoIcon from '@material-ui/icons/Info'
 import CardActions from '@material-ui/core/CardActions'
 
+import clases from './index.module.css'
+
 const styles = (theme) => ({
   tableStriped: {
     '& tbody tr:nth-of-type(odd)': {
@@ -87,13 +89,15 @@ const TableActions = ({ rows, selectedRows = [] }) => {
   }
 
   return (
-    <div>
-      <IconButton size="small" onClick={() => startAllVms()}>
-        <PlayCircleFilledWhiteIcon />
-      </IconButton>
-      <IconButton size="small" onClick={() => stopAllVms()}>
-        <StopIcon />
-      </IconButton>
+    <div className={clases.tableActionsContainer}>
+      <div className={clases.tableActions}>
+        <IconButton size="small" onClick={() => startAllVms()} title='Start selected VMs'>
+          <PlayCircleFilledWhiteIcon />
+        </IconButton>
+        <IconButton size="small" onClick={() => stopAllVms()} title='Stop selected VMs'>
+          <StopIcon />
+        </IconButton>
+      </div>
     </div>
   )
 }
