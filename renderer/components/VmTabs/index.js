@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
+import { useCmsCloud } from '../../hooks/cms'
 
 function TabPanel(props) {
   console.log(props)
@@ -38,35 +39,31 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     // backgroundColor: theme.palette.background.paper,
     backgroundColor: theme.palette.text.primary,
+    marginBottom: '1.5rem',
   },
 }))
 
 export default function SimpleTabs() {
   const classes = useStyles()
-  // const [value, setValue] = React.useState(0);
-  //
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
 
-  const [cloudProvider, setCloudProvider] = useState('openstack')
-
-  const handleCloudProviderChange = (event, newValue) => {
-    setCloudProvider(newValue)
+  const [cloudProvider, setCloudProvider] = useCmsCloud('openstack')
+  const handleCloudProviderChange = (event, newValue = '') => {
+    setCloudProvider(newValue.toLowerCase())
   }
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs value={cloudProvider} onChange={handleCloudProviderChange}>
-          <Tab label="Openstack" {...a11yProps(0)} />
-          <Tab label="AWS" {...a11yProps(1)} />
-          <Tab label="Google" {...a11yProps(2)} />
-          <Tab label="Azure" {...a11yProps(2)} />
+          <Tab label="Openstack" value="openstack" {...a11yProps(0)} />
+          <Tab label="AWS" value="aws" {...a11yProps(1)} />
+          <Tab label="Google" value="google" {...a11yProps(2)} />
+          <Tab label="Azure" value="azure" {...a11yProps(3)} />
+          <Tab label="Chameleon" value="chameleon" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
-      <TabPanel value="openstack" index={0}></TabPanel>
-      <TabPanel value="aws" index={1}></TabPanel>
+      {/*<TabPanel value="openstack" index={0}></TabPanel>*/}
+      {/*<TabPanel value="aws" index={1}></TabPanel>*/}
     </div>
   )
 }

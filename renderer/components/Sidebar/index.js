@@ -142,9 +142,9 @@ const Sidebar = () => {
             </div>
           </Link>
         </MenuItem>
-        <MenuItem>
-          <CloudSelector />
-        </MenuItem>
+        {/*<MenuItem>*/}
+        {/*  <CloudSelector />*/}
+        {/*</MenuItem>*/}
       </MenuList>
     </Paper>
   )

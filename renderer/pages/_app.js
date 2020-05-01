@@ -12,7 +12,6 @@ import './global.css'
 import styles from './_app.module.css'
 
 function CloudmeshApp({ Component, pageProps }) {
-  console.log('pageProps', pageProps)
   return (
     <React.Fragment>
       <Head>
@@ -27,7 +26,7 @@ function CloudmeshApp({ Component, pageProps }) {
           <Sidebar />
         </nav>
         <section className={styles.main_section}>
-          {/*<VmTabs />*/}
+          <VmTabs />
           <Component {...pageProps} />
         </section>
       </main>
