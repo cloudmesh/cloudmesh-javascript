@@ -74,6 +74,34 @@ const TableComponent = withStyles(styles, { name: 'TableComponent' })(
   TableComponentBase
 )
 
+const TableActions = ({rows, selectedRows = []}) => {
+  const startAllVms = () => {
+    selectedRows.forEach((rowNumber) => {
+      controlVm('start', rows[rowNumber]['hostname'])
+    })
+  }
+  const stopAllVms = () => {
+    selectedRows.forEach((rowNumber) => {
+      controlVm('stop', rows[rowNumber]['hostname'])
+    })
+  }
+
+  return (
+    <div>
+      <IconButton
+        size="small"
+        onClick={() => startAllVms()}>
+        <PlayCircleFilledWhiteIcon />
+      </IconButton>
+      <IconButton
+        size="small"
+        onClick={() => stopAllVms()}>
+        <StopIcon />
+      </IconButton>
+    </div>
+  )
+}
+
 export default ({ rows = [] }) => {
   const classes = useStyles()
 
@@ -148,6 +176,7 @@ export default ({ rows = [] }) => {
 
   return (
     <Paper>
+      <TableActions rows={rows} selectedRows={selection} />
       <Grid rows={rows} columns={columns}>
         <FilteringState filters={filters} onFiltersChange={setFilters} />
         <IntegratedFiltering />
