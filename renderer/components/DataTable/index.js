@@ -91,10 +91,16 @@ const TableActions = ({ rows, selectedRows = [] }) => {
   return (
     <div className={clases.tableActionsContainer}>
       <div className={clases.tableActions}>
-        <IconButton size="small" onClick={() => startAllVms()} title='Start selected VMs'>
+        <IconButton
+          size="small"
+          onClick={() => startAllVms()}
+          title="Start selected VMs">
           <PlayCircleFilledWhiteIcon />
         </IconButton>
-        <IconButton size="small" onClick={() => stopAllVms()} title='Stop selected VMs'>
+        <IconButton
+          size="small"
+          onClick={() => stopAllVms()}
+          title="Stop selected VMs">
           <StopIcon />
         </IconButton>
       </div>
