@@ -33,6 +33,9 @@ import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
+import Link from 'next/link'
+import InfoIcon from '@material-ui/icons/Info'
+import CardActions from '@material-ui/core/CardActions'
 
 const styles = (theme) => ({
   tableStriped: {
@@ -112,7 +115,7 @@ export default ({ rows = [] }) => {
   }
 
   const [columns, setColumns] = useState([
-    { name: 'hostname', title: 'Hostname' },
+    { name: 'name', title: 'Name' },
     { name: 'ip_public', title: 'Public IP' },
     {
       name: 'status',
@@ -136,6 +139,11 @@ export default ({ rows = [] }) => {
       title: 'Actions',
       getCellValue: (row) => (
         <div>
+          <Link href="/vm/details/[name]" as={`/vm/details/${row.name}`}>
+            <IconButton size="small">
+              <InfoIcon />
+            </IconButton>
+          </Link>
           <IconButton
             size="small"
             onClick={() => controlVm('start', row.hostname)}>
