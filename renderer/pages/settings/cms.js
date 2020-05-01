@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import PageHeader from '../../components/PageHeader'
 import { ipcRenderer } from 'electron'
 import { SET_CMS_PATH, CMS_BIN_STORE_KEY } from '../../../main/constants'
 
