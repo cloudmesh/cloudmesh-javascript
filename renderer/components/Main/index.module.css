@@ -1,0 +1,23 @@
+.app_sections {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  height: 70vh;
+}
+
+.app_cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+.app_cards > * {
+  min-width: 200px;
+  margin-left: 50px;
+  margin-right: 50px;
+  height: 200px;
+}
+
+.app_cards a {
+  font-size: 5rem;
+  margin-left: 40px;
+}

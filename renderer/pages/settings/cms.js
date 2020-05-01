@@ -39,7 +39,6 @@ const Cms = () => {
   return (
     <main>
       <h1>CMS Application Path</h1>
-      {currentPath}
       <div>
         <Card>
           <CardContent>
@@ -48,6 +47,8 @@ const Cms = () => {
             </Typography>
             <Typography color="textSecondary">
               Please update or set your CMS binary path here.
+              <br />
+              Current Path: {currentPath}
             </Typography>
             <Typography color="textSecondary" gutterBottom>
               <em>*Application will restart*</em>

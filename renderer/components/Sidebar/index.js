@@ -77,6 +77,19 @@ const Sidebar = () => {
             </div>
           </Link>
         </MenuItem>
+        <MenuItem>
+          <Link href="/settings/cms">
+            <div className={classes.link_child}>
+              <SettingsIcon
+                fontSize="small"
+                style={{ fill: '#6100ee', marginRight: '15px' }}
+              />
+              <Typography variant="body2" className={classes.list_text}>
+                Settings
+              </Typography>
+            </div>
+          </Link>
+        </MenuItem>
       </MenuList>
 
       <Divider />
@@ -125,19 +138,6 @@ const Sidebar = () => {
               />
               <Typography variant="body2" className={classes.list_text}>
                 VM List
-              </Typography>
-            </div>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link href="/settings/cms">
-            <div className={classes.link_child}>
-              <SettingsIcon
-                fontSize="small"
-                style={{ fill: '#6100ee', marginRight: '15px' }}
-              />
-              <Typography variant="body2" className={classes.list_text}>
-                Settings
               </Typography>
             </div>
           </Link>
