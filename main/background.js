@@ -3,6 +3,8 @@ import serve from 'electron-serve'
 import * as Store from 'electron-store'
 import path from 'path'
 import fs from 'fs'
+import os from 'os'
+import yaml from 'node-yaml'
 import { runCmsSync, runCms } from './cloudmesh/CmsWrapper'
 
 import { createWindow } from './helpers'
@@ -11,11 +13,15 @@ import {
   CMS_BIN_STORE_KEY,
   CMS_COMMAND_SEND,
   CMS_COMMAND_SEND_SYNC,
+  CMS_CONFIG_STORE_KEY,
+  CMS_GET_CONFIG,
+  CMS_SET_CONFIG,
   SET_CMS_PATH,
 } from './constants'
 
 app.allowRendererProcessReuse = true
 const isProd = process.env.NODE_ENV === 'production'
+const cmsConfigFile = path.join(os.homedir(), '.cloudmesh', 'cloudmesh.yaml')
 
 if (isProd) {
   serve({ directory: 'app' })
@@ -34,6 +40,15 @@ if (VIRTUAL_ENV) {
 
 const cmsBin = store.get(CMS_BIN_STORE_KEY, CMS_BIN)
 
+// Read CMS config file into store.
+yaml
+  .read(cmsConfigFile)
+  .then((configObj) => {
+    store.set(CMS_CONFIG_STORE_KEY, configObj)
+  })
+  .catch((err) =>
+    console.error(`Error reading CMS config ${cmsConfigFile}: ${err}`)
+  )
 ;(async () => {
   await app.whenReady()
 
@@ -89,4 +104,14 @@ ipcMain.handle(CMS_COMMAND_SEND_SYNC, (event, args = [], parseJson = true) => {
  */
 ipcMain.handle(CMS_COMMAND_SEND, (event, args = []) => {
   return runCms({ cmsBin, args })
+})
+
+ipcMain.handle(CMS_GET_CONFIG, (event) => {
+  return store.get(CMS_CONFIG_STORE_KEY, {})
+})
+
+ipcMain.handle(CMS_SET_CONFIG, (event, config) => {
+  store.set(CMS_CONFIG_STORE_KEY, config)
+  fs.copyFileSync(cmsConfigFile, cmsConfigFile + '.cms-js.bak')
+  return yaml.write(cmsConfigFile, config)
 })
