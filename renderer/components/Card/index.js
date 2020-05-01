@@ -75,11 +75,11 @@ const Card = ({ id, name, ip_public, status: vmStatus, metadata }) => {
             <ComputerIcon />
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
         title={name}
         subheader={ip_public}
       />
@@ -94,7 +94,7 @@ const Card = ({ id, name, ip_public, status: vmStatus, metadata }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link href={`/vm/details/${name}`}>
+        <Link href="/vm/details/[name]" as={`/vm/details/${name}`}>
           <IconButton size="small">
             <InfoIcon />
           </IconButton>

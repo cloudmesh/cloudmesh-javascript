@@ -33,7 +33,6 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import Link from 'next/link'
 import InfoIcon from '@material-ui/icons/Info'
 import CardActions from '@material-ui/core/CardActions'
-import { useCmsVmStartStop } from '../../hooks/cms'
 
 const styles = (theme) => ({
   tableStriped: {
@@ -85,7 +84,7 @@ export default ({ rows = [] }) => {
   }
 
   const [columns, setColumns] = useState([
-    { name: 'hostname', title: 'Name' },
+    { name: 'name', title: 'Name' },
     { name: 'ip_public', title: 'Public IP' },
     {
       name: 'status',
@@ -109,7 +108,7 @@ export default ({ rows = [] }) => {
       title: 'Actions',
       getCellValue: (row) => (
         <div>
-          <Link href={`/vm/details/${row.hostname}`}>
+          <Link href="/vm/details/[name]" as={`/vm/details/${row.name}`}>
             <IconButton size="small">
               <InfoIcon />
             </IconButton>
