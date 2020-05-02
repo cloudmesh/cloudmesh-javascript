@@ -2,7 +2,7 @@
   "private": true,
   "name": "cloudmesh-javascript",
   "description": "An interface for Cloudmesh.",
-  "version": "0.1.6-alpha",
+  "version": "0.1.7-alpha",
   "author": "Josh Goodman <jogoodma@iu.edu>",
   "contributors": [
     "Akshay Gupta",
@@ -10,9 +10,9 @@
   ],
   "main": "app/background.js",
   "scripts": {
-    "predev": "yarn run format",
+    "predev": "yarnpkg run format",
     "dev": "nextron",
-    "prebuild": "yarn run format",
+    "prebuild": "yarnpkg run format",
     "build": "nextron build",
     "build:all": "nextron build --all",
     "build:win32": "nextron build --win --ia32",
