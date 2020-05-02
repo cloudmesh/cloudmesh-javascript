@@ -104,20 +104,20 @@ class Viewer:
 
     @staticmethod
     def yarn_install():
-        subprocess.run("yarn install", cwd=Viewer.base_dir, shell=True)
+        subprocess.run("yarnpkg install", cwd=Viewer.base_dir, shell=True)
 
     @staticmethod
     def build(tag: str = "build"):
         """
-        Runs a yarn install followed by a build target.
+        Runs a yarnpkg install followed by a build target.
 
         Arguments:
-            - tag - The yarn script target to execute. default: build
+            - tag - The yarnpkg script target to execute. default: build
         """
         # Check that JS deps are installed and up to date.
         Viewer.yarn_install()
         # Run the build
-        return subprocess.run(f"yarn run {tag}", cwd=Viewer.base_dir, shell=True)
+        return subprocess.run(f"yarnpkg run {tag}", cwd=Viewer.base_dir, shell=True)
 
     @staticmethod
     def clean():

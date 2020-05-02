@@ -39,9 +39,9 @@ class ViewerCommand(PluginCommand):
             Viewer.stop()
 
         elif arguments.start and arguments['dev']:
-            # Run yarn install and then yarn run dev
+            # Run yarnpkg install and then yarnpkg run dev
             Viewer.yarn_install()
-            subprocess.run("yarn run dev", cwd=location, shell=True)
+            subprocess.run("yarnpkg run dev", cwd=location, shell=True)
 
         elif arguments.start:
             if arguments["--clean"] or arguments["--branch"]:
