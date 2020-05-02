@@ -8,7 +8,10 @@ Cloudmesh Javascript GUI is a front end for the Cloudmesh system.
 
 * [Cloudmesh](https://cloudmesh.github.io/cloudmesh-manual/installation/install.html)
 * [NodeJS](https://nodejs.org/en/) - 12.x
-* [Yarn](https://yarnpkg.com/) - 1.22.x
+* [Yarn](https://yarnpkg.com/) - 1.22.x 
+
+*Note*: The Yarn JS package installer conflicts with the Hadoop Yarn command so `yarnpkg` is used 
+to avoid clashes.
 
 ## Getting started
 
@@ -93,8 +96,8 @@ of code changes. A test app with dev console should appear and reload
 with each edit of code.
 
 ```bash
-yarn
-yarn run dev
+yarnpkg
+yarnpkg run dev
 ```
 
 ### Building Binaries
@@ -102,7 +105,7 @@ yarn run dev
 To build the application binaries for all architectures run the following.
 
 ```bash
-yarn run build:all
+yarnpkg run build:all
 ```
 
 This will produce binaries in the `dist` directory.  Mac binaries can
@@ -111,10 +114,10 @@ only be built on OS X.
 Other targets include:
 
 ```bash
-yarn run build:win32
-yarn run build:win64
-yarn run build:mac
-yarn run build:linux
+yarnpkg run build:win32
+yarnpkg run build:win64
+yarnpkg run build:mac
+yarnpkg run build:linux
 ``` 
 ## Prior Art
 
