@@ -153,4 +153,8 @@ const Sidebar = ({ config }) => {
   )
 }
 
+Sidebar.propTypes = {
+  config: PropTypes.object,
+}
+
 export default Sidebar
