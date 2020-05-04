@@ -76,6 +76,12 @@ const TableComponent = withStyles(styles, { name: 'TableComponent' })(
   TableComponentBase
 )
 
+/*
+ * @param {rows} all the row data
+ * @param {selectedRows} array of indices of selected row numbers
+ * @return {null}
+ * Write the code for performing an action on multiple rows here
+ */
 const TableActions = ({ rows, selectedRows = [] }) => {
   const startAllVms = () => {
     selectedRows.forEach((rowNumber) => {
@@ -106,6 +112,24 @@ const TableActions = ({ rows, selectedRows = [] }) => {
       </div>
     </div>
   )
+}
+
+// Modify this component to inject custom styles or props to each cell
+// To change table's row height - change top and bottom padding value in style (padding: top right bottom left)
+const TableCell = ({ cell, ...restProps }) => {
+  return (
+    <Table.Cell
+      {...restProps}
+      style={{
+        padding: '2px 5px 2px 10px', // top, right, bottom, left
+      }}
+    />
+  )
+}
+
+// Modify this component to inject custom styles or props to each row
+const TableRow = ({ row, ...restProps }) => {
+  return <Table.Row {...restProps} />
 }
 
 export default ({ rows = [] }) => {
@@ -197,6 +221,8 @@ export default ({ rows = [] }) => {
         <SortingState sorting={sorting} onSortingChange={setSorting} />
         <IntegratedSorting />
         <Table
+          cellComponent={TableCell}
+          rowComponent={TableRow}
           tableComponent={TableComponent}
           columnExtensions={tableColumnExtensions}
         />

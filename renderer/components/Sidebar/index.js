@@ -154,7 +154,7 @@ const Sidebar = ({ config }) => {
 }
 
 Sidebar.propTypes = {
-  config: PropTypes.object.isRequired,
+  config: PropTypes.object,
 }
 
 export default Sidebar
