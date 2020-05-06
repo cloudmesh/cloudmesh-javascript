@@ -10,8 +10,13 @@ Cloudmesh Javascript GUI is a front end for the Cloudmesh system.
 * [NodeJS](https://nodejs.org/en/) - 12.x
 * [Yarn](https://yarnpkg.com/) - 1.22.x 
 
-*Note*: The Yarn JS package installer conflicts with the Hadoop Yarn command so `yarnpkg` is used 
+**Note**:
+
+* The Yarn JS package installer conflicts with the Hadoop Yarn command so `yarnpkg` is used 
 to avoid clashes.
+* Only NodeJS 12.x is supported at this time.  Using other versions of NodeJS
+may result in errors during the compilation steps.
+
 
 ## Getting started
 
