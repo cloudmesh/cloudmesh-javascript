@@ -51,7 +51,7 @@ const Main = () => {
             </Link>
           </MainAppCard>
           <MainAppCard title="Settings">
-            <Link href="/settings/cms">
+            <Link href="/settings/index">
               <a>
                 <SettingsIcon fontSize="inherit" style={{ fill: '#6100ee' }} />
               </a>
