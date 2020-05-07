@@ -41,7 +41,6 @@ import StopOutlinedIcon from '@material-ui/icons/StopOutlined'
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined'
 
-
 import clases from './index.module.css'
 
 const styles = (theme) => ({
@@ -200,7 +199,7 @@ export default ({ rows = [] }) => {
     },
   ])
 
-  if(vmTableAction) {
+  if (vmTableAction) {
     selectedRows.forEach((rowNumber) => {
       controlVm(vmTableAction, rows[rowNumber]['hostname'])
     })

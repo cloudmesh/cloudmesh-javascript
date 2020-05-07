@@ -55,6 +55,11 @@ yaml
   const mainWindow = createWindow('main', {
     width: 1000,
     height: 600,
+    webPreferences: {
+      minimumFontSize: 16,
+      defaultFontSize: 18,
+      defaultMonospaceFontSize: 18,
+    },
   })
 
   const landingPage = cmsBin ? './' : './settings/cms'

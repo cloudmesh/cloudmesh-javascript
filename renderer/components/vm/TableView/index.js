@@ -8,7 +8,9 @@ import RefreshIcon from '@material-ui/icons/Refresh'
 const TableView = ({ vmData = [], onRefresh = () => {} }) => {
   return (
     <>
-      <div style={{marginTop: '-20px'}}>{vmData && <DataTable rows={vmData} />}</div>
+      <div style={{ marginTop: '-20px' }}>
+        {vmData && <DataTable rows={vmData} />}
+      </div>
     </>
   )
 }
