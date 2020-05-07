@@ -147,6 +147,8 @@ const Sidebar = ({ config }) => {
         {/*</MenuItem>*/}
       </MenuList>
 
+      <Divider />
+
       <MenuList>
         <MenuItem>
           <Typography

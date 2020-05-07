@@ -24,14 +24,14 @@ const Contributors = () => {
     <Paper className={classes.contri}>
         <div className={classes.mainContris}>
             <Typography variant="h4">
-            List of contributors
+                List of contributors
             <span
                 href='https://github.com/cloudmesh/cloudmesh-javascript/graphs/contributors'
                 target="_blank"
                 rel="noopener noreferrer">
                 <GithubIcon
-                fontSize="medium"
-                style={{ marginLeft: '15px', cursor: 'pointer', color: '#000' }}
+                    fontSize="medium"
+                    style={{ marginLeft: '15px', cursor: 'pointer', color: '#000' }}
                 />
             </span>
             </Typography>
@@ -44,7 +44,7 @@ const Contributors = () => {
             </Typography>
         </div>
         <Typography variant="body1">
-            The project referenced the design mocks developed in a previous project by:
+            The project referenced the design mocks developed in a previous project (cloudmesh-community/graphql) by:
             <MenuList>
                 <MenuItem>Mihir Shanishchara (@MihirNS)</MenuItem>
             </MenuList>
