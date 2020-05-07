@@ -57,18 +57,27 @@ const VmList = () => {
             <Button onClick={() => setMode('minicard')} title="Mini card view">
               <ViewComfyIcon />
             </Button>
-            {mode === 'table' && 
-              <Button onClick={() => setVmTableAction('start')} title="Start selected VMs">
+            {mode === 'table' && (
+              <Button
+                onClick={() => setVmTableAction('start')}
+                title="Start selected VMs">
                 <PlayArrowOutlinedIcon />
-              </Button>}
-            {mode === 'table' &&
-              <Button onClick={() => setVmTableAction('stop')} title="Stop selected VMs">
+              </Button>
+            )}
+            {mode === 'table' && (
+              <Button
+                onClick={() => setVmTableAction('stop')}
+                title="Stop selected VMs">
                 <StopOutlinedIcon />
-              </Button>}
-            {mode === 'table' &&
-              <Button onClick={() => setVmTableAction('delete')} title="Delete selected VMs">
+              </Button>
+            )}
+            {mode === 'table' && (
+              <Button
+                onClick={() => setVmTableAction('delete')}
+                title="Delete selected VMs">
                 <DeleteOutlineOutlinedIcon />
-              </Button>}
+              </Button>
+            )}
             }
           </ButtonGroup>
         </div>
