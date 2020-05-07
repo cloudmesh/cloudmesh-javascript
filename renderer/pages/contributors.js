@@ -47,6 +47,7 @@ const Contributors = () => {
             The project referenced the design mocks developed in a previous project (cloudmesh-community/graphql) by:
             <MenuList>
                 <MenuItem>Mihir Shanishchara (@MihirNS)</MenuItem>
+                <MenuItem>Vineet Barshikar (@vineetbarshikar)</MenuItem>
             </MenuList>
         </Typography>
     </Paper>
