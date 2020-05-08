@@ -10,6 +10,8 @@ export const CMS_SET_CONFIG = 'set-cms-config'
 
 export const CMS_COMMAND_SEND_SYNC = 'cms-send-sync'
 export const CMS_COMMAND_SEND = 'cms-send'
+export const CMS_OPEN_TERMINAL = 'cms-open-terminal'
+
 export const CMS_COMMAND_TIMEOUT = 30000
 
 export const CMS_VM_LIST_CMD = ['vm', 'list', '--output=json']

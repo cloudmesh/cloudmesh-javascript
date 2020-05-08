@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND_SYNC } from '../../../main/constants'
 import IconButton from '@material-ui/core/IconButton'
-import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 import Typography from '@material-ui/core/Typography'
-import StopIcon from '@material-ui/icons/Stop'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import { green, red, yellow } from '@material-ui/core/colors'
@@ -31,17 +29,15 @@ import {
 } from '@devexpress/dx-react-grid-material-ui'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
-import PlayArrowIcon from '@material-ui/icons/PlayArrow'
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import Link from 'next/link'
-import InfoIcon from '@material-ui/icons/Info'
-import CardActions from '@material-ui/core/CardActions'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import StopOutlinedIcon from '@material-ui/icons/StopOutlined'
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined'
+import ActionOverflowButton from '../ActionOverflowButton'
 
-import clases from './index.module.css'
+import OpenTerminalButton from '../OpenTerminalButton'
+import ActionAlert from '../ActionAlert'
 
 const styles = (theme) => ({
   tableStriped: {
@@ -80,44 +76,6 @@ const TableComponent = withStyles(styles, { name: 'TableComponent' })(
   TableComponentBase
 )
 
-/*
- * @param {rows} all the row data
- * @param {selectedRows} array of indices of selected row numbers
- * @return {null}
- * Write the code for performing an action on multiple rows here
- */
-// const TableActions = ({ rows, selectedRows = [] }) => {
-//   const startAllVms = () => {
-//     selectedRows.forEach((rowNumber) => {
-//       controlVm('start', rows[rowNumber]['hostname'])
-//     })
-//   }
-//   const stopAllVms = () => {
-//     selectedRows.forEach((rowNumber) => {
-//       controlVm('stop', rows[rowNumber]['hostname'])
-//     })
-//   }
-
-//   return (
-//     <div className={clases.tableActionsContainer}>
-//       <div className={clases.tableActions}>
-//         <IconButton
-//           size="small"
-//           onClick={() => startAllVms()}
-//           title="Start selected VMs">
-//           <PlayCircleFilledWhiteIcon />
-//         </IconButton>
-//         <IconButton
-//           size="small"
-//           onClick={() => stopAllVms()}
-//           title="Stop selected VMs">
-//           <StopIcon />
-//         </IconButton>
-//       </div>
-//     </div>
-//   )
-// }
-
 // Modify this component to inject custom styles or props to each cell
 // To change table's row height - change top and bottom padding value in style (padding: top right bottom left)
 const TableCell = ({ cell, ...restProps }) => {
@@ -148,6 +106,11 @@ export default ({ rows = [] }) => {
     statusColor = 'yellow'
   }
 
+  const [alert, setAlert] = useState({ show: false, msg: null })
+  const handleOnLaunch = (msg) => {
+    setAlert({ show: true, msg })
+  }
+
   const [vmTableAction, setVmTableAction] = useState('') // start / stop / delete
   const [columns, setColumns] = useState([
     { name: 'name', title: 'Name' },
@@ -174,11 +137,6 @@ export default ({ rows = [] }) => {
       title: 'Actions',
       getCellValue: (row) => (
         <div>
-          <Link href="/vm/details/[name]" as={`/vm/details/${row.name}`}>
-            <IconButton size="small">
-              <InfoOutlinedIcon />
-            </IconButton>
-          </Link>
           <IconButton
             size="small"
             onClick={() => controlVm('start', row.hostname)}>
@@ -189,11 +147,19 @@ export default ({ rows = [] }) => {
             onClick={() => controlVm('stop', row.hostname)}>
             <StopOutlinedIcon />
           </IconButton>
-          <IconButton
-            size="small"
-            onClick={() => controlVm('delete', row.hostname)}>
-            <DeleteOutlineOutlinedIcon />
-          </IconButton>
+          <ActionOverflowButton>
+            <Link href="/vm/details/[name]" as={`/vm/details/${row.name}`}>
+              <IconButton size="small">
+                <InfoOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Link>
+            <OpenTerminalButton ip={row.ip_public} onLaunch={handleOnLaunch} />
+            <IconButton
+              size="small"
+              onClick={() => controlVm('delete', row.hostname)}>
+              <DeleteOutlineOutlinedIcon />
+            </IconButton>
+          </ActionOverflowButton>
         </div>
       ),
     },
@@ -255,6 +221,7 @@ export default ({ rows = [] }) => {
         <TableSelection showSelectAll />
         <PagingPanel pageSizes={pageSizes} />
       </Grid>
+      <ActionAlert open={alert.show} message={alert.msg} />
     </Paper>
   )
 }
