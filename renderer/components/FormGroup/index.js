@@ -9,7 +9,7 @@ const FormGroup = ({ fieldsConfig = [], groupTitle, width = '400px' }) => {
         <div>
           <h4>{groupTitle}</h4>
           {fieldsConfig.map((field, i) => (
-            <div key={i} style={{ margin: '20px 0 20px 20px' }}>
+            <div key={i} style={{ margin: '20px' }}>
               <ConfigFieldInput {...field} fullWidth={true} />
             </div>
           ))}
@@ -17,7 +17,6 @@ const FormGroup = ({ fieldsConfig = [], groupTitle, width = '400px' }) => {
       </div>
     )
   }
-
   return null
 }
 

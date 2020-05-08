@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import { Formik, Form } from 'formik'
@@ -7,9 +7,9 @@ import { ipcRenderer } from 'electron'
 import { CMS_SET_CONFIG } from '../../../main/constants'
 import FormGroup from '../../components/FormGroup'
 
-import profileFieldsConfig from './profile-fields'
-import mongoFieldsConfig from './mongo-fields'
-import chameleonFieldsConfig from './chameleon-fields'
+import profileFieldsConfig from '../../fields/profile'
+import mongoFieldsConfig from '../../fields/mongo'
+import chameleonFieldsConfig from '../../fields/chameleon'
 
 /**
  * Component for displaying Cloudmesh configuration parameters
@@ -17,8 +17,13 @@ import chameleonFieldsConfig from './chameleon-fields'
  *
  * Currently only handles simple key/value fields including deeply nested fields.
  *
+ * To create a new group of settings you need to:
+ *
+ * 1. Define a field config file (e.g. profile.js)
+ * 2. Import config file into this component
+ * 3. Add a new <FormGroup /> component using the import config.
+ *
  * @param config - Cloudmesh config (JSON) read in from the local YAML file.
- * @returns {*}
  */
 const Cloudmesh = ({ config = {} }) => {
   return (
@@ -33,7 +38,11 @@ const Cloudmesh = ({ config = {} }) => {
       <Form>
         <h2>Cloudmesh Configuration</h2>
         <FormGroup groupTitle="Profile" fieldsConfig={profileFieldsConfig} />
-        <FormGroup groupTitle="MongoDB" fieldsConfig={mongoFieldsConfig} />
+        <FormGroup
+          groupTitle="MongoDB"
+          fieldsConfig={mongoFieldsConfig}
+          width="600px"
+        />
         <FormGroup
           groupTitle="Chameleon Cloud"
           fieldsConfig={chameleonFieldsConfig}
