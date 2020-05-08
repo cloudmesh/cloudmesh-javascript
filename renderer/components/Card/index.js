@@ -118,7 +118,12 @@ const Card = ({ id, name, ip_public, status: vmStatus, metadata }) => {
           onClick={() => sendVmStop([...CMS_VM_STOP_CMD, name])}>
           <StopIcon />
         </IconButton>
-        <OpenTerminalButton ip={ip_public} onLaunch={handleOnLaunch} />
+        <OpenTerminalButton
+          name={name}
+          ip={ip_public}
+          onLaunch={handleOnLaunch}
+          showLabel={false}
+        />
       </CardActions>
       <ActionAlert open={alert.show} message={alert.msg} />
     </DefaultCard>

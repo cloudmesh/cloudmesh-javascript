@@ -1,7 +1,7 @@
 import spawn from 'cross-spawn'
 import fs from 'fs'
 import extract from 'extract-json-from-string'
-import { CMS_COMMAND_TIMEOUT} from '../constants'
+import { CMS_COMMAND_TIMEOUT } from '../constants'
 
 export const runCmsSync = ({ cmsBin, args = [], parseJson = true }) => {
   let result = {

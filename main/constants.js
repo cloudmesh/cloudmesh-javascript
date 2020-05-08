@@ -21,4 +21,3 @@ export const CMS_VM_STOP_CMD = ['vm', 'stop']
 
 export const CMS_IMAGE_LIST_CMD = ['image', 'list', '--output=json']
 export const CMS_FLAVOR_LIST_CMD = ['flavor', 'list', '--output=json']
-

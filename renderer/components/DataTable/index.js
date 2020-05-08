@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND_SYNC } from '../../../main/constants'
+import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
@@ -148,17 +149,25 @@ export default ({ rows = [] }) => {
             <StopOutlinedIcon />
           </IconButton>
           <ActionOverflowButton>
-            <Link href="/vm/details/[name]" as={`/vm/details/${row.name}`}>
-              <IconButton size="small">
-                <InfoOutlinedIcon fontSize="small" />
-              </IconButton>
+            <Link
+              href="/vm/details/[name]"
+              as={`/vm/details/${row.name}`}
+              title="Info">
+              <Button size="small" startIcon={<InfoOutlinedIcon />}>
+                Info
+              </Button>
             </Link>
-            <OpenTerminalButton ip={row.ip_public} onLaunch={handleOnLaunch} />
-            <IconButton
+            <OpenTerminalButton
+              name={row.name}
+              ip={row.ip_public}
+              onLaunch={handleOnLaunch}
+            />
+            <Button
               size="small"
+              startIcon={<DeleteOutlineOutlinedIcon />}
               onClick={() => controlVm('delete', row.hostname)}>
-              <DeleteOutlineOutlinedIcon />
-            </IconButton>
+              Delete
+            </Button>
           </ActionOverflowButton>
         </div>
       ),
