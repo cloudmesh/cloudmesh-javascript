@@ -16,6 +16,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import { green, red, yellow, orange } from '@material-ui/core/colors'
 import { useCmsVmStartStop } from '../../hooks/cms'
 import Link from 'next/link'
+import OpenTerminalButton from '../OpenTerminalButton'
+import ActionOverflowButton from '../ActionOverflowButton'
+import ActionAlert from '../ActionAlert'
+import Paper from '@material-ui/core/Paper'
 
 const useStyles = makeStyles((theme) => ({
   green: {
@@ -38,6 +42,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Card = ({ id, name, ip_public, status: vmStatus, metadata }) => {
   const classes = useStyles()
+
+  const [alert, setAlert] = useState({ show: false, msg: null })
+  const handleOnLaunch = (msg) => {
+    setAlert({ show: true, msg })
+  }
   // Initialize local status using VM list status.
   const [status, setStatus] = useState(vmStatus)
 
@@ -109,7 +118,9 @@ const Card = ({ id, name, ip_public, status: vmStatus, metadata }) => {
           onClick={() => sendVmStop([...CMS_VM_STOP_CMD, name])}>
           <StopIcon />
         </IconButton>
+        <OpenTerminalButton ip={ip_public} onLaunch={handleOnLaunch} />
       </CardActions>
+      <ActionAlert open={alert.show} message={alert.msg} />
     </DefaultCard>
   )
 }
