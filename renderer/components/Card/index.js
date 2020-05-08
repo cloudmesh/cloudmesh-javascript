@@ -20,6 +20,7 @@ import OpenTerminalButton from '../OpenTerminalButton'
 import ActionOverflowButton from '../ActionOverflowButton'
 import ActionAlert from '../ActionAlert'
 import Paper from '@material-ui/core/Paper'
+import VmLogViewer from '../VmLogViewer'
 
 const useStyles = makeStyles((theme) => ({
   green: {
@@ -124,6 +125,7 @@ const Card = ({ id, name, ip_public, status: vmStatus, metadata }) => {
           onLaunch={handleOnLaunch}
           showLabel={false}
         />
+        <VmLogViewer vmName={name} showLabel={false} />
       </CardActions>
       <ActionAlert open={alert.show} message={alert.msg} />
     </DefaultCard>

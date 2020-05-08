@@ -18,6 +18,7 @@ export const CMS_VM_LIST_CMD = ['vm', 'list', '--output=json']
 export const CMS_VM_INFO_CMD = ['vm', 'info', '--output=json']
 export const CMS_VM_START_CMD = ['vm', 'start']
 export const CMS_VM_STOP_CMD = ['vm', 'stop']
+export const CMS_VM_LOG_CMD = ['vm', 'log']
 
 export const CMS_IMAGE_LIST_CMD = ['image', 'list', '--output=json']
 export const CMS_FLAVOR_LIST_CMD = ['flavor', 'list', '--output=json']

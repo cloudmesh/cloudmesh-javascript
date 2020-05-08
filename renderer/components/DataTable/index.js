@@ -39,6 +39,7 @@ import ActionOverflowButton from '../ActionOverflowButton'
 
 import OpenTerminalButton from '../OpenTerminalButton'
 import ActionAlert from '../ActionAlert'
+import VmLogViewer from '../VmLogViewer'
 
 const styles = (theme) => ({
   tableStriped: {
@@ -149,10 +150,7 @@ export default ({ rows = [] }) => {
             <StopOutlinedIcon />
           </IconButton>
           <ActionOverflowButton>
-            <Link
-              href="/vm/details/[name]"
-              as={`/vm/details/${row.name}`}
-              title="Info">
+            <Link href="/vm/details/[name]" as={`/vm/details/${row.name}`}>
               <Button size="small" startIcon={<InfoOutlinedIcon />}>
                 Info
               </Button>
@@ -162,6 +160,7 @@ export default ({ rows = [] }) => {
               ip={row.ip_public}
               onLaunch={handleOnLaunch}
             />
+            <VmLogViewer vmName={row.name} />
             <Button
               size="small"
               startIcon={<DeleteOutlineOutlinedIcon />}
