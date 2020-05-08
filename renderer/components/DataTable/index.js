@@ -36,6 +36,10 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import Link from 'next/link'
 import InfoIcon from '@material-ui/icons/Info'
 import CardActions from '@material-ui/core/CardActions'
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
+import StopOutlinedIcon from '@material-ui/icons/StopOutlined'
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
+import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined'
 
 import clases from './index.module.css'
 
@@ -82,37 +86,37 @@ const TableComponent = withStyles(styles, { name: 'TableComponent' })(
  * @return {null}
  * Write the code for performing an action on multiple rows here
  */
-const TableActions = ({ rows, selectedRows = [] }) => {
-  const startAllVms = () => {
-    selectedRows.forEach((rowNumber) => {
-      controlVm('start', rows[rowNumber]['hostname'])
-    })
-  }
-  const stopAllVms = () => {
-    selectedRows.forEach((rowNumber) => {
-      controlVm('stop', rows[rowNumber]['hostname'])
-    })
-  }
+// const TableActions = ({ rows, selectedRows = [] }) => {
+//   const startAllVms = () => {
+//     selectedRows.forEach((rowNumber) => {
+//       controlVm('start', rows[rowNumber]['hostname'])
+//     })
+//   }
+//   const stopAllVms = () => {
+//     selectedRows.forEach((rowNumber) => {
+//       controlVm('stop', rows[rowNumber]['hostname'])
+//     })
+//   }
 
-  return (
-    <div className={clases.tableActionsContainer}>
-      <div className={clases.tableActions}>
-        <IconButton
-          size="small"
-          onClick={() => startAllVms()}
-          title="Start selected VMs">
-          <PlayCircleFilledWhiteIcon />
-        </IconButton>
-        <IconButton
-          size="small"
-          onClick={() => stopAllVms()}
-          title="Stop selected VMs">
-          <StopIcon />
-        </IconButton>
-      </div>
-    </div>
-  )
-}
+//   return (
+//     <div className={clases.tableActionsContainer}>
+//       <div className={clases.tableActions}>
+//         <IconButton
+//           size="small"
+//           onClick={() => startAllVms()}
+//           title="Start selected VMs">
+//           <PlayCircleFilledWhiteIcon />
+//         </IconButton>
+//         <IconButton
+//           size="small"
+//           onClick={() => stopAllVms()}
+//           title="Stop selected VMs">
+//           <StopIcon />
+//         </IconButton>
+//       </div>
+//     </div>
+//   )
+// }
 
 // Modify this component to inject custom styles or props to each cell
 // To change table's row height - change top and bottom padding value in style (padding: top right bottom left)
@@ -144,6 +148,7 @@ export default ({ rows = [] }) => {
     statusColor = 'yellow'
   }
 
+  const [vmTableAction, setVmTableAction] = useState('') // start / stop / delete
   const [columns, setColumns] = useState([
     { name: 'name', title: 'Name' },
     { name: 'ip_public', title: 'Public IP' },
@@ -171,23 +176,35 @@ export default ({ rows = [] }) => {
         <div>
           <Link href="/vm/details/[name]" as={`/vm/details/${row.name}`}>
             <IconButton size="small">
-              <InfoIcon />
+              <InfoOutlinedIcon />
             </IconButton>
           </Link>
           <IconButton
             size="small"
             onClick={() => controlVm('start', row.hostname)}>
-            <PlayCircleFilledWhiteIcon />
+            <PlayArrowOutlinedIcon />
           </IconButton>
           <IconButton
             size="small"
             onClick={() => controlVm('stop', row.hostname)}>
-            <StopIcon />
+            <StopOutlinedIcon />
+          </IconButton>
+          <IconButton
+            size="small"
+            onClick={() => controlVm('delete', row.hostname)}>
+            <DeleteOutlineOutlinedIcon />
           </IconButton>
         </div>
       ),
     },
   ])
+
+  if (vmTableAction) {
+    selectedRows.forEach((rowNumber) => {
+      controlVm(vmTableAction, rows[rowNumber]['hostname'])
+    })
+    setVmTableAction('')
+  }
 
   // Use sorting state from other components to change sorting parameters
   const [sorting, setSorting] = useState([
@@ -196,7 +213,7 @@ export default ({ rows = [] }) => {
   const [pageSizes] = useState([10, 20, 30, 0])
   const [filters, setFilters] = useState([{ columnName: 'name', value: '' }])
   const [tableColumnExtensions] = useState([
-    { columnName: 'actions', width: 100 },
+    { columnName: 'actions', width: 140 },
   ])
   const [tableColumnVisibilityColumnExtensions] = useState([
     { columnName: 'hostname', togglingEnabled: false },
@@ -206,7 +223,7 @@ export default ({ rows = [] }) => {
 
   return (
     <Paper>
-      <TableActions rows={rows} selectedRows={selection} />
+      {/*<TableActions rows={rows} selectedRows={selection} />*/}
       <Grid rows={rows} columns={columns}>
         <FilteringState filters={filters} onFiltersChange={setFilters} />
         <IntegratedFiltering />

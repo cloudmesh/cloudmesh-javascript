@@ -54,7 +54,10 @@ export default function SimpleTabs() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Tabs value={cloudProvider} onChange={handleCloudProviderChange}>
+        <Tabs
+          value={cloudProvider}
+          onChange={handleCloudProviderChange}
+          variant="standard">
           <Tab label="Openstack" value="openstack" {...a11yProps(0)} />
           <Tab label="AWS" value="aws" {...a11yProps(1)} />
           <Tab label="Google" value="google" {...a11yProps(2)} />

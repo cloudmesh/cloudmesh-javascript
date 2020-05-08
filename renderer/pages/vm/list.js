@@ -14,12 +14,18 @@ import PageHeader from '../../components/PageHeader'
 import RefreshIcon from '@material-ui/icons/Refresh'
 import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND } from '../../../main/constants'
+import StopOutlinedIcon from '@material-ui/icons/StopOutlined'
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
+import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined'
+// import StopIcon from '@material-ui/icons/Stop'
+// import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 
 import styles from './list.module.css'
 // import { makeCancelable } from '../../main/utils'
 
 const VmList = () => {
   const [mode, setMode] = useState('table') // mode = table / card / minicard
+  const [vmTableAction, setVmTableAction] = useState('') // start / stop / delete
   const [{ output: vms, error, isRunning }, refreshVmList] = useCms({
     command: CMS_VM_LIST_CMD,
   })
@@ -51,6 +57,28 @@ const VmList = () => {
             <Button onClick={() => setMode('minicard')} title="Mini card view">
               <ViewComfyIcon />
             </Button>
+            {mode === 'table' && (
+              <Button
+                onClick={() => setVmTableAction('start')}
+                title="Start selected VMs">
+                <PlayArrowOutlinedIcon />
+              </Button>
+            )}
+            {mode === 'table' && (
+              <Button
+                onClick={() => setVmTableAction('stop')}
+                title="Stop selected VMs">
+                <StopOutlinedIcon />
+              </Button>
+            )}
+            {mode === 'table' && (
+              <Button
+                onClick={() => setVmTableAction('delete')}
+                title="Delete selected VMs">
+                <DeleteOutlineOutlinedIcon />
+              </Button>
+            )}
+            }
           </ButtonGroup>
         </div>
       </PageHeader>
