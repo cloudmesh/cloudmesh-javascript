@@ -68,7 +68,7 @@ const Sidebar = ({ config }) => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link href="/profile">
+          <Link href="/settings/cloudmesh">
             <div className={classes.link_child}>
               <PersonIcon
                 fontSize="small"
@@ -81,7 +81,7 @@ const Sidebar = ({ config }) => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link href="/settings/cms">
+          <Link href="/settings/index">
             <div className={classes.link_child}>
               <SettingsIcon
                 fontSize="small"

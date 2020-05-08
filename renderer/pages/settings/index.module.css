@@ -1,16 +1,10 @@
-.app_sections {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-evenly;
-  height: 70vh;
-}
-
-.app_cards {
+.cards {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
 }
-.app_cards > * {
+
+.cards > * {
   min-width: 200px;
   margin-left: 50px;
   margin-right: 50px;
@@ -20,6 +14,6 @@
   align-items: center;
 }
 
-.app_cards a {
+.cards a {
   font-size: 5rem;
 }
