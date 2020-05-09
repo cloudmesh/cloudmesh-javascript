@@ -38,6 +38,8 @@
     "p-queue": "^6.3.0",
     "python-shell": "^1.0.8",
     "react-json-tree": "^0.11.2",
+    "remark": "^12.0.0",
+    "remark-html": "^11.0.1",
     "typeface-roboto": "^0.0.75"
   },
   "devDependencies": {
