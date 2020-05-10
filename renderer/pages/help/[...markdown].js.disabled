@@ -1,3 +1,6 @@
+/**
+NOTE: This works in dev mode but not in the binary build.  It is not clear why.
+*/
 import React from 'react'
 import { useRouter } from 'next/router'
 import ReactMarkdown from 'react-markdown'
