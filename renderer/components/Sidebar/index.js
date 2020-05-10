@@ -18,6 +18,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
 import CodeIcon from '@material-ui/icons/Code'
 
 import classes from './index.module.css'
+import ExternalBrowserLink from '../ExternalBrowserLink'
 
 const Sidebar = ({ config }) => {
   const firstname = config?.cloudmesh?.profile?.firstname ?? ''
@@ -172,7 +173,7 @@ const Sidebar = ({ config }) => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link href="/help">
+          <ExternalBrowserLink href="https://github.com/cloudmesh/cloudmesh-javascript/blob/master/README.md">
             <div className={classes.link_child}>
               <HelpOutlineIcon
                 fontSize="small"
@@ -182,7 +183,7 @@ const Sidebar = ({ config }) => {
                 Help
               </Typography>
             </div>
-          </Link>
+          </ExternalBrowserLink>
         </MenuItem>
       </MenuList>
     </Paper>
