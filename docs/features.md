@@ -2,7 +2,31 @@
 
 ## Table of Contents
 
+* [Images](#images)
 * [Configuration Editing](#configuration-editing)
+
+## VM Images
+![Images](images/images.png)
+
+List, sort, and filter VM images available in the selected cloud.
+
+## VM Flavors
+![Flavors](images/flavors.png)
+
+List, sort, and filter VM flavors available in the selected cloud.
+
+## VM List
+
+The VM List function allows you to view a list of all available VMs 
+in the selected cloud.  The interactive data table allows for sorting
+and filtering.  It also provides the ability to start, stop, delete, 
+login, and view logs. A card view is also available. 
+
+VM Table View
+![VM Table view](images/vm_table.png)
+
+VM Card View
+![VM Card view](images/vm_card.png)
 
 ## Configuration Editing
 
