@@ -44,14 +44,14 @@ const Main = () => {
         <h3>Cloudmesh</h3>
         <div className={styles.app_cards}>
           <MainAppCard title="Profile">
-            <Link href="/profile">
+            <Link href="/settings/cloudmesh">
               <a>
                 <PersonIcon fontSize="inherit" style={{ fill: '#6100ee' }} />
               </a>
             </Link>
           </MainAppCard>
           <MainAppCard title="Settings">
-            <Link href="/settings/cms">
+            <Link href="/settings/index">
               <a>
                 <SettingsIcon fontSize="inherit" style={{ fill: '#6100ee' }} />
               </a>

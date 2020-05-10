@@ -59,7 +59,7 @@ const reducer = (state, action) => {
  *                                                second is a function that can be used to
  *                                                refresh the output.
  */
-export const useCms = ({ command }) => {
+export const useCms = ({ command, parseJson = true }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const refresh = async () => {
@@ -67,7 +67,8 @@ export const useCms = ({ command }) => {
       dispatch({ type: 'execute' })
       const { stdout, stderr } = await ipcRenderer.invoke(
         CMS_COMMAND_SEND_SYNC,
-        [...command, '--refresh']
+        [...command, '--refresh'],
+        parseJson
       )
       dispatch({ type: 'setio', output: stdout, error: stderr })
     }
@@ -80,7 +81,8 @@ export const useCms = ({ command }) => {
         dispatch({ type: 'execute' })
         const { stdout, stderr } = await ipcRenderer.invoke(
           CMS_COMMAND_SEND_SYNC,
-          command
+          command,
+          parseJson
         )
         dispatch({ type: 'setio', output: stdout, error: stderr })
       }

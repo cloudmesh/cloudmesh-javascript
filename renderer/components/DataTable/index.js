@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { ipcRenderer } from 'electron'
 import { CMS_COMMAND_SEND_SYNC } from '../../../main/constants'
+import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
-import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 import Typography from '@material-ui/core/Typography'
-import StopIcon from '@material-ui/icons/Stop'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import { green, red, yellow } from '@material-ui/core/colors'
@@ -31,13 +30,16 @@ import {
 } from '@devexpress/dx-react-grid-material-ui'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
-import PlayArrowIcon from '@material-ui/icons/PlayArrow'
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import Link from 'next/link'
-import InfoIcon from '@material-ui/icons/Info'
-import CardActions from '@material-ui/core/CardActions'
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
+import StopOutlinedIcon from '@material-ui/icons/StopOutlined'
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
+import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined'
+import ActionOverflowButton from '../ActionOverflowButton'
 
-import clases from './index.module.css'
+import OpenTerminalButton from '../OpenTerminalButton'
+import ActionAlert from '../ActionAlert'
+import VmLogViewer from '../VmLogViewer'
 
 const styles = (theme) => ({
   tableStriped: {
@@ -76,36 +78,22 @@ const TableComponent = withStyles(styles, { name: 'TableComponent' })(
   TableComponentBase
 )
 
-const TableActions = ({ rows, selectedRows = [] }) => {
-  const startAllVms = () => {
-    selectedRows.forEach((rowNumber) => {
-      controlVm('start', rows[rowNumber]['hostname'])
-    })
-  }
-  const stopAllVms = () => {
-    selectedRows.forEach((rowNumber) => {
-      controlVm('stop', rows[rowNumber]['hostname'])
-    })
-  }
-
+// Modify this component to inject custom styles or props to each cell
+// To change table's row height - change top and bottom padding value in style (padding: top right bottom left)
+const TableCell = ({ cell, ...restProps }) => {
   return (
-    <div className={clases.tableActionsContainer}>
-      <div className={clases.tableActions}>
-        <IconButton
-          size="small"
-          onClick={() => startAllVms()}
-          title="Start selected VMs">
-          <PlayCircleFilledWhiteIcon />
-        </IconButton>
-        <IconButton
-          size="small"
-          onClick={() => stopAllVms()}
-          title="Stop selected VMs">
-          <StopIcon />
-        </IconButton>
-      </div>
-    </div>
+    <Table.Cell
+      {...restProps}
+      style={{
+        padding: '2px 5px 2px 10px', // top, right, bottom, left
+      }}
+    />
   )
+}
+
+// Modify this component to inject custom styles or props to each row
+const TableRow = ({ row, ...restProps }) => {
+  return <Table.Row {...restProps} />
 }
 
 export default ({ rows = [] }) => {
@@ -120,6 +108,12 @@ export default ({ rows = [] }) => {
     statusColor = 'yellow'
   }
 
+  const [alert, setAlert] = useState({ show: false, msg: null })
+  const handleOnLaunch = (msg) => {
+    setAlert({ show: true, msg })
+  }
+
+  const [vmTableAction, setVmTableAction] = useState('') // start / stop / delete
   const [columns, setColumns] = useState([
     { name: 'name', title: 'Name' },
     { name: 'ip_public', title: 'Public IP' },
@@ -145,25 +139,46 @@ export default ({ rows = [] }) => {
       title: 'Actions',
       getCellValue: (row) => (
         <div>
-          <Link href="/vm/details/[name]" as={`/vm/details/${row.name}`}>
-            <IconButton size="small">
-              <InfoIcon />
-            </IconButton>
-          </Link>
           <IconButton
             size="small"
             onClick={() => controlVm('start', row.hostname)}>
-            <PlayCircleFilledWhiteIcon />
+            <PlayArrowOutlinedIcon />
           </IconButton>
           <IconButton
             size="small"
             onClick={() => controlVm('stop', row.hostname)}>
-            <StopIcon />
+            <StopOutlinedIcon />
           </IconButton>
+          <ActionOverflowButton>
+            <Link href="/vm/details/[name]" as={`/vm/details/${row.name}`}>
+              <Button size="small" startIcon={<InfoOutlinedIcon />}>
+                Info
+              </Button>
+            </Link>
+            <OpenTerminalButton
+              name={row.name}
+              ip={row.ip_public}
+              onLaunch={handleOnLaunch}
+            />
+            <VmLogViewer vmName={row.name} />
+            <Button
+              size="small"
+              startIcon={<DeleteOutlineOutlinedIcon />}
+              onClick={() => controlVm('delete', row.hostname)}>
+              Delete
+            </Button>
+          </ActionOverflowButton>
         </div>
       ),
     },
   ])
+
+  if (vmTableAction) {
+    selectedRows.forEach((rowNumber) => {
+      controlVm(vmTableAction, rows[rowNumber]['hostname'])
+    })
+    setVmTableAction('')
+  }
 
   // Use sorting state from other components to change sorting parameters
   const [sorting, setSorting] = useState([
@@ -172,7 +187,7 @@ export default ({ rows = [] }) => {
   const [pageSizes] = useState([10, 20, 30, 0])
   const [filters, setFilters] = useState([{ columnName: 'name', value: '' }])
   const [tableColumnExtensions] = useState([
-    { columnName: 'actions', width: 100 },
+    { columnName: 'actions', width: 140 },
   ])
   const [tableColumnVisibilityColumnExtensions] = useState([
     { columnName: 'hostname', togglingEnabled: false },
@@ -182,7 +197,7 @@ export default ({ rows = [] }) => {
 
   return (
     <Paper>
-      <TableActions rows={rows} selectedRows={selection} />
+      {/*<TableActions rows={rows} selectedRows={selection} />*/}
       <Grid rows={rows} columns={columns}>
         <FilteringState filters={filters} onFiltersChange={setFilters} />
         <IntegratedFiltering />
@@ -197,6 +212,8 @@ export default ({ rows = [] }) => {
         <SortingState sorting={sorting} onSortingChange={setSorting} />
         <IntegratedSorting />
         <Table
+          cellComponent={TableCell}
+          rowComponent={TableRow}
           tableComponent={TableComponent}
           columnExtensions={tableColumnExtensions}
         />
@@ -212,6 +229,7 @@ export default ({ rows = [] }) => {
         <TableSelection showSelectAll />
         <PagingPanel pageSizes={pageSizes} />
       </Grid>
+      <ActionAlert open={alert.show} message={alert.msg} />
     </Paper>
   )
 }

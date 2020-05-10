@@ -2,12 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import Select from '@material-ui/core/Select'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Typography from '@material-ui/core/Typography'
 import MenuList from '@material-ui/core/MenuList'
 import Divider from '@material-ui/core/Divider'
@@ -18,9 +14,11 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import FeedbackIcon from '@material-ui/icons/Feedback'
 import AdjustIcon from '@material-ui/icons/Adjust'
 import LineWeightIcon from '@material-ui/icons/LineWeight'
-import { makeStyles } from '@material-ui/core/styles'
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
+import CodeIcon from '@material-ui/icons/Code'
 
 import classes from './index.module.css'
+import ExternalBrowserLink from '../ExternalBrowserLink'
 
 const Sidebar = ({ config }) => {
   const firstname = config?.cloudmesh?.profile?.firstname ?? ''
@@ -68,7 +66,7 @@ const Sidebar = ({ config }) => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link href="/profile">
+          <Link href="/settings/cloudmesh">
             <div className={classes.link_child}>
               <PersonIcon
                 fontSize="small"
@@ -81,7 +79,7 @@ const Sidebar = ({ config }) => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link href="/settings/cms">
+          <Link href="/settings/index">
             <div className={classes.link_child}>
               <SettingsIcon
                 fontSize="small"
@@ -149,12 +147,51 @@ const Sidebar = ({ config }) => {
         {/*  <CloudSelector />*/}
         {/*</MenuItem>*/}
       </MenuList>
+
+      <Divider />
+
+      <MenuList>
+        <MenuItem>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            className={classes.list_text}>
+            Info
+          </Typography>
+        </MenuItem>
+        <MenuItem>
+          <Link href="/contributors">
+            <div className={classes.link_child}>
+              <CodeIcon
+                fontSize="small"
+                style={{ fill: '#6100ee', marginRight: '15px' }}
+              />
+              <Typography variant="body2" className={classes.list_text}>
+                Contributors
+              </Typography>
+            </div>
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <ExternalBrowserLink href="https://github.com/cloudmesh/cloudmesh-javascript/blob/master/README.md">
+            <div className={classes.link_child}>
+              <HelpOutlineIcon
+                fontSize="small"
+                style={{ fill: '#6100ee', marginRight: '15px' }}
+              />
+              <Typography variant="body2" className={classes.list_text}>
+                Help
+              </Typography>
+            </div>
+          </ExternalBrowserLink>
+        </MenuItem>
+      </MenuList>
     </Paper>
   )
 }
 
 Sidebar.propTypes = {
-  config: PropTypes.object.isRequired,
+  config: PropTypes.object,
 }
 
 export default Sidebar

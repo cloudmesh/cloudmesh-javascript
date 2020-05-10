@@ -2,7 +2,7 @@
   "private": true,
   "name": "cloudmesh-javascript",
   "description": "An interface for Cloudmesh.",
-  "version": "0.1.8-alpha",
+  "version": "0.1.9-alpha",
   "author": "Josh Goodman <jogoodma@iu.edu>",
   "contributors": [
     "Akshay Gupta",
@@ -32,11 +32,13 @@
     "electron-serve": "^1.0.0",
     "electron-store": "^5.1.1",
     "extract-json-from-string": "^1.0.1",
+    "formik": "^2.1.4",
     "js-yaml": "^3.13.1",
     "node-yaml": "^4.0.1",
     "p-queue": "^6.3.0",
     "python-shell": "^1.0.8",
     "react-json-tree": "^0.11.2",
+    "react-markdown": "^4.3.1",
     "typeface-roboto": "^0.0.75"
   },
   "devDependencies": {

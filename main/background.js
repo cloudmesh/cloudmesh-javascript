@@ -4,6 +4,7 @@ import * as Store from 'electron-store'
 import path from 'path'
 import fs from 'fs'
 import os from 'os'
+import { spawn } from 'cross-spawn'
 import yaml from 'node-yaml'
 import { runCmsSync, runCms } from './cloudmesh/CmsWrapper'
 
@@ -15,6 +16,7 @@ import {
   CMS_COMMAND_SEND_SYNC,
   CMS_CONFIG_STORE_KEY,
   CMS_GET_CONFIG,
+  CMS_OPEN_TERMINAL,
   CMS_SET_CONFIG,
   SET_CMS_PATH,
 } from './constants'
@@ -22,6 +24,9 @@ import {
 app.allowRendererProcessReuse = true
 const isProd = process.env.NODE_ENV === 'production'
 const cmsConfigFile = path.join(os.homedir(), '.cloudmesh', 'cloudmesh.yaml')
+const pythonDir = isProd
+  ? path.join(app.getAppPath(), '..', 'python')
+  : path.join(app.getAppPath(), 'python')
 
 if (isProd) {
   serve({ directory: 'app' })
@@ -55,6 +60,11 @@ yaml
   const mainWindow = createWindow('main', {
     width: 1000,
     height: 600,
+    webPreferences: {
+      minimumFontSize: 16,
+      defaultFontSize: 18,
+      defaultMonospaceFontSize: 18,
+    },
   })
 
   const landingPage = cmsBin ? './' : './settings/cms'
@@ -114,4 +124,23 @@ ipcMain.handle(CMS_SET_CONFIG, (event, config) => {
   store.set(CMS_CONFIG_STORE_KEY, config)
   fs.copyFileSync(cmsConfigFile, cmsConfigFile + '.cms-js.bak')
   return yaml.write(cmsConfigFile, config)
+})
+
+ipcMain.handle(CMS_OPEN_TERMINAL, (event, args) => {
+  return new Promise((resolve, reject) => {
+    const ssh = spawn(path.join(pythonDir, 'ssh.py'), args)
+    ssh.on('close', (code) => {
+      if (code !== 0) {
+        reject(
+          Error(`Failed to open terminal to ${args} exited with code ${code}`)
+        )
+      }
+      resolve()
+    })
+    // Handler for stderr from CMS
+    ssh.stderr.on('data', (stderr) => {
+      reject(Error(stderr))
+    })
+  })
+  return
 })
