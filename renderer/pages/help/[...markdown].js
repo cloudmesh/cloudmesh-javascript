@@ -1,9 +1,9 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import ReactMarkdown from 'react-markdown'
 import { shell } from 'electron'
 import fs from 'fs'
 import path from 'path'
-import markdownToHtml from '../../helpers/markdownToHtml'
 import { getAllFiles } from '../../helpers/fileUtils'
 import Button from '@material-ui/core/Button'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
@@ -29,7 +29,7 @@ const HelpDoc = ({ content, showBackButton = true }) => {
           <ArrowBackIosIcon /> Back
         </Button>
       )}
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      <ReactMarkdown source={content} />
     </div>
   )
 }
@@ -44,9 +44,9 @@ export async function getStaticPaths() {
       params: { markdown },
     }
   })
-  // Push the custom mapping of index.html => README.md
+  // Add README.md since it isn't under the `docs` dir.
   paths.push({
-    params: { markdown: ['index.html'] },
+    params: { markdown: ['README.md'] },
   })
 
   // We'll pre-render only these paths at build time.
@@ -60,15 +60,13 @@ export async function getStaticProps({ params }) {
   let showBackButton = true
   let content = ''
   if (filePathArray.length >= 1) {
-    if (filePathArray[0] === 'index.html') {
+    if (filePathArray[0] === 'README.md') {
       showBackButton = false
-      content = await markdownToHtml(
+      content =
         fs.readFileSync(path.join(markdownDir, 'README.md'), 'utf8') ?? ''
-      )
     } else {
-      content = await markdownToHtml(
+      content =
         fs.readFileSync(path.join(markdownDir, ...filePathArray), 'utf8') ?? ''
-      )
     }
   }
   return { props: { content, showBackButton } }

@@ -172,7 +172,7 @@ const Sidebar = ({ config }) => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link href="/help/index.html">
+          <Link href="/help/README.md">
             <div className={classes.link_child}>
               <HelpOutlineIcon
                 fontSize="small"
