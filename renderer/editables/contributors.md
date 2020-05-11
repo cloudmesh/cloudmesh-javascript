@@ -2,7 +2,7 @@ const contributorsEditable = `
 
 # Contributors 
 
-List of contributors to `cloudmesh-javascript`
+List of contributors to \`cloudmesh-javascript\`
 
 - Josh Goodman (@jogoodma)
 - Akshay Gupta (@akshaygpt)
