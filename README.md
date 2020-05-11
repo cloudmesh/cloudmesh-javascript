@@ -50,4 +50,24 @@ For previous efforts see [this doc](docs/prior_art.md).
 * <https://github.com/cloudmesh/cloudmesh-javascript/graphs/contributors>
 
 
+## Actions for developers
+
+Editing the contributors page
+- Go to `renderer/editables/contributors.md` and edit the text in markdown
+- Need to escape the ` character
+
+To change the `help` page url
+- Go to `renderer\components\Sidebar\index.js`
+- Find the `ExternalBrowserLink` component which has the help page url in the `href` attribute
+- Replace the url with a new value
+
+Editing the row height on VM table
+- Go to `renderer\components\DataTable\index.js`
+- Find the `TableCell` component
+- Edit the `padding` values in `style` object
+- Syntax: `padding: top right bottom left`
+
+
+
+
 
