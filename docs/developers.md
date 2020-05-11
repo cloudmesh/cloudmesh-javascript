@@ -70,10 +70,16 @@ This command will start a development mode that allows for hot reloading
 of code changes. A test app with dev console should appear and reload
 with each edit of code.
 
+For `Mac` or `Linux`:
 ```bash
 cms viewer start dev
 ```
-or
+or 
+```bash
+yarnpkg run dev
+```
+
+For `Windows`, only use: 
 ```bash
 yarnpkg run dev
 ```
