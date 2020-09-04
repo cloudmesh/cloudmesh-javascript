@@ -34,7 +34,7 @@
     "extract-json-from-string": "^1.0.1",
     "formik": "^2.1.4",
     "js-yaml": "^3.13.1",
-    "markdown-to-jsx": "^6.11.1",
+    "markdown-to-jsx": "^6.11.4",
     "node-yaml": "^4.0.1",
     "p-queue": "^6.3.0",
     "python-shell": "^1.0.8",
