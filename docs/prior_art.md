@@ -5,7 +5,7 @@
 
 ## cloudmesh-gui
 
-* <https://github.com/cloudmesh/cloudmesh-gui/blob/master/README.md>
+* <https://github.com/cloudmesh/cloudmesh-gui/blob/main/README.md>
 
 ```
 $ gui activate
@@ -24,7 +24,7 @@ $ gui edit KEY [--show]
 
 ## Cloudmesh Graphql
 
-* <https://github.com/cloudmesh-community/graphql/blob/master/README.md>
+* <https://github.com/cloudmesh-community/graphql/blob/main/README.md>
 
 ![The virtual machines as tiles](images/dashboard1.png)
 
@@ -60,7 +60,7 @@ Cloudmesh 3 is at
 
 There is some  of portal stuff at 
 
-* <https://github.com/cloudmesh-cmd3/cloudmesh-client-portal/tree/master/cloudmesh_portal>
+* <https://github.com/cloudmesh-cmd3/cloudmesh-client-portal/tree/main/cloudmesh_portal>
 
 seems this is empty
 screenshots not located, but may be the same as in cloudmesh 1

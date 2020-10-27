@@ -173,7 +173,7 @@ const Sidebar = ({ config }) => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <ExternalBrowserLink href="https://github.com/cloudmesh/cloudmesh-javascript/blob/master/README.md">
+          <ExternalBrowserLink href="https://github.com/cloudmesh/cloudmesh-javascript/blob/main/README.md">
             <div className={classes.link_child}>
               <HelpOutlineIcon
                 fontSize="small"
