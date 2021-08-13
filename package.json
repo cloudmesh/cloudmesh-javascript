@@ -54,7 +54,7 @@
     "electron": "^8.2.5",
     "electron-builder": "^22.6.0",
     "jest": "^25.5.3",
-    "next": "^9.3.6",
+    "next": "^11.1.0",
     "nextron": "^5.14.5",
     "prettier": "^2.0.4",
     "prop-types": "^15.7.2",
