@@ -51,7 +51,7 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "cross-spawn": "^7.0.1",
-    "electron": "^8.2.5",
+    "electron": "^11.5.0",
     "electron-builder": "^22.6.0",
     "jest": "^25.5.3",
     "next": "^9.3.6",
